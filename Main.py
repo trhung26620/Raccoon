@@ -1,4 +1,5 @@
 import RequestOperation
+from utils.CommandUtil import CommandUtil
 #127.0.0.1
 #GET /test.html HTTP/1.1
 raw_request = """GET /test.html HTTP/1.1
@@ -95,9 +96,12 @@ HTTP_PROXY = {
 
 
 if __name__ == "__main__":
+    args = CommandUtil()
+    args.argument()
+    args.argumentHandling()
     # requestHandle = RequestHandle()
     # print(requestHandle.requestConfig)
-    # exit()
+    exit()
     headerList = RequestOperation.pitchforkModeDictInjection(payloads, headers)
     paramList = RequestOperation.pitchforkModeDictInjection(payloads, params)
     bodyList = RequestOperation.pitchforkModeStringInjection(payloads, body)

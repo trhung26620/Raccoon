@@ -6,7 +6,7 @@ class Util:
         self.args = None
     
     def findAndReplaceURLPattern(self,givenStr, findStr, repStr):
-        if givenStr.find(findStr) > -1:
+        if givenStr.find(findStr) > -1: #Nếu if này không xảy ra thì hàm trả về cái gì? (chưa xử lý)
             o = urlparse(repStr)
         
             if(findStr == '{{BaseURL}}'):
@@ -29,3 +29,5 @@ class Util:
                 return givenStr.replace(findStr,file)
             elif(findStr == '{{Scheme}}'):
                 return givenStr.replace(findStr,o.scheme)
+
+            # Trường hợp người dùng nhập các pattern sai những cái định sẵn thì hàm trả về cái gì? (chưa xử lý)

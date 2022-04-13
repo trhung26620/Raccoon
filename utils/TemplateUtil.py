@@ -2,9 +2,11 @@ import os, yaml
 
 class TemplateUtil:
     def __init__(self):
-        self.args = None
+        self.args = None # Dòng này để làm gì đây
     
     def readTemplate(self):
+        # Hàm readTemplate sao lại code liên quan tới hàm config.
+        # Hàm này chỉ code để đọc template
         try:
             isConfigFileExist = os.path.isfile("../config.yaml")
             if isConfigFileExist:
@@ -29,10 +31,10 @@ class TemplateUtil:
     def readRequestTemplate(self):
         yaml_content = self.readTemplate()
         requests_content = yaml_content['requests'][0]
-        return requests_content['request']     
+        return requests_content['request']
+        # Hàm này nên đọc cả mục request lớn, bao gồm trong đó cả matcher và extracter
 
     def readInfoTemplate(self):
         yaml_content = self.readTemplate()
         info_content = yaml_content['info']
         return info_content
-                    

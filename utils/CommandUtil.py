@@ -28,7 +28,11 @@ class CommandUtil:
         parser.add_argument("--verbose", "-v", help="Show verbose output.", required=False, action="store_true")
         parser.add_argument("--update-templates", "-ut", help="Update nuclei-templates to latest released version.", required=False)
         self.args = parser.parse_args()
-        
+
+        # python Main.py - u "http://54.179.181.52:8001/contact" - p "http://127.0.0.1:8080" - t CVE-2021-44228.yaml
+        # Lỗi: Main.py: error: unrecognized arguments: http://127.0.0.1:8080
+        # Note: Tìm hiểu tham số action="store_true" trong hàm add_argument để fix
+
     def argumentHandling(self):
         config_yaml = {}
 
@@ -94,4 +98,6 @@ class CommandUtil:
 
         with open(r'../config.yaml', 'w') as file:
             documents = yaml.dump(config_yaml, file)
- 
+
+        # Chạy thử lệnh python Main.py -u "http://54.179.181.52:8001/contact" -p -t CVE-2021-44228.yaml
+        # Không thấy tạo file config.yaml
