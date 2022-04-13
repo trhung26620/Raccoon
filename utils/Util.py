@@ -29,6 +29,3 @@ class Util:
                 return givenStr.replace(findStr,file)
             elif(findStr == '{{Scheme}}'):
                 return givenStr.replace(findStr,o.scheme)
-                
-        else:
-            return
