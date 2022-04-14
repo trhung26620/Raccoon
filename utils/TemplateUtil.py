@@ -39,4 +39,17 @@ class TemplateUtil:
         info_content = yaml_content['info']
         return info_content
 
-TemplateUtil.readTemplate()
+
+    def readConfigFile(self):
+        # global config
+        try:
+            print(os.path)
+            isConfigFileExist = os.path.isfile("../config.yaml")
+            if isConfigFileExist:
+                config_file = open("../config.yaml",'r')
+                config = yaml.load(config_file, Loader=yaml.FullLoader)
+                return config
+            else:
+                print("Template file not found !!!!")
+        except FileNotFoundError:
+            print("Config file not found - File exception")

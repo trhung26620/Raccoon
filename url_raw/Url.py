@@ -1,23 +1,30 @@
 import sys
-sys.path.insert(0, 'Injection-Tool')
+sys.path.append('.')
 from utils import TemplateUtil, CommandUtil, Util
-import RequestHandle
+# from utils import *
 class Url:
-    def __init__(self, schema, method, host, port, path, paramPath):
-        self.schema = schema
-        self.method = method
-        self.host = host
-        self.port = port
-        self.path = path
-        self.paramPath = paramPath
+    # def __init__(self, schema, method, host, port, path, paramPath):
+    #     self.schema = schema
+    #     self.method = method
+    #     self.host = host
+    #     self.port = port
+    #     self.path = path
+    #     self.paramPath = paramPath
+    def __init__(self) -> None:
+        pass
 
-    @classmethod # sử dụng: Url.received_From_User()
-    def received_From_User():
-        url_from_user = TemplateUtil.getConfigFile()['url'] #Hiện tại không có bên TemplateUtil - bổ sung sau (update 12h30 - 14/04)
-        request_from_template = TemplateUtil.readRequestTemplate()
-        for req in request_from_template:
-            Util.findAndReplaceURLPattern(req, '{{Hostname}}', url_from_user)
+    def received_From_User(self):
+        test = TemplateUtil.TemplateUtil() 
+        url_from_user = test.readConfigFile()['url'] #Hiện tại không có bên TemplateUtil - bổ sung sau (update 12h30 - 14/04)
+        print(type(url_from_user))
+        test1 = TemplateUtil.TemplateUtil().readRequestTemplate()
+        print(test1[0])
+        # request_from_template = TemplateUtil.readRequestTemplate()
+        for req in test1:
+            Util.Util().findAndReplaceURLPattern(req, '{{Hostname}}', test)
 
-        return Url()
+
+test2 = Url()
+test2.received_From_User()
 
 
