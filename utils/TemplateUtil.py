@@ -3,8 +3,7 @@ import os, yaml
 class TemplateUtil:
     def __init__(self):
         self.args = None # Dòng này để làm gì đây
-        
-    @classmethod
+
     def readTemplate(self):
         # Hàm readTemplate sao lại code liên quan tới hàm config.
         # Hàm này chỉ code để đọc template
