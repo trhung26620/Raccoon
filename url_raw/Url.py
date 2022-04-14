@@ -17,11 +17,11 @@ class Url:
         test = TemplateUtil.TemplateUtil() 
         url_from_user = test.readConfigFile()['url'] #Hiện tại không có bên TemplateUtil - bổ sung sau (update 12h30 - 14/04)
         test1 = TemplateUtil.TemplateUtil().readRequestTemplate()
-        print(test1[0])
+        # print(test1[0])
         # request_from_template = TemplateUtil.readRequestTemplate()
         for req in test1:
-            Util.Util().findAndReplaceURLPattern(req, '{{Hostname}}', url_from_user)
-            print(req)
+            test3 = Util.Util().findAndReplaceURLPattern(req, '{{Hostname}}', url_from_user)
+            print(test3)
         # print("\nAfter")
         # print(test1[0])
 

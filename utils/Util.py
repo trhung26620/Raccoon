@@ -14,7 +14,6 @@ class Util:
             elif(findStr == '{{RootURL}}'):
                 return givenStr.replace(findStr,o.scheme + "://" + o.netloc)
             elif(findStr == '{{Hostname}}'):
-                print(o.netloc)
                 return givenStr.replace(findStr,o.netloc)
             elif(findStr == '{{Host}}'):
                 return givenStr.replace(findStr,o.hostname)
