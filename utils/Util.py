@@ -1,33 +1,25 @@
 from urllib.parse import urlparse
 import os.path
+from ConfigUtil import ConfigUtil
 
 class Util:
-    def __init__(self):
-        self.args = None
-    
-    def findAndReplaceURLPattern(self,givenStr, findStr, repStr):
-        if givenStr.find(findStr) > -1: #Nếu if này không xảy ra thì hàm trả về cái gì? (chưa xử lý)
-            o = urlparse(repStr)
+    def findAndReplaceURLPattern(self, givenStr):
+        config_content = ConfigUtil().readConfig()
+        o = urlparse(config_content['url'])
         
-            if(findStr == '{{BaseURL}}'):
-                return givenStr.replace(findStr,repStr)
-            elif(findStr == '{{RootURL}}'):
-                return givenStr.replace(findStr,o.scheme + "://" + o.netloc)
-            elif(findStr == '{{Hostname}}'):
-                return givenStr.replace(findStr,o.netloc)
-            elif(findStr == '{{Host}}'):
-                return givenStr.replace(findStr,o.hostname)
-            elif(findStr == '{{Port}}'):
-                return givenStr.replace(findStr,o.port)
-            elif(findStr == '{{FullPath}}'):
-                return givenStr.replace(findStr,o.path + "?" + o.query)
-            elif(findStr == '{{Path}}'):
-                path = os.path.split(o.path)[0]
-                return givenStr.replace(findStr,path)
-            elif(findStr == '{{File}}'):
-                file = os.path.split(o.path)[1]
-                return givenStr.replace(findStr,file)
-            elif(findStr == '{{Scheme}}'):
-                return givenStr.replace(findStr,o.scheme)
-
-            # Trường hợp người dùng nhập các pattern sai những cái định sẵn thì hàm trả về cái gì? (chưa xử lý)
+        urlPattern = {
+            '{{BaseURL}}': config_content['url'],
+            '{{RootURL}}': o.scheme + "://" + o.netloc,
+            '{{Hostname}}': o.netloc,
+            '{{Host}}': o.hostname,
+            '{{Port}}': str(o.port),
+            '{{FullPath}}': o.path + "?" + o.query,
+            '{{Path}}': os.path.split(o.path)[0],
+            '{{File}}': os.path.split(o.path)[1],
+            '{{Scheme}}': o.scheme
+        }
+        
+        for k,v in urlPattern.items():
+            givenStr = givenStr.replace(k,v)
+        
+        return givenStr
