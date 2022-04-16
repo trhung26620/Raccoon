@@ -1,4 +1,5 @@
-import yaml, argparse
+import argparse, yaml
+
 
 class CommandUtil:
     def __init__(self):
@@ -8,7 +9,7 @@ class CommandUtil:
         description = "Xin chao, day la tool tiem lo hong."
         parser = argparse.ArgumentParser(description=description)
         parser.add_argument("-target", "-u", help="Specify a URL/Hosts to scan.", required=False)
-        parser.add_argument("--list", "-l", help="Specify path to file containing a list of target URLs/hosts to scan (one per line)", required=False, action="store_true")
+        parser.add_argument("--list", "-l", help="Specify path to file containing a list of target URLs/hosts to scan (one per line)", required=False)
         parser.add_argument("--templates", "-t", help="Template or template directory paths to include in the scan", required=False)
         parser.add_argument("--it", help="ID template.", required=False)
         parser.add_argument("--tag", help="Tag template.", required=False)
@@ -20,18 +21,14 @@ class CommandUtil:
         parser.add_argument("--interactsh-server", "-is", help="Specify an interactsh server url for self-hosted instance (default: oast.pro,oast.live,oast.site,oast.online,oast.fun,oast.me).", required=False)
         parser.add_argument("--timeout", help="Time to wait in seconds before timeout (default 5).", required=False)
         parser.add_argument("--retries", help="Number of times to retry a failed request (default 1).", required=False)
-        parser.add_argument("--debug", help="Show all requests and responses.", required=False)
-        parser.add_argument("--debug-req", help="Show all sent requests.", required=False)
-        parser.add_argument("--debug-resp", help="Show all received responses.", required=False)
-        parser.add_argument("--proxy", "-p", help="Inject interact-sh server to payloads.", required=False, action="store_true")
-        parser.add_argument("--version", help="Show the version of tool.", required=False)
+        parser.add_argument("--debug", help="Show all requests and responses.", required=False, action="store_true")
+        parser.add_argument("--debug-req", help="Show all sent requests.", required=False, action="store_true")
+        parser.add_argument("--debug-resp", help="Show all received responses.", required=False, action="store_true")
+        parser.add_argument("--proxy", "-p", help="Inject interact-sh server to payloads.", required=False)
+        parser.add_argument("--version", help="Show the version of tool.", required=False, action="store_true")
         parser.add_argument("--verbose", "-v", help="Show verbose output.", required=False, action="store_true")
         parser.add_argument("--update-templates", "-ut", help="Update nuclei-templates to latest released version.", required=False)
         self.args = parser.parse_args()
-
-        # python Main.py - u "http://54.179.181.52:8001/contact" - p "http://127.0.0.1:8080" - t CVE-2021-44228.yaml
-        # Lỗi: Main.py: error: unrecognized arguments: http://127.0.0.1:8080
-        # Note: Tìm hiểu tham số action="store_true" trong hàm add_argument để fix
 
     def argumentHandling(self):
         config_yaml = {}
@@ -96,8 +93,6 @@ class CommandUtil:
         if self.args.update_templates:
             config_yaml['update_templates'] = self.args.update_templates
 
-        with open(r'../config.yaml', 'w') as file:
+        with open(r'config.yaml', 'w') as file:
             documents = yaml.dump(config_yaml, file)
 
-        # Chạy thử lệnh python Main.py -u "http://54.179.181.52:8001/contact" -p -t CVE-2021-44228.yaml
-        # Không thấy tạo file config.yaml
