@@ -1,5 +1,5 @@
 import RequestOperation
-from utils.CommandHandle import CommandHandle
+from utils.CommandHandle import CommandUtil
 #127.0.0.1
 #GET /test.html HTTP/1.1
 raw_request = """GET /test.html HTTP/1.1
@@ -96,7 +96,7 @@ HTTP_PROXY = {
 
 
 if __name__ == "__main__":
-    args = CommandHandle()
+    args = CommandUtil()
     args.argument()
     args.argumentHandling()
     # requestHandle = RequestHandle()
