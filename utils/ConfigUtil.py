@@ -1,7 +1,6 @@
 import os, yaml
 
 class ConfigUtil:
-    
     def readConfig(self):
         try:
             isConfigFileExist = os.path.isfile("config.yaml")

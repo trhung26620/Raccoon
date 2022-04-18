@@ -1,6 +1,6 @@
 from urllib.parse import urlparse
 import os.path
-from ConfigUtil import ConfigUtil
+from utils.ConfigUtil import ConfigUtil
 
 class Util:
     def findAndReplaceURLPattern(self, givenStr):
