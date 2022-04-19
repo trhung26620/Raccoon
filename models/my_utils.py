@@ -4,9 +4,10 @@ import os, yaml
 from urllib.parse import urlparse
 from re import template
 
+
 class my_utils:
-    @classmethod
-    def readFile(self, mode_read):                  #mode: 1 to read only config, 2 to read template
+    @staticmethod
+    def readFile(mode_read):                  #mode: 1 to read only config, 2 to read template
         try:
             f_config = open('../config.yaml', 'r')
             config = yaml.load(f_config, Loader=yaml.FullLoader)

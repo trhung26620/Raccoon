@@ -1,5 +1,1 @@
-templates:
-  - ../CVE-2021-44228.yaml
-  - CVE-2021-44228.yaml
-url: 
-  - http://54.179.181.52:8001/?username=thehoa
+{}
