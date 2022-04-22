@@ -1,0 +1,26 @@
+debug: null
+interactsh_server: null
+output_file: null
+proxy: null
+retries: 0
+templates:
+- template\cve\CVE-2021-26295.yaml
+- template\cve\CVE-2021-44228.yaml
+- template\demo template\addBodyJsonAndQueryToCVE44228.yaml
+- template\demo template\test.yaml
+- template\fuzzing\adminer-panel-fuzz.yaml
+- template\fuzzing\cache-poisoning-fuzz.yaml
+- template\fuzzing\header-command-injection.yaml
+- template\fuzzing\iis-shortname.yaml
+- template\fuzzing\linux-lfi-fuzzing.yaml
+- template\fuzzing\mdb-database-file.yaml
+- template\fuzzing\prestashop-module-fuzz.yaml
+- template\fuzzing\wordpress-plugins-detect.yaml
+- template\fuzzing\wordpress-themes-detect.yaml
+- template\fuzzing\wordpress-weak-credentials.yaml
+- template\fuzzing\xff-403-bypass.yaml
+thread: 10
+timeout: 5
+url:
+- http://127.0.0.1
+verbose: false

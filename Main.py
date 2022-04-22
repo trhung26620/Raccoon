@@ -1,5 +1,7 @@
-import RequestOperation
-from utils.CommandHandle import CommandUtil
+from scanner import RequestOperation
+from scanner.CommandHandle import CommandUtil
+from generator.RequestGenerator import RequestGenerator
+from utils.TemplateUtil import TemplateUtil
 #127.0.0.1
 #GET /test.html HTTP/1.1
 raw_request = """GET /test.html HTTP/1.1
@@ -99,6 +101,16 @@ if __name__ == "__main__":
     args = CommandUtil()
     args.argument()
     args.argumentHandling()
+    exit()
+    data = RequestGenerator.generateRequestObject("template\\demo template\\addBodyJsonAndQueryToCVE44228.yaml")
+    print(data[1].url.schema)
+    exit()
+    print(templates)
+    exit()
+    print(len(data))
+    for x in data:
+        print(x)
+        print("="*60)
     # requestHandle = RequestHandle()
     # print(requestHandle.requestConfig)
     exit()

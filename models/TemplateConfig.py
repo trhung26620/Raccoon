@@ -1,5 +1,3 @@
-
-
 class TemplateConfig:
     def __init__(self, redirect, payload, thread, scanMode, interactShUrl, stopAtFirstMatch):
         self.redirect = redirect
