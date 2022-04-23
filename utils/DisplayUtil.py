@@ -6,4 +6,4 @@ class DisplayUtil:
     colorama.init(autoreset=True)
     @staticmethod
     def displayBanner():
-        print(f"{Style.BRIGHT}{Fore.MAGENTA}{AboutUs.banner}")
+        print(f"{Style.BRIGHT}{Fore.BLUE}{AboutUs.banner}")
