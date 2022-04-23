@@ -14,6 +14,7 @@ from models.Request import Request
 import re
 # import json
 
+
 class RequestGenerator:
     @staticmethod
     def replace_parameter(templateData):
@@ -140,6 +141,8 @@ class RequestGenerator:
             request = Request(url, header, body)
             reqObjectList.append(request)
         return reqObjectList
+
+
 
 
 

@@ -15,10 +15,15 @@ class FileUtil:
                     if payloadValue.strip():
                         # print(" [FileUtils] - Read line: " + payloadValue)
                         payloadValues.append(payloadValue)
-                    fileObject.close()
                     # print("List payload: " + str(payloadValues))
+                return payloadValues
             else:
-                print("File not found !!!!")
+                print("File not found !!!")
+                return None
         except FileNotFoundError:
             print("File exception !!! ")
+            fileObject.close()
+            return None
+
+
 

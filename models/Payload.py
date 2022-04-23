@@ -1,9 +1,12 @@
 
 class Payload:
-    def __init__(self, filePath, payloadValue):
-        self.filePath = filePath
-        self.payloadValue = payloadValue
+    def __init__(self, payloadValues):
+        self.payloadValue = payloadValues
 
     def getPayloadValueByKey(self, key):
-        payload = self.payloadValue
+        payload = self.payloadValues
         return payload[key]
+
+
+
+

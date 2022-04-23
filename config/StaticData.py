@@ -12,10 +12,12 @@ class DefaultTemplateConfig:
     defaultThread = 10
     defaultStopAtFirstMatch = False
 
+
 class DefaultRequestFiringConfig:
     defaultTimeout = 5
     allow_redirect = True
     proxy = None
+
 
 class AboutUs:
     version = "PowerScanner version 1.1.0"

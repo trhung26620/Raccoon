@@ -1,6 +1,6 @@
 from utils.TemplateUtil import TemplateUtil
 from models.TemplateConfig import TemplateConfig
-import StaticData
+from config.StaticData import DefaultTemplateConfig
 
 
 class TemplateConfigService:
@@ -18,9 +18,9 @@ class TemplateConfigService:
 
         # default value of these field if user not specify
         if redirect is None:
-            redirect = StaticData.DefaultTemplateConfig.defaultRedirect
+            redirect = DefaultTemplateConfig.defaultRedirect
         if thread is None:
-            thread = StaticData.DefaultTemplateConfig.defaultThread  # should be in Static Data
+            thread = DefaultTemplateConfig.defaultThread  # should be in Static Data
         if stopAtFirstMatch is None:
             stopAtFirstMatch = False
         if interactShUrl is None:   # because use OOB vector is optional so this field is nullable
@@ -28,6 +28,8 @@ class TemplateConfigService:
 
         objTemplateConfig = TemplateConfig(redirect, payload, thread, scanMode, interactShUrl, stopAtFirstMatch)
         return objTemplateConfig
+
+
 
 
 

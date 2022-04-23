@@ -6,7 +6,7 @@ from Cryptodome.Hash import SHA256
 from Crypto.PublicKey import RSA
 from termcolor import colored, cprint
 import requests
-import StaticData
+from config.StaticData import InteractShStaticValue
 import urllib3
 
 
@@ -33,11 +33,11 @@ class InteractSh:
         session.proxies.update(self.httpProxy)
         session.verify = False
         session.allow_redirects = True
-        registerCall = session.post(url=StaticData.InteractShStaticValue.RegisterApi, json=data, timeout=StaticData.InteractShStaticValue.RegisterTimeOut)
+        registerCall = session.post(url=InteractShStaticValue.RegisterApi, json=data, timeout=InteractShStaticValue.RegisterTimeOut)
         registerSuccessSignature = "registration successful"
 
         if registerSuccessSignature in registerCall.content.decode():
-            interactUrl = self.subDomain + "." + StaticData.InteractShStaticValue.interactShPrimaryDomain
+            interactUrl = self.subDomain + "." + InteractShStaticValue.interactShPrimaryDomain
             cprint("\n[*] Registered interactSh successfully", "blue")
             # self.util.saveResult("\n[*] Registered interactSh successfully")  # implement later
             cprint("    [•] Interact URL: " + interactUrl, "cyan")
@@ -57,7 +57,7 @@ class InteractSh:
         session.proxies.update(self.httpProxy)
         session.verify = False
         session.allow_redirects = True
-        maxPollingTime = StaticData.InteractShStaticValue.maxPollingTime
+        maxPollingTime = InteractShStaticValue.maxPollingTime
         cprint("\n[*] Waiting for a response(up to " + str(2 * maxPollingTime) + " seconds)...\n", "yellow")
         # self.util.saveResult("\n[*] Waiting for a response(up to " + str(2 * maxPollingTime) + " seconds)...\n")  # implement later
         isError = False
@@ -65,7 +65,7 @@ class InteractSh:
             isError = False
             time.sleep(2)
             try:
-                fetchData = session.get(url=StaticData.InteractShStaticValue.PollDataApi + queryStr, timeout=StaticData.InteractShStaticValue.PollDataTimeOut)
+                fetchData = session.get(url=InteractShStaticValue.PollDataApi + queryStr, timeout=InteractShStaticValue.PollDataTimeOut)
             except TimeoutError:
                 cprint("\n[*] Interactsh not responding", "red")
                 # self.util.saveResult("\n[*] InteractSh not responding")        # implement later
