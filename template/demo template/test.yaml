@@ -32,9 +32,9 @@ requests:
         regex:
           - "sourceMappingURL=([a-z-~0-9.]+).js.map"
     payloads:
-      - username:
+      username:
           - Hung
           - Danh
           - Dat
           - Hoa
-      - password: template/demo template/password.txt
+      password: template/demo template/password.txt

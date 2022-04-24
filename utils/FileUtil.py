@@ -21,7 +21,7 @@ class FileUtil:
                 print("File not found !!!")
                 return None
         except FileNotFoundError:
-            print("File exception !!! ")
+            print("Can not read this file !!! ")
             fileObject.close()
             return None
 

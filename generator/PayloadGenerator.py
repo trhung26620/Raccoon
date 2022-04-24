@@ -7,5 +7,7 @@ class PayloadGenerator:
     @staticmethod
     def generatePayloadObjFromTemplate(templateFilePath):
         payloadDict = TemplateUtil.readPayloadsField(templateFilePath)
+        if payloadDict is None:
+            return None
         resultPayloads = Payload(payloadDict)
         return resultPayloads

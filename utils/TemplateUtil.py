@@ -29,18 +29,26 @@ class TemplateUtil:
     def readPayloadsField(templateFilePath):
         yaml_content = TemplateUtil.readTemplate(templateFilePath)
         requests_content = yaml_content['requests'][0]
-        payloadListFromTemplate = requests_content['payloads']
-        payloadDict = {}
-        for payload in payloadListFromTemplate:
-            for payloadKey in payload:
-                payloadValue = payload[payloadKey]
+        try:
+            payloadFromTemplate = requests_content['payloads']
+            payloadDict = {}
+            for payloadKey in payloadFromTemplate:
+                # print("Payload Key: " + str(payloadKey))
+                # print("Payload Value: " + str(payloadFromTemplate[payloadKey]))
+                payloadValue = payloadFromTemplate[payloadKey]
                 if type(payloadValue) is list:
-                    payloadDict[payloadKey] = payload[payloadKey]
-                if type(payloadValue) is str:   # payloadValue here is file path
+                    payloadDict[payloadKey] = payloadFromTemplate[payloadKey]
+                if type(payloadValue) is str:
                     payloadValueFromFile = FileUtil.readPayloadFromFile(payloadValue)
                     payloadDict[payloadKey] = payloadValueFromFile
-        # print("[Debug] - Payload final dict:" + str(payloadDict))
-        return payloadDict
+            # print("[Debug] - Payload final dict:" + str(payloadDict))
+            return payloadDict
+        except:
+            print("[Error] - payloads field not found ")
+            return None
+
+
+
 
 
 
