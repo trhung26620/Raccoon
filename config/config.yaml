@@ -22,5 +22,5 @@ templates:
 thread: 10
 timeout: 5
 url:
-- http://127.0.0.1
+- urls.txt
 verbose: false

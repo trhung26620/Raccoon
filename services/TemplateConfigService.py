@@ -7,8 +7,9 @@ class TemplateConfigService:
 
     @staticmethod
     def getObjTemplateConfigByTemplate(templateFileName):
-        templateRequest = TemplateUtil.readTemplate(templateFileName)
-
+        templateRequest = TemplateUtil.read(templateFileName)
+        # print(templateRequest["payload"])
+        # exit()
         redirect = templateRequest["redirect"]
         payload = templateRequest["payload"]
         thread = templateRequest["thread"]

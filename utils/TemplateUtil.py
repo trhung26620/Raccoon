@@ -33,18 +33,14 @@ class TemplateUtil:
             payloadFromTemplate = requests_content['payloads']
             payloadDict = {}
             for payloadKey in payloadFromTemplate:
-                # print("Payload Key: " + str(payloadKey))
-                # print("Payload Value: " + str(payloadFromTemplate[payloadKey]))
                 payloadValue = payloadFromTemplate[payloadKey]
                 if type(payloadValue) is list:
                     payloadDict[payloadKey] = payloadFromTemplate[payloadKey]
                 if type(payloadValue) is str:
                     payloadValueFromFile = FileUtil.readPayloadFromFile(payloadValue)
                     payloadDict[payloadKey] = payloadValueFromFile
-            # print("[Debug] - Payload final dict:" + str(payloadDict))
             return payloadDict
         except:
-            print("[Error] - payloads field not found ")
             return None
 
 

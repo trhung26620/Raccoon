@@ -13,9 +13,7 @@ class FileUtil:
                 for payloadValue in fileObject:
                     payloadValue = payloadValue.strip()
                     if payloadValue.strip():
-                        # print(" [FileUtils] - Read line: " + payloadValue)
                         payloadValues.append(payloadValue)
-                    # print("List payload: " + str(payloadValues))
                 return payloadValues
             else:
                 print("File not found !!!")

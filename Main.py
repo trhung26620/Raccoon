@@ -2,6 +2,9 @@ from scanner import RequestOperation
 from scanner.CommandHandle import CommandUtil
 from generator.RequestGenerator import RequestGenerator
 from utils.TemplateUtil import TemplateUtil
+from generator.PayloadGenerator import PayloadGenerator
+from services.InteractShService import InteractSh
+from services.TemplateConfigService import TemplateConfigService
 #127.0.0.1
 #GET /test.html HTTP/1.1
 raw_request = """GET /test.html HTTP/1.1
@@ -101,11 +104,24 @@ if __name__ == "__main__":
     args = CommandUtil()
     args.argument()
     args.argumentHandling()
+    data = TemplateConfigService.getObjTemplateConfigByTemplate(r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\wordpress-weak-credentials.yaml")
+    # print(data.payload.payloadValue)
     exit()
-    data = RequestGenerator.generateRequestObject("template\\demo template\\addBodyJsonAndQueryToCVE44228.yaml")
-    print(data[1].url.schema)
+    interact = InteractSh(HTTP_PROXY)
+    interact_url = interact.registerInteractShServer()
+    print(interact_url)
+    input()
+    data, aes_key = interact.pollDataFromWeb()
+    if aes_key:
+        key = interact.decryptAESKey(aes_key)
+        dataList = interact.decryptMessage(key, data)
+        print(dataList)
+    else:
+        print("hello")
     exit()
-    print(templates)
+    data = PayloadGenerator.generatePayloadObjFromTemplate(r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\wordpress-weak-credentials.yaml")
+    # print(data.payloadValue)
+    print(data)
     exit()
     print(len(data))
     for x in data:

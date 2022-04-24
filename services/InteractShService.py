@@ -8,19 +8,20 @@ from termcolor import colored, cprint
 import requests
 from config.StaticData import InteractShStaticValue
 import urllib3
-
+import random, string
 
 class InteractSh:
-    def __init__(self, key, secret, subDomain, httpProxy):
+    def __init__(self, httpProxy):
         self.key = RSA.generate(2048)
         self.secret = str(uuid.uuid4())
-        self.subDomain = subDomain
+        self.subDomain = ''.join(random.choice(string.ascii_lowercase + string.digits) for i in range(33))
         self.httpProxy = httpProxy
         urllib3.disable_warnings()      # disable TSL/SSL warning
 
     # return url format: randomStr.interact.sh
     def registerInteractShServer(self):
-        publicKey = self.key.public_key().exportKey
+        pubkey = self.key.public_key().exportKey()
+        publicKey = base64.b64encode(pubkey).decode()
         correlation = self.subDomain[:20]
 
         data = {
@@ -35,7 +36,6 @@ class InteractSh:
         session.allow_redirects = True
         registerCall = session.post(url=InteractShStaticValue.RegisterApi, json=data, timeout=InteractShStaticValue.RegisterTimeOut)
         registerSuccessSignature = "registration successful"
-
         if registerSuccessSignature in registerCall.content.decode():
             interactUrl = self.subDomain + "." + InteractShStaticValue.interactShPrimaryDomain
             cprint("\n[*] Registered interactSh successfully", "blue")
