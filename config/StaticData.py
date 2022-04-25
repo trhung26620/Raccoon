@@ -9,8 +9,9 @@ class InteractShStaticValue:
 
 class DefaultTemplateConfig:
     defaultRedirect = True
-    defaultThread = 10
     defaultStopAtFirstMatch = False
+    defaultScanMode = 1
+    defaultInteractShUrl = ""  # no use of interactSh
 
 
 class DefaultRequestFiringConfig:

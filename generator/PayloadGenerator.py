@@ -11,3 +11,4 @@ class PayloadGenerator:
             return None
         resultPayloads = Payload(payloadDict)
         return resultPayloads
+

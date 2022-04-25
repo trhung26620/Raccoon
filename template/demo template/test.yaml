@@ -38,3 +38,7 @@ requests:
           - Dat
           - Hoa
       password: template/demo template/password.txt
+    redirect: False
+    scanMode: 2
+    interactShUrl:  fghsjdgfjkshdgfkjhsdgfd.interactsh.com
+    stopAtFirstMacth: True

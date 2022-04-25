@@ -1,10 +1,8 @@
 from scanner import RequestOperation
 from scanner.CommandHandle import CommandUtil
-from generator.RequestGenerator import RequestGenerator
-from utils.TemplateUtil import TemplateUtil
 from generator.PayloadGenerator import PayloadGenerator
 from services.InteractShService import InteractSh
-from services.TemplateConfigService import TemplateConfigService
+from generator.TemplateConfigService import TemplateConfigService
 #127.0.0.1
 #GET /test.html HTTP/1.1
 raw_request = """GET /test.html HTTP/1.1
