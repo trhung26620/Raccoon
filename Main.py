@@ -5,6 +5,7 @@ from utils.TemplateUtil import TemplateUtil
 from generator.PayloadGenerator import PayloadGenerator
 from services.InteractShService import InteractSh
 from services.TemplateConfigService import TemplateConfigService
+from config.StaticData import DefaultTemplateConfig
 #127.0.0.1
 #GET /test.html HTTP/1.1
 raw_request = """GET /test.html HTTP/1.1
@@ -104,6 +105,9 @@ if __name__ == "__main__":
     args = CommandUtil()
     args.argument()
     args.argumentHandling()
+    DefaultTemplateConfig.defaultThread = 20
+    print(DefaultTemplateConfig.defaultThread)
+    exit()
     data = TemplateConfigService.getObjTemplateConfigByTemplate(r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\wordpress-weak-credentials.yaml")
     # print(data.payload.payloadValue)
     exit()
