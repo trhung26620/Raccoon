@@ -48,7 +48,7 @@ requests:
 
         {"result": [{"id": 2, "name": "US", "flag": "sf{{Hostname}}"}]}
       - |
-         POST / HTTP/1.1
+         POST /abc/xxx/index.php HTTP/1.1
          Host: {{Hostname}}
          User-Agent: Chrome {{Hostname}}
          {{Scheme}}: {{Host}}:{{Port}} hihi {{Path}} haha {{Hostname}}

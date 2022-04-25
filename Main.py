@@ -105,10 +105,12 @@ if __name__ == "__main__":
     args = CommandUtil()
     args.argument()
     args.argumentHandling()
-    DefaultTemplateConfig.defaultThread = 20
-    print(DefaultTemplateConfig.defaultThread)
-    exit()
-    data = TemplateConfigService.getObjTemplateConfigByTemplate(r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\wordpress-weak-credentials.yaml")
+    data = RequestGenerator.generateRequestObject(r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\demo template\addBodyJsonAndQueryToCVE44228.yaml")
+    for k,v in data.items():
+        for x in v:
+            print(x.body.content)
+            print("="*50)
+    # data = TemplateConfigService.getObjTemplateConfigByTemplate(r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\wordpress-weak-credentials.yaml")
     # print(data.payload.payloadValue)
     exit()
     interact = InteractSh(HTTP_PROXY)

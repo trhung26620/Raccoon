@@ -23,6 +23,6 @@ thread: 10
 timeout: 5
 url:
 - http://54.179.181.52:8001/credential/abcxyz/?abc=xyz
-- http://donghomaitrang.vn
-- http://192.168.1.1
+- https://donghomaitrang.vn
+- ftp://192.168.1.1
 verbose: false

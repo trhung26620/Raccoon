@@ -18,9 +18,10 @@ import re
 class RequestGenerator:
     @staticmethod
     def replace_parameter(templateData):
-        list_of_request = list()
+        dict_of_request = dict()
         list_of_components_url = RequestGenerator.detached_of_url()
         for component in list_of_components_url:
+            list_of_request = []
             urlPattern = {
                 '{{BaseURL}}': component['baseUrl'],
                 '{{RootURL}}': component['rootUrl'],
@@ -35,7 +36,8 @@ class RequestGenerator:
                 for k, v in urlPattern.items():
                     req = req.replace(k, v)
                 list_of_request.append(req)
-        return list_of_request
+            dict_of_request[component['baseUrl']] = list_of_request
+        return dict_of_request
 
     @staticmethod
     def detached_of_url():
@@ -57,31 +59,30 @@ class RequestGenerator:
 
     # Hàm này sẽ nhận một cấu trúc request đầy đủ người dùng cung cấp, sau đó phân tích từng thành phần trong request và trả về giá trị như header, url, query, body, method,...
     @staticmethod
-    def analystRequest(req):
-        # isGetMethod = False
+    def analystRequest(req, baseUrl):
         method = None
         existBody = False
         url = None
         host = None
         firstLine = req.split('\n')[0]
-        if firstLine.upper().endswith("HTTP/2"):
+        if "://" not in baseUrl:
+            schema = "http"
+        elif baseUrl.split("://")[0] == "http":
+            schema = "http"
+        elif baseUrl.split("://")[0] == "https":
             schema = "https"
         else:
-            schema = "http"
-
+            # print("Not support schema: " + baseUrl.split("://")[0])
+            return
         path = firstLine.strip().split()[1]
 
         if re.search("^(GET)(\s+)[//]", firstLine):
-            # isGetMethod = True
             method = "GET"
         elif re.search("^(POST)(\s+)[//]", firstLine):
-            # isGetMethod = False
             method = "POST"
         elif re.search("^(PUT)(\s+)[//]", firstLine):
-            # isGetMethod = False
             method = "PUT"
         elif re.search("^(DELETE)(\s+)[//]", firstLine):
-            # isGetMethod = False
             method = "DELETE"
         else:
             print("Only support methods GET|POST|PUT|DELETE")
@@ -114,7 +115,7 @@ class RequestGenerator:
         reqBody = None
         if existBody:
             lastStringHeader = reqHeader[-20:]
-            reqBody = req.split(lastStringHeader + "\n\n")[1]
+            reqBody = req.split(lastStringHeader + "\n\n")[1][:-1]
         if query:
             url = url[:url.find('?')]
         result = {
@@ -131,16 +132,20 @@ class RequestGenerator:
 
     @staticmethod
     def generateRequestObject(templateFilePath):
-        reqObjectList = list()
-        requestList = RequestGenerator.replace_parameter(TemplateUtil.readTemplate(templateFilePath))
-        for req in requestList:
-            dataReq = RequestGenerator.analystRequest(req)
-            url = Url(dataReq["schema"], dataReq["method"], dataReq["host"], dataReq["path"], dataReq["paramPath"])
-            header = Header(dataReq["headers"])
-            body = Body(dataReq["body"])
-            request = Request(url, header, body)
-            reqObjectList.append(request)
-        return reqObjectList
+        requestDict = RequestGenerator.replace_parameter(TemplateUtil.readTemplate(templateFilePath))
+        reqObjectDict = dict()
+        for baseUrl, reqList in requestDict.items():
+            reqObjectList = []
+            for req in reqList:
+                dataReq = RequestGenerator.analystRequest(req, baseUrl)
+                if dataReq:
+                    url = Url(dataReq["schema"], dataReq["method"], dataReq["host"], dataReq["path"], dataReq["paramPath"])
+                    header = Header(dataReq["headers"])
+                    body = Body(dataReq["body"])
+                    request = Request(url, header, body)
+                    reqObjectList.append(request)
+            reqObjectDict[baseUrl] = reqObjectList
+        return reqObjectDict
 
 
 
