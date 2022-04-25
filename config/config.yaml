@@ -22,5 +22,7 @@ templates:
 thread: 10
 timeout: 5
 url:
-- urls.txt
+- http://54.179.181.52:8001/credential/abcxyz/?abc=xyz
+- https://donghomaitrang.vn
+- ftp://192.168.1.1
 verbose: false
