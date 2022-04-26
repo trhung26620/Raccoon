@@ -1,7 +1,7 @@
 debug: null
 interactsh_server: null
 output_file: null
-proxy: null
+proxy: {}
 retries: 0
 templates:
 - template\cve\CVE-2021-26295.yaml
@@ -19,7 +19,7 @@ templates:
 - template\fuzzing\wordpress-themes-detect.yaml
 - template\fuzzing\wordpress-weak-credentials.yaml
 - template\fuzzing\xff-403-bypass.yaml
-thread: 10
+thread: null
 timeout: 5
 url:
 - http://54.179.181.52:8001/credential/abcxyz/?abc=xyz

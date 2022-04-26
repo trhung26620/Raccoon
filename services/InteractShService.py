@@ -9,13 +9,14 @@ import requests
 from config.StaticData import InteractShStaticValue
 import urllib3
 import random, string
+from utils.ConfigUtil import ConfigUtil
 
 class InteractSh:
-    def __init__(self, httpProxy):
+    def __init__(self):
         self.key = RSA.generate(2048)
         self.secret = str(uuid.uuid4())
         self.subDomain = ''.join(random.choice(string.ascii_lowercase + string.digits) for i in range(33))
-        self.httpProxy = httpProxy
+        self.httpProxy = ConfigUtil.readConfig()["proxy"]
         urllib3.disable_warnings()      # disable TSL/SSL warning
 
     # return url format: randomStr.interact.sh

@@ -10,15 +10,15 @@ class InteractShStaticValue:
 class DefaultTemplateConfig:
     defaultRedirect = True
     defaultStopAtFirstMatch = False
-    defaultScanMode = 1
+    defaultScanMode = "batteringram"
     defaultInteractShUrl = ""  # no use of interactSh
-
+    defaultThread = 10
+    defaultCookieReuse = False
 
 class DefaultRequestFiringConfig:
     defaultTimeout = 5
     allow_redirect = True
-    proxy = None
-
+    proxy = {}
 
 class AboutUs:
     version = "Racoon version 1.1.0"

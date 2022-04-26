@@ -11,6 +11,7 @@ class ConfigUtil:
             return config
         except FileNotFoundError:
             print("Config file not found")
+            exit()
 
     @staticmethod
     def filterTemplateWithId(ids, templatePathList):

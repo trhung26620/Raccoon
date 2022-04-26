@@ -69,7 +69,6 @@ class CommandUtil:
         else:
             if self.args.tag:
                 config_yaml["templates"] = ConfigUtil.filterTemplateWithTag(self.args.tag, config_yaml["templates"])
-
             if self.args.severity:
                 config_yaml["templates"] = ConfigUtil.filterTemplateWithSeverity(self.args.severity, config_yaml["templates"])
 
@@ -89,7 +88,7 @@ class CommandUtil:
         if self.args.thread:
             config_yaml['thread'] = self.args.thread
         else:
-            config_yaml['thread'] = 10
+            config_yaml['thread'] = None
 
         if self.args.interactsh_server:
             config_yaml['interactsh_server'] = self.args.interactsh_server
@@ -114,14 +113,13 @@ class CommandUtil:
             config_yaml['debug'] = "debug_resp"
         else:
             config_yaml['debug'] = None
-
         if self.args.proxy:
             config_yaml['proxy'] = {
                 "http": self.args.proxy,
                 "https": self.args.proxy
             }
         else:
-            config_yaml['proxy'] = None
+            config_yaml['proxy'] = {}
 
         if self.args.verbose:
             config_yaml['verbose'] = self.args.verbose

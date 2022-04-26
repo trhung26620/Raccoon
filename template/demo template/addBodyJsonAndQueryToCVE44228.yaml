@@ -57,9 +57,16 @@ requests:
          Connection: close
          Content-Type: application/x-www-form-urlencoded
         
-         username=tranhung{{Port}}&passwd=123456
-    stop-at-first-match: true
+         username={{users}}{{Port}}&passwd={{passwords}}
+    payloads:
+      users: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\users.txt
+      passwords: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\passwords.txt
+    redirect: true
+    thread: 20
+    scanMode: pitchfork
+    stopAtFirstMatch: true
     matchers-condition: and
+    cookieReuse: true
     matchers:
       - type: word
         part: interactsh_protocol  # Confirms the DNS Interaction
