@@ -1,6 +1,4 @@
 import itertools
-from concurrent.futures import ThreadPoolExecutor
-from scanner.RequestHandle import RequestHandle
 from utils.ExtendedUtil import ExtendedUtil
 # import Util
 
@@ -87,38 +85,29 @@ def clusterbombModeStringInjection(payloadDict, rawString):
                 tempString = tempString.replace('{{' + payloadNameList[i] + '}}', payloadTuple[i])
             yield tempString
 
-def injectAllRawRequest(requestConfig, request):
-    scanMode = requestConfig.scanMode
-    if scanMode == "batteringram":
-        headerList = batteringramModeDictInjection(requestConfig.payload.payloadVal, request.header.content)
-        paramList = batteringramModeDictInjection(requestConfig.payload.payloadVal, request.url.param)
-        bodyList = batteringramModeStringInjection(requestConfig.payload.payloadVal, request.body.content)
-        for header, param, body in zip(headerList, paramList, bodyList):
-            yield {"header": header, "param": param, "body": body}
-    elif scanMode == "pitchfork":
-        headerList = pitchforkModeDictInjection(requestConfig.payload.payloadVal, request.header.content)
-        paramList = pitchforkModeDictInjection(requestConfig.payload.payloadVal, request.url.param)
-        bodyList = pitchforkModeStringInjection(requestConfig.payload.payloadVal, request.body.content)
-        for header, param, body in zip(headerList, paramList, bodyList):
-            yield {"header": header, "param": param, "body": body}
-    elif scanMode == "pitchfork":
-        headerList = clusterbombModeDictInjection(requestConfig.payload.payloadVal, request.header.content)
-        paramList = clusterbombModeDictInjection(requestConfig.payload.payloadVal, request.url.param)
-        bodyList = clusterbombModeStringInjection(requestConfig.payload.payloadVal, request.body.content)
-        for header, param, body in zip(headerList, paramList, bodyList):
-            yield {"header": header, "param": param, "body": body}
+def injectAllRawRequest(requestsConfig, requestObjList):
+    for request in requestObjList:
+        scanMode = requestsConfig.scanMode
+        if scanMode == "batteringram":
+            headerList = batteringramModeDictInjection(requestsConfig.payload.payloadValue, request.header.content)
+            paramList = batteringramModeDictInjection(requestsConfig.payload.payloadValue, request.url.paramPath)
+            bodyList = batteringramModeStringInjection(requestsConfig.payload.payloadValue, request.body.content)
+            for header, param, body in zip(headerList, paramList, bodyList):
+                yield {"header": header, "param": param, "body": body, "urlObj": request.url}
 
-def runner(dataReqList, requestConfig, request):
-    threads= []
-    with ThreadPoolExecutor(max_workers=requestConfig.thread) as executor:
-        if request.url.method.lower() == "get":
-            for dataReq in dataReqList:
-                threads.append(executor.submit(RequestHandle.sendGetRequest, request.url.path, dataReq["param"], dataReq["header"], dataReq["body"], requestConfig.HTTP_PROXY))
-        elif request.url.method.lower() == "post":
-            for dataReq in dataReqList:
-                threads.append(executor.submit(RequestHandle.sendPostRequest, request.url.path, dataReq["param"], dataReq["header"], dataReq["body"], requestConfig.HTTP_PROXY))
+        elif scanMode == "pitchfork":
+            headerList = pitchforkModeDictInjection(requestsConfig.payload.payloadValue, request.header.content)
+            paramList = pitchforkModeDictInjection(requestsConfig.payload.payloadValue, request.url.paramPath)
+            bodyList = pitchforkModeStringInjection(requestsConfig.payload.payloadValue, request.body.content)
+            for header, param, body in zip(headerList, paramList, bodyList):
+                yield {"header": header, "param": param, "body": body, "urlObj": request.url}
 
-def fireRequests(requestConfig, request):
-    dataReqList = injectAllRawRequest(requestConfig, request)
-    runner(dataReqList, requestConfig, request)
+        elif scanMode == "pitchfork":
+            headerList = clusterbombModeDictInjection(requestsConfig.payload.payloadValue, request.header.content)
+            paramList = clusterbombModeDictInjection(requestsConfig.payload.payloadValue, request.url.paramPath)
+            bodyList = clusterbombModeStringInjection(requestsConfig.payload.payloadValue, request.body.content)
+            for header, param, body in zip(headerList, paramList, bodyList):
+                yield {"header": header, "param": param, "body": body, "urlObj": request.url}
+
+
 

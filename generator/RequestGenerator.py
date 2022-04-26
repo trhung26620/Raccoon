@@ -139,7 +139,7 @@ class RequestGenerator:
             for req in reqList:
                 dataReq = RequestGenerator.analystRequest(req, baseUrl)
                 if dataReq:
-                    url = Url(dataReq["schema"], dataReq["method"], dataReq["host"], dataReq["path"], dataReq["paramPath"])
+                    url = Url(dataReq["schema"], dataReq["method"], dataReq["host"], dataReq["path"], dataReq["paramPath"], dataReq["url"])
                     header = Header(dataReq["headers"])
                     body = Body(dataReq["body"])
                     request = Request(url, header, body)

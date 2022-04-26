@@ -3,6 +3,8 @@ from scanner.CommandHandle import CommandUtil
 from generator.PayloadGenerator import PayloadGenerator
 from services.InteractShService import InteractSh
 from generator.TemplateConfigGenerator import TemplateConfigService
+from scanner.RacoonKernel import RacoonKernel
+from generator.RequestGenerator import RequestGenerator
 
 #127.0.0.1
 #GET /test.html HTTP/1.1
@@ -103,15 +105,18 @@ if __name__ == "__main__":
     args = CommandUtil()
     args.argument()
     args.argumentHandling()
-    # data = TemplateConfigService.getObjTemplateConfigByTemplate(r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\cve\CVE-2021-44228.yaml")
-    data = TemplateConfigService.getObjTemplateConfigByTemplate(r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\demo template\addBodyJsonAndQueryToCVE44228.yaml")
+    config = TemplateConfigService.getObjTemplateConfigByTemplate(r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\demo template\addBodyJsonAndQueryToCVE44228.yaml")
+    requests = RequestGenerator.generateRequestObject(r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\demo template\addBodyJsonAndQueryToCVE44228.yaml")
+    # print(requests)
+    RacoonKernel.fireRequests(config, requests)
+    # data = TemplateConfigService.getObjTemplateConfigByTemplate(r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\demo template\addBodyJsonAndQueryToCVE44228.yaml")
 
-    print(data.scanMode)
-    print(data.stopAtFirstMatch)
-    print(data.payload.payloadValue)
-    print(data.thread)
-    print(data.redirect)
-    print(data.cookieReuse)
+    # print(data.scanMode)
+    # print(data.stopAtFirstMatch)
+    # print(data.payload.payloadValue)
+    # print(data.thread)
+    # print(data.redirect)
+    # print(data.cookieReuse)
     # data = TemplateConfigService.getObjTemplateConfigByTemplate(r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\wordpress-weak-credentials.yaml")
     # print(data.interactShUrl)
     exit()
