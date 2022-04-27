@@ -108,7 +108,7 @@ if __name__ == "__main__":
     config = TemplateConfigService.getObjTemplateConfigByTemplate(r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\demo template\addBodyJsonAndQueryToCVE44228.yaml")
     requests = RequestGenerator.generateRequestObject(r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\demo template\addBodyJsonAndQueryToCVE44228.yaml")
     # print(requests)
-    RacoonKernel.fireRequests(config, requests)
+    RacoonKernel.racoonFlowControl(config, requests)
     # data = TemplateConfigService.getObjTemplateConfigByTemplate(r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\demo template\addBodyJsonAndQueryToCVE44228.yaml")
 
     # print(data.scanMode)

@@ -51,7 +51,8 @@ class RequestGenerator:
                 'host': url.hostname,
                 'port': url.port,
                 'fullPath': i[len(url.scheme + "://" + url.netloc):],
-                'path': os.path.split(url.path)[0],
+                # 'path': os.path.split(url.path)[0],
+                'path': url.path,
                 'scheme': url.scheme,
             }
             list_of_components_url.append(components_url)
@@ -99,7 +100,12 @@ class RequestGenerator:
                 host = line[line.find(':') + 1:].strip()
                 break
         if schema and path and host:
-            url = schema + "://" + host + path
+            parsed_url = urlparse(baseUrl).path
+            if parsed_url=="/":
+                parsed_url = ""
+            if parsed_url.endswith("/"):
+                parsed_url = parsed_url[:-1]
+            url = schema + "://" + host + parsed_url + path
         else:
             print("Something went wrong with schema, host or path")
             exit()
@@ -111,7 +117,8 @@ class RequestGenerator:
 
         for line in reqHeader.split("\n"):
             if not line.startswith("POST") and not line.startswith("GET") and not line.startswith("PUT") and not line.startswith("DELETE"):
-                headerDict[line.split(":",1)[0]] = line.split(":", 1)[1].strip()
+                if not line[:5].lower()=="host:":
+                    headerDict[line.split(":",1)[0]] = line.split(":", 1)[1].strip()
         reqBody = None
         if existBody:
             lastStringHeader = reqHeader[-20:]

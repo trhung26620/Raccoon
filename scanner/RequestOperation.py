@@ -102,12 +102,15 @@ def injectAllRawRequest(requestsConfig, requestObjList):
             for header, param, body in zip(headerList, paramList, bodyList):
                 yield {"header": header, "param": param, "body": body, "urlObj": request.url}
 
-        elif scanMode == "pitchfork":
+        elif scanMode == "clusterbomb":
             headerList = clusterbombModeDictInjection(requestsConfig.payload.payloadValue, request.header.content)
             paramList = clusterbombModeDictInjection(requestsConfig.payload.payloadValue, request.url.paramPath)
             bodyList = clusterbombModeStringInjection(requestsConfig.payload.payloadValue, request.body.content)
             for header, param, body in zip(headerList, paramList, bodyList):
                 yield {"header": header, "param": param, "body": body, "urlObj": request.url}
 
+def getDataRequestWithoutPayloads(requestObjList):
+    for request in requestObjList:
+        yield {"header": request.header.content, "param": request.url.paramPath, "body": request.body.content, "urlObj": request.url}
 
 

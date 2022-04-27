@@ -1,3 +1,4 @@
-http://54.179.181.52:8001/credential/abcxyz/?abc=xyz
-https://donghomaitrang.vn
+https://facebook.com
+ftp://stackoverflow.com/credential/abcxyz/?abc=xyz
+ftp://103.90.227.30:81/
 ftp://192.168.1.1

@@ -8,7 +8,7 @@ class InteractShStaticValue:
 
 
 class DefaultTemplateConfig:
-    defaultRedirect = True
+    defaultRedirect = False
     defaultStopAtFirstMatch = False
     defaultScanMode = "batteringram"
     defaultInteractShUrl = ""  # no use of interactSh

