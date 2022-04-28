@@ -12,6 +12,7 @@ from models.Header import Header
 from models.Body import Body
 from models.Request import Request
 import re
+from config.StaticData import Parttern
 # import json
 
 
@@ -23,14 +24,14 @@ class RequestGenerator:
         for component in list_of_components_url:
             list_of_request = []
             urlPattern = {
-                '{{BaseURL}}': component['baseUrl'],
-                '{{RootURL}}': component['rootUrl'],
-                '{{Hostname}}': component['hostname'],
-                '{{Host}}': component['host'],
-                '{{Port}}': str(component['port']),
-                '{{FullPath}}': component['fullPath'],
-                '{{Path}}': component['path'],
-                '{{Scheme}}': component['scheme']
+                Parttern.baseUrl: component['baseUrl'],
+                Parttern.rootUrl: component['rootUrl'],
+                Parttern.hostName: component['hostname'],
+                Parttern.host: component['host'],
+                Parttern.port: str(component['port']),
+                Parttern.fullPath: component['fullPath'],
+                Parttern.path: component['path'],
+                Parttern.scheme: component['scheme']
             }
             for req in templateData['requests'][0]['request']:
                 for k, v in urlPattern.items():

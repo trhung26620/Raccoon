@@ -1,4 +1,4 @@
-from scanner import RequestOperation
+from scanner import PayloadInjection
 from scanner.CommandHandle import CommandUtil
 from generator.PayloadGenerator import PayloadGenerator
 from services.InteractShService import InteractSh
@@ -108,7 +108,16 @@ if __name__ == "__main__":
     config = TemplateConfigService.getObjTemplateConfigByTemplate(r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\demo template\addBodyJsonAndQueryToCVE44228.yaml")
     requests = RequestGenerator.generateRequestObject(r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\demo template\addBodyJsonAndQueryToCVE44228.yaml")
     # print(requests)
-    RacoonKernel.racoonFlowControl(config, requests)
+    racoon = RacoonKernel()
+    racoon.racoonFlowControl(config, requests)
+    data, aes_key = config.interactSh.pollDataFromWeb()
+    if aes_key:
+        key = config.interactSh.decryptAESKey(aes_key)
+        dataList = config.interactSh.decryptMessage(key, data)
+        print(dataList)
+    else:
+        print("hello")
+
     # data = TemplateConfigService.getObjTemplateConfigByTemplate(r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\demo template\addBodyJsonAndQueryToCVE44228.yaml")
 
     # print(data.scanMode)
@@ -143,29 +152,29 @@ if __name__ == "__main__":
     # requestHandle = RequestHandle()
     # print(requestHandle.requestConfig)
     exit()
-    headerList = RequestOperation.pitchforkModeDictInjection(payloads, headers)
-    paramList = RequestOperation.pitchforkModeDictInjection(payloads, params)
-    bodyList = RequestOperation.pitchforkModeStringInjection(payloads, body)
+    headerList = PayloadInjection.pitchforkModeDictInjection(payloads, headers)
+    paramList = PayloadInjection.pitchforkModeDictInjection(payloads, params)
+    bodyList = PayloadInjection.pitchforkModeStringInjection(payloads, body)
     for header, param, body in zip(headerList, paramList, bodyList):
-        RequestOperation.RequestHandle.sendPostRequest(url, param, header, body, HTTP_PROXY)
+        PayloadInjection.RequestHandle.sendPostRequest(url, param, header, body, HTTP_PROXY)
 
     exit()
-    headerList = RequestOperation.pitchforkModeDictInjection(payloads, headers)
-    paramList = RequestOperation.pitchforkModeDictInjection(payloads, params)
-    bodyList = RequestOperation.pitchforkModeStringInjection(payloads, body)
+    headerList = PayloadInjection.pitchforkModeDictInjection(payloads, headers)
+    paramList = PayloadInjection.pitchforkModeDictInjection(payloads, params)
+    bodyList = PayloadInjection.pitchforkModeStringInjection(payloads, body)
     for header, param, body in zip(headerList, paramList, bodyList):
-        RequestOperation.RequestHandle.sendPostRequest(header, body, param, url, HTTP_PROXY)
+        PayloadInjection.RequestHandle.sendPostRequest(header, body, param, url, HTTP_PROXY)
 
     exit()
     # headers = findAndReplaceInDict(headers, "{{payload1}}", "xinchao")
     # sendGetRequest(headers, body, params, url, HTTP_PROXY)
-    headerList = RequestOperation.batteringramModeDictInjection(payloads, headers)
-    paramList = RequestOperation.batteringramModeDictInjection(payloads, params)
-    bodyList = RequestOperation.batteringramModeStringInjection(payloads, body)
+    headerList = PayloadInjection.batteringramModeDictInjection(payloads, headers)
+    paramList = PayloadInjection.batteringramModeDictInjection(payloads, params)
+    bodyList = PayloadInjection.batteringramModeStringInjection(payloads, body)
     for header, param, body in zip(headerList, paramList, bodyList):
         # try:
         # sendGetRequest(header, body, param, url, HTTP_PROXY)
-        RequestOperation.RequestHandle.sendPostRequest(header, body, param, url, HTTP_PROXY)
+        PayloadInjection.RequestHandle.sendPostRequest(header, body, param, url, HTTP_PROXY)
         # except:
             # pass
         # print(x)

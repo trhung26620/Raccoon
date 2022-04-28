@@ -20,6 +20,17 @@ class DefaultRequestFiringConfig:
     allow_redirect = True
     proxy = {}
 
+class Parttern:
+    interactUrl = "{{interactsh-url}}"
+    baseUrl = "{{BaseURL}}"
+    rootUrl = "{{RootURL}}"
+    hostName = "{{Hostname}}"
+    host = "{{Host}}"
+    port = "{{Port}}"
+    fullPath = "{{FullPath}}"
+    path = "{{Path}}"
+    scheme = "{{Scheme}}"
+
 class AboutUs:
     version = "Racoon version 1.1.0"
     author = "Hung, Dat, Danh, Hoa"
