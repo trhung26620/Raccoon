@@ -6,7 +6,6 @@ class InteractShStaticValue:
     interactShPrimaryDomain = "interact.sh"
     maxPollingTime = 10
 
-
 class DefaultTemplateConfig:
     defaultRedirect = False
     defaultStopAtFirstMatch = False
@@ -14,11 +13,26 @@ class DefaultTemplateConfig:
     defaultInteractShUrl = ""  # no use of interactSh
     defaultThread = 10
     defaultCookieReuse = False
+    defaultMatchersCondition = "or"
 
 class DefaultRequestFiringConfig:
     defaultTimeout = 5
     allow_redirect = True
     proxy = {}
+
+class DefaultConfigMatcher:
+    defaultCondition = "or"
+    defaultPart = "all"
+    defaultNegative = False
+    defaultType = None
+    defaultSignature = None
+
+class DefaultConfigExtractor:
+    defaultType = None
+    defaultSignature = None
+    defaultPart = "all"
+    defaultInternal = False
+    defaultGroup = None
 
 class Parttern:
     interactUrl = "{{interactsh-url}}"

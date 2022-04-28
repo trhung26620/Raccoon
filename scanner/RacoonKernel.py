@@ -2,6 +2,7 @@ from concurrent.futures import ThreadPoolExecutor
 from scanner.RequestHandle import RequestHandle
 from scanner import PayloadInjection
 from utils.ConfigUtil import ConfigUtil
+from generator.ResponseGenerator import ResponseGenerator
 import requests
 
 class RacoonKernel:
@@ -13,10 +14,34 @@ class RacoonKernel:
 
     def fireRequestsAndAnalyzeResponse(self, dataReq, requestConfig, session=None):
         if dataReq["urlObj"].method.lower() == "get":
-            RequestHandle.sendGetRequest(dataReq, requestConfig, session)
-
+            try:
+                r = RequestHandle.sendGetRequest(dataReq, requestConfig, session)
+            except:
+                r = None
+            resObj = ResponseGenerator.generateResponseObject(r)
+            if resObj:
+                print(resObj.status)
+                print("*" * 50)
+                print(resObj.header)
+                print("*" * 50)
+                print(resObj.body)
+                print("*" * 50)
+                print(resObj.time)
+            else:
+                print("No data")
+            # print(r.text)
+            # print("*"*50)
+            # print(r.headers)
+            # print("*" * 50)
+            # print(r.status_code)
+            # print("*" * 50)
+            # print(r.content)
+            # print("*" * 50)
+            # print(r.url)
+            # print("*" * 50)
+            # print(r.raw.read())
         elif dataReq["urlObj"].method.lower() == "post":
-            RequestHandle.sendPostRequest(dataReq, requestConfig, session)
+            r = RequestHandle.sendPostRequest(dataReq, requestConfig, session)
 
         elif dataReq["urlObj"].method.lower() == "put":
             RequestHandle.sendPutRequest(dataReq, requestConfig)

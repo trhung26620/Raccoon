@@ -1,5 +1,5 @@
 class TemplateConfig:
-    def __init__(self, redirect, payload, thread, scanMode, interactSh, stopAtFirstMatch, cookieReuse):
+    def __init__(self, redirect, payload, thread, scanMode, interactSh, stopAtFirstMatch, cookieReuse, matchersCondition):
         self.redirect = redirect
         self.payload = payload
         self.thread = thread
@@ -11,6 +11,6 @@ class TemplateConfig:
         else:
             self.interactShUrl = None
         self.cookieReuse = cookieReuse
-
+        self.matchersCondition = matchersCondition
 
 
