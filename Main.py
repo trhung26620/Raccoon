@@ -6,6 +6,7 @@ from generator.TemplateConfigGenerator import TemplateConfigService
 from scanner.RacoonKernel import RacoonKernel
 from generator.RequestGenerator import RequestGenerator
 import urllib3
+from generator.InteractshGenerator import InteractshGenerator
 
 urllib3.disable_warnings()
 #127.0.0.1
@@ -108,24 +109,39 @@ if __name__ == "__main__":
     args = CommandUtil()
     args.argument()
     args.argumentHandling()
+
+    # interact = InteractSh()
+    # interact_url = interact.registerInteractShServer()
+    # print(interact_url)
+    # input()
+    # listObj = InteractshGenerator.generateInteractDataObjList(interact)
+    # if listObj:
+    #     for obj in listObj:
+    #         print(obj.protocol)
+    #         print(obj.request)
+    #         print(obj.response)
+    #         print("="*50)
+    # exit()
+
     config = TemplateConfigService.getObjTemplateConfigByTemplate(filePath)
     requests = RequestGenerator.generateRequestObject(filePath)
     matcherObjList = TemplateConfigService.generateMatcherObjectList(filePath)
     extractorObjList = TemplateConfigService.generateExtractorObjectList(filePath)
-    for matcherObj in matcherObjList:
-        print(matcherObj.type)
-        print(matcherObj.signature)
-        print(matcherObj.part)
-        print(matcherObj.negative)
-        print(matcherObj.condition)
-    print("+"*40)
-    for extractorObj in extractorObjList:
-        print(extractorObj.type)
-        print(extractorObj.signature)
-        print(extractorObj.part)
-        print(extractorObj.internal)
-        print(extractorObj.group)
-    exit()
+    # print(config.reqCondition)
+    # for matcherObj in matcherObjList:
+    #     print(matcherObj.type)
+    #     print(matcherObj.signature)
+    #     print(matcherObj.part)
+    #     print(matcherObj.negative)
+    #     print(matcherObj.condition)
+    # print("+"*40)
+    # for extractorObj in extractorObjList:
+    #     print(extractorObj.type)
+    #     print(extractorObj.signature)
+    #     print(extractorObj.part)
+    #     print(extractorObj.internal)
+    #     print(extractorObj.group)
+    # exit()
     # print(requests)
     racoon = RacoonKernel()
     racoon.racoonFlowControl(config, requests)
@@ -137,7 +153,7 @@ if __name__ == "__main__":
             print(dataList)
         else:
             print("hello")
-
+    exit()
     # data = TemplateConfigService.getObjTemplateConfigByTemplate(r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\demo template\addBodyJsonAndQueryToCVE44228.yaml")
 
     # print(data.scanMode)

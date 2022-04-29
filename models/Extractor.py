@@ -1,3 +1,5 @@
+from config.StaticData import DefaultConfigExtractor
+
 class Extractor:
     def __init__(self, type, signature, part, internal, group):
         self.type = self.checkValidType(type)
@@ -11,12 +13,12 @@ class Extractor:
         if type in validType:
             return type
         else:
-            return None
+            return DefaultConfigExtractor.defaultType
 
     def checkValidPart(self, part):
         validPart = ["header", "body", "all"]
         if part in validPart:
             return part
         else:
-            return "all"
+            return DefaultConfigExtractor.defaultPart
 

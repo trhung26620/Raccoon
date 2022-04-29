@@ -4,7 +4,7 @@ class InteractShStaticValue:
     PollDataApi = "https://interact.sh/poll?"
     PollDataTimeOut = 5
     interactShPrimaryDomain = "interact.sh"
-    maxPollingTime = 10
+    maxPollingTime = 5
 
 class DefaultTemplateConfig:
     defaultRedirect = False
@@ -14,6 +14,7 @@ class DefaultTemplateConfig:
     defaultThread = 10
     defaultCookieReuse = False
     defaultMatchersCondition = "or"
+    defaultRequestCondition = False
 
 class DefaultRequestFiringConfig:
     defaultTimeout = 5
@@ -22,7 +23,7 @@ class DefaultRequestFiringConfig:
 
 class DefaultConfigMatcher:
     defaultCondition = "or"
-    defaultPart = "all"
+    defaultPart = "body"
     defaultNegative = False
     defaultType = None
     defaultSignature = None
@@ -30,7 +31,7 @@ class DefaultConfigMatcher:
 class DefaultConfigExtractor:
     defaultType = None
     defaultSignature = None
-    defaultPart = "all"
+    defaultPart = "body"
     defaultInternal = False
     defaultGroup = None
 

@@ -47,8 +47,12 @@ class TemplateConfigService:
                 matchers_condition = templateRequest["matchers-condition"].lower()
             else:
                 matchers_condition = DefaultTemplateConfig.defaultMatchersCondition
+            if "requestCondition" in templateRequest:
+                reqCondition = templateRequest["requestCondition"]
+            else:
+                reqCondition = DefaultTemplateConfig.defaultRequestCondition
             payload = PayloadGenerator.generatePayloadObjFromTemplate(templateFilePath)
-            objTemplateConfig = TemplateConfig(redirect, payload, thread, scanMode, interactSh, stopAtFirstMatch, cookieReuse, matchers_condition)
+            objTemplateConfig = TemplateConfig(redirect, payload, thread, scanMode, interactSh, stopAtFirstMatch, cookieReuse, matchers_condition, reqCondition)
             return objTemplateConfig
         except yaml.YAMLError as error:
             print("[Debug - TemplateConfigService] Error: " + error)

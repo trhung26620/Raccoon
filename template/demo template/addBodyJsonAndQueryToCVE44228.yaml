@@ -72,18 +72,26 @@ requests:
     scanMode: pitchfork
     stopAtFirstMatch: true
     matchers-condition: and
-    cookieReuse: false
+    cookieReuse: true
+    requestCondition: true
     matchers:
+#      - type: word
+#        part: interactsh_protocol  # Confirms the DNS Interaction
+#        word:
+#          - "dns"
+#
+#      - type: regex
+#        part: interactsh_request
+#        regex:
+#          - '([a-zA-Z0-9\.\-]+)\.([a-z0-9]+)\.([a-z0-9]+)\.([a-z0-9]+)\.\w+'   # Print extracted ${hostName} in output
+
       - type: word
-        part: interactsh_protocol  # Confirms the DNS Interaction
         word:
-          - "dns"
-
-      - type: regex
-        part: interactsh_request
-        regex:
-          - '([a-zA-Z0-9\.\-]+)\.([a-z0-9]+)\.([a-z0-9]+)\.([a-z0-9]+)\.\w+'   # Print extracted ${hostName} in output
-
+          - CORS POC Exploit
+          - Extract SID
+        condition: and
+        negative: false
+        part: all
     extractors:
       - type: kval
         kval:

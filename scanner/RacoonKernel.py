@@ -3,6 +3,8 @@ from scanner.RequestHandle import RequestHandle
 from scanner import PayloadInjection
 from utils.ConfigUtil import ConfigUtil
 from generator.ResponseGenerator import ResponseGenerator
+from generator.TemplateConfigGenerator import TemplateConfigService
+from utils.MatcherUtil import MatcherUtil
 import requests
 
 class RacoonKernel:
@@ -12,34 +14,34 @@ class RacoonKernel:
             for dataReq in dataReqList:
                 threads.append(executor.submit(self.fireRequestsAndAnalyzeResponse, dataReq, requestConfig))
 
+    def hamTestSauNaySeXoa(self, r):
+        filePath = r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\demo template\addBodyJsonAndQueryToCVE44228.yaml"
+        matcherObjList = TemplateConfigService.generateMatcherObjectList(filePath)
+        extractorObjList = TemplateConfigService.generateExtractorObjectList(filePath)
+        # print(matcherObjList)
+        for matcherObj in matcherObjList:
+            if matcherObj.type == "status":
+                result = MatcherUtil.statusMatchResultList(r.status, matcherObj.signature)
+                print(result)
+                result = MatcherUtil.finalMatchResult(result, matcherObj.condition, matcherObj.negative)
+                print(result)
+            # elif matcherObj.type == "word":
+            if matcherObj.type == "word":
+                result = MatcherUtil.wordMatchResultList(r, matcherObj.signature, matcherObj.part)
+                result = MatcherUtil.finalMatchResult(result, matcherObj.condition, matcherObj.negative)
+                print(result)
+
     def fireRequestsAndAnalyzeResponse(self, dataReq, requestConfig, session=None):
         if dataReq["urlObj"].method.lower() == "get":
             try:
                 r = RequestHandle.sendGetRequest(dataReq, requestConfig, session)
             except:
                 r = None
-            resObj = ResponseGenerator.generateResponseObject(r)
-            if resObj:
-                print(resObj.status)
-                print("*" * 50)
-                print(resObj.header)
-                print("*" * 50)
-                print(resObj.body)
-                print("*" * 50)
-                print(resObj.time)
+            if r != None:
+                resObj = ResponseGenerator.generateResponseObject(r)
+                self.hamTestSauNaySeXoa(resObj)
             else:
-                print("No data")
-            # print(r.text)
-            # print("*"*50)
-            # print(r.headers)
-            # print("*" * 50)
-            # print(r.status_code)
-            # print("*" * 50)
-            # print(r.content)
-            # print("*" * 50)
-            # print(r.url)
-            # print("*" * 50)
-            # print(r.raw.read())
+                print("Muc tieu khong phan hoi")
         elif dataReq["urlObj"].method.lower() == "post":
             r = RequestHandle.sendPostRequest(dataReq, requestConfig, session)
 
