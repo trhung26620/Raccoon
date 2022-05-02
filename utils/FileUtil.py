@@ -6,8 +6,6 @@ class FileUtil:
         try:
             isFileExist = os.path.isfile(filePath)
             payloadValues = []
-            # print(isFileExist)
-            # exit()
             if isFileExist:
                 fileObject = open(filePath, "r")
                 for payloadValue in fileObject:
