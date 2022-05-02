@@ -3,7 +3,7 @@ from scanner.CommandHandle import CommandUtil
 from generator.PayloadGenerator import PayloadGenerator
 from services.InteractShService import InteractSh
 from generator.TemplateConfigGenerator import TemplateConfigService
-from scanner.RacoonKernel import RacoonKernel
+from scanner.RaccoonKernel import RaccoonKernel
 from generator.RequestGenerator import RequestGenerator
 import urllib3
 from generator.InteractshGenerator import InteractshGenerator
@@ -127,6 +127,10 @@ if __name__ == "__main__":
     requests = RequestGenerator.generateRequestObject(filePath)
     matcherObjList = TemplateConfigService.generateMatcherObjectList(filePath)
     extractorObjList = TemplateConfigService.generateExtractorObjectList(filePath)
+    # for k, v in requests.items():
+    #     for req in v:
+    #         print(req.position)
+    # exit()
     # print(config.reqCondition)
     # for matcherObj in matcherObjList:
     #     print(matcherObj.type)
@@ -143,16 +147,16 @@ if __name__ == "__main__":
     #     print(extractorObj.group)
     # exit()
     # print(requests)
-    racoon = RacoonKernel()
-    racoon.racoonFlowControl(config, requests)
-    if config.interactSh:
-        data, aes_key = config.interactSh.pollDataFromWeb()
-        if aes_key:
-            key = config.interactSh.decryptAESKey(aes_key)
-            dataList = config.interactSh.decryptMessage(key, data)
-            print(dataList)
-        else:
-            print("hello")
+    raccoon = RaccoonKernel()
+    raccoon.raccoonFlowControl(config, requests)
+    # if config.interactSh:
+    #     data, aes_key = config.interactSh.pollDataFromWeb()
+    #     if aes_key:
+    #         key = config.interactSh.decryptAESKey(aes_key)
+    #         dataList = config.interactSh.decryptMessage(key, data)
+    #         print(dataList)
+    #     else:
+    #         print("hello")
     exit()
     # data = TemplateConfigService.getObjTemplateConfigByTemplate(r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\demo template\addBodyJsonAndQueryToCVE44228.yaml")
 

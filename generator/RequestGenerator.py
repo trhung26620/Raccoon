@@ -143,6 +143,7 @@ class RequestGenerator:
         requestDict = RequestGenerator.replace_parameter(TemplateUtil.readTemplate(templateFilePath))
         reqObjectDict = dict()
         for baseUrl, reqList in requestDict.items():
+            count = 1
             reqObjectList = []
             for req in reqList:
                 dataReq = RequestGenerator.analystRequest(req, baseUrl)
@@ -150,8 +151,9 @@ class RequestGenerator:
                     url = Url(dataReq["schema"], dataReq["method"], dataReq["host"], dataReq["path"], dataReq["paramPath"], dataReq["url"])
                     header = Header(dataReq["headers"])
                     body = Body(dataReq["body"])
-                    request = Request(url, header, body)
+                    request = Request(url, header, body, count)
                     reqObjectList.append(request)
+                    count += 1
             reqObjectDict[baseUrl] = reqObjectList
         return reqObjectDict
 

@@ -7,49 +7,73 @@ from generator.TemplateConfigGenerator import TemplateConfigService
 from utils.MatcherUtil import MatcherUtil
 import requests
 
-class RacoonKernel:
+class RaccoonKernel:
     def runner(self, dataReqList, requestConfig):
         threads = []
         with ThreadPoolExecutor(max_workers=requestConfig.thread) as executor:
             for dataReq in dataReqList:
                 threads.append(executor.submit(self.fireRequestsAndAnalyzeResponse, dataReq, requestConfig))
 
-    def hamTestSauNaySeXoa(self, r):
+    def matcherProcess(self, response, requestConfig):
         filePath = r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\demo template\addBodyJsonAndQueryToCVE44228.yaml"
         matcherObjList = TemplateConfigService.generateMatcherObjectList(filePath)
-        extractorObjList = TemplateConfigService.generateExtractorObjectList(filePath)
-        # print(matcherObjList)
+        # extractorObjList = TemplateConfigService.generateExtractorObjectList(filePath)
+        matcherResultList = list()
+
+        if requestConfig.interactSh:
+            dataInteractsh, aes_key = requestConfig.interactSh.pollDataFromWeb()
+            if aes_key:
+                key = requestConfig.interactSh.decryptAESKey(aes_key)
+                dataList = requestConfig.interactSh.decryptMessage(key, dataInteractsh)
+
         for matcherObj in matcherObjList:
             if matcherObj.type == "status":
-                result = MatcherUtil.statusMatchResultList(r.status, matcherObj.signature)
-                print(result)
+                result = MatcherUtil.statusMatchResultList(response.status, matcherObj.signature)
                 result = MatcherUtil.finalMatchResult(result, matcherObj.condition, matcherObj.negative)
-                print(result)
-            # elif matcherObj.type == "word":
-            if matcherObj.type == "word":
-                result = MatcherUtil.wordMatchResultList(r, matcherObj.signature, matcherObj.part)
+                matcherResultList.append(result)
+            elif matcherObj.type == "word":
+                result = MatcherUtil.wordMatchResultList(response, matcherObj.signature, matcherObj.part, dataList)
                 result = MatcherUtil.finalMatchResult(result, matcherObj.condition, matcherObj.negative)
-                print(result)
+                matcherResultList.append(result)
+            elif matcherObj.type == "time":
+                result = MatcherUtil.timeMatchResultList(response.time, matcherObj.signature)
+                result = MatcherUtil.finalMatchResult(result, matcherObj.condition, matcherObj.negative)
+                matcherResultList.append(result)
+            elif matcherObj.type == "regex":
+                result = MatcherUtil.regexMatchResultList(response, matcherObj.signature, matcherObj.part, dataList)
+                result = MatcherUtil.finalMatchResult(result, matcherObj.condition, matcherObj.negative)
+                matcherResultList.append(result)
+        return MatcherUtil.matchResultWithCondition(matcherResultList, requestConfig.matchersCondition)
 
     def fireRequestsAndAnalyzeResponse(self, dataReq, requestConfig, session=None):
         if dataReq["urlObj"].method.lower() == "get":
             try:
-                r = RequestHandle.sendGetRequest(dataReq, requestConfig, session)
+                r, position = RequestHandle.sendGetRequest(dataReq, requestConfig, session)
+                # print(position)
             except:
                 r = None
             if r != None:
-                resObj = ResponseGenerator.generateResponseObject(r)
-                self.hamTestSauNaySeXoa(resObj)
+                resObj = ResponseGenerator.generateResponseObject(r, position)
+                matcherResult = self.matcherProcess(resObj, requestConfig)
+                print(matcherResult)
             else:
                 print("Muc tieu khong phan hoi")
         elif dataReq["urlObj"].method.lower() == "post":
-            r = RequestHandle.sendPostRequest(dataReq, requestConfig, session)
-
-        elif dataReq["urlObj"].method.lower() == "put":
-            RequestHandle.sendPutRequest(dataReq, requestConfig)
-
-        elif dataReq["urlObj"].method.lower() == "delete":
-            RequestHandle.sendDeleteRequest(dataReq, requestConfig)
+            try:
+                r, position = RequestHandle.sendPostRequest(dataReq, requestConfig, session)
+            except:
+                r = None
+            if r != None:
+                resObj = ResponseGenerator.generateResponseObject(r, position)
+                matcherResult = self.matcherProcess(resObj, requestConfig)
+                print(matcherResult)
+            else:
+                print("Muc tieu khong phan hoi")
+        # elif dataReq["urlObj"].method.lower() == "put":
+        #     RequestHandle.sendPutRequest(dataReq, requestConfig)
+        #
+        # elif dataReq["urlObj"].method.lower() == "delete":
+        #     RequestHandle.sendDeleteRequest(dataReq, requestConfig)
 
     def fireRequestWithCookieReuse(self, requestConfigObj, requestObjDict):
         session = requests.Session()
@@ -77,7 +101,7 @@ class RacoonKernel:
                 dataReqList = PayloadInjection.getDataRequestWithoutPayloads(requestObjList)
                 self.runner(dataReqList, requestConfigObj)
 
-    def racoonFlowControl(self, requestConfigObj, requestObjDict):
+    def raccoonFlowControl(self, requestConfigObj, requestObjDict):
         PayloadInjection.injectInteractShUrl(requestConfigObj, requestObjDict)
         if requestConfigObj.cookieReuse:
             self.fireRequestWithCookieReuse(requestConfigObj, requestObjDict)

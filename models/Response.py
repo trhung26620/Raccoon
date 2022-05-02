@@ -1,10 +1,11 @@
 class Response:
-    def __init__(self, status, header, body, time):
+    def __init__(self, status, header, body, time, position):
         self.status = status
         self.header = self.getRawHeader(header)
         self.body = body
         self.time = time
         self.headerAndBody = self.header + "\n" + self.body
+        self.position = position
 
     def getRawHeader(self, headerDict):
         raw_header = ""

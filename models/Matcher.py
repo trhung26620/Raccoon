@@ -9,14 +9,14 @@ class Matcher:
         self.negative = negative
 
     def checkValidType(self, type):
-        validType = ["word", "regex", "dsl","status", "size"]
+        validType = ["word", "regex", "dsl","status", "size", "time"]
         if type in validType:
             return type
         else:
             return DefaultConfigMatcher.defaultType
 
     def checkValidPart(self, part):
-        validPart = ["header", "body", "all"]
+        validPart = ["header", "body", "all", "interactsh_protocol", "interactsh_request", "interactsh_response"]
         if part in validPart:
             return part
         else:

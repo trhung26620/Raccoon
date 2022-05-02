@@ -43,8 +43,8 @@ class TemplateConfigService:
                 cookieReuse = templateRequest["cookieReuse"]
             else:
                 cookieReuse = DefaultTemplateConfig.defaultCookieReuse
-            if "matchers-condition" in templateRequest:
-                matchers_condition = templateRequest["matchers-condition"].lower()
+            if "matchersCondition" in templateRequest:
+                matchers_condition = templateRequest["matchersCondition"].lower()
             else:
                 matchers_condition = DefaultTemplateConfig.defaultMatchersCondition
             if "requestCondition" in templateRequest:
