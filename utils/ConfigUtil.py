@@ -1,4 +1,4 @@
-import os, yaml
+import yaml
 from pathlib import Path
 from utils.TemplateUtil import TemplateUtil
 
@@ -9,9 +9,14 @@ class ConfigUtil:
             f_config = open(Path(__file__).parent /'..\config\config.yaml', 'r')
             config = yaml.load(f_config, Loader=yaml.FullLoader)
             return config
-        except FileNotFoundError:
-            print("Config file not found")
-            exit()
+        except:
+            try:
+                f_config = open(Path(__file__).parent / '../config/config.yaml', 'r')
+                config = yaml.load(f_config, Loader=yaml.FullLoader)
+                return config
+            except FileNotFoundError:
+                print("Config file not found")
+                exit()
 
     @staticmethod
     def filterTemplateWithId(ids, templatePathList):

@@ -93,25 +93,18 @@ class MatcherUtil:
     def getResponseByPart(responseObject, part, interactshDataList):
         if responseObject and part:
             data = ""
-            # if part == "header":
             if "header" in part:
                 data = responseObject.header
-            # elif part == "body":
             elif "body" in part:
                 data = responseObject.body
-            # elif part == "all":
             elif "all" in part:
                 data =responseObject.headerAndBody
-            # elif part == "interactsh_protocol" or part == "interactsh_request" or part == "interactsh_response":
             elif "interactsh_protocol" in part or "interactsh_request" in part or "interactsh_response" in part:
                 if interactshDataList:
-                    # if part == "interactsh_protocol":
                     if "interactsh_protocol" in part:
                         data = MatcherUtil.concatProtocolInteractsh(interactshDataList)
-                    # elif part == "interactsh_request":
                     elif "interactsh_request" in part:
                         data = MatcherUtil.concatRequestInteractsh(interactshDataList)
-                    # elif part == "interactsh_response":
                     elif "interactsh_response" in part:
                         data = MatcherUtil.concatResponseInteractsh(interactshDataList)
                 else:

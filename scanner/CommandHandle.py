@@ -20,7 +20,6 @@ class CommandUtil:
         parser.add_argument("--severity", "-s",help="Specify templates based on severities. Possible values: info, low, medium, high, critical.", required=False)
         parser.add_argument("--author", "-a",help="Execute templates that are (co-)created by the specified authors.", required=False)
         parser.add_argument("--output-file", "-o", help="Specify file path to write info and result during scanning to a file.", required=False)
-        # parser.add_argument("--include-rr", "-irr", help="Include request/response pairs in output.", required=False, action="store_true")
         parser.add_argument("--thread", "-T", help="Max number of concurrent HTTP(s) requests (default 10)", required=False)
         parser.add_argument("--interactsh-server", "-is", help="Specify an interactsh server url for self-hosted instance. (Warning: We can not analyze or parse result with this option)", required=False)
         parser.add_argument("--timeout", help="Time to wait in seconds before timeout (default 5).", required=False)
@@ -57,7 +56,7 @@ class CommandUtil:
             if os.path.isdir(path):
                 files = glob.glob(path + '/**/*.yaml', recursive=True)
                 config_yaml['templates'] = files
-            elif os.path.isfile(path) and path.endwith(".yaml"):
+            elif os.path.isfile(path) and path.endswith(".yaml"):
                 config_yaml['templates'] = [path]
             else:
                 print("invalid file")
@@ -79,11 +78,6 @@ class CommandUtil:
             config_yaml["output_file"] = self.args.output_file
         else:
             config_yaml["output_file"] = None
-
-        # if self.args.include_rr:
-        #     config_yaml["include_rr"] = self.args.include_rr
-        # else:
-        #     config_yaml["include_rr"] = False
 
         if self.args.thread:
             config_yaml['thread'] = self.args.thread

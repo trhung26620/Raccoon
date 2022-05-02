@@ -1,7 +1,6 @@
 import itertools
 from utils.ExtendedUtil import ExtendedUtil
 from config.StaticData import Parttern
-# import Util
 
 def batteringramModeDictInjection(payloadDict, dataDict):
     if len(payloadDict) != 1:

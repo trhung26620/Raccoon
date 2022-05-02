@@ -23,7 +23,6 @@ class TemplateUtil:
         info_content = yaml_content['info']
         return info_content
 
-    # return payload value
     @staticmethod
     def readPayloadsField(templateFilePath):
         yaml_content = TemplateUtil.readTemplate(templateFilePath)
@@ -41,11 +40,6 @@ class TemplateUtil:
             return payloadDict
         except:
             return None
-
-    # @staticmethod
-    # def loadSelectedTemplatePath(templateFilePath):
-    #     DefaultTemplateConfig.
-
 
 
 

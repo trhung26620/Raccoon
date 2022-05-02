@@ -7,7 +7,6 @@ from Crypto.PublicKey import RSA
 from termcolor import colored, cprint
 import requests
 from config.StaticData import InteractShStaticValue
-import urllib3
 import random, string
 from utils.ConfigUtil import ConfigUtil
 
@@ -17,9 +16,7 @@ class InteractSh:
         self.secret = str(uuid.uuid4())
         self.subDomain = ''.join(random.choice(string.ascii_lowercase + string.digits) for i in range(33))
         self.httpProxy = ConfigUtil.readConfig()["proxy"]
-        urllib3.disable_warnings()      # disable TSL/SSL warning
 
-    # return url format: randomStr.interact.sh
     def registerInteractShServer(self):
         pubkey = self.key.public_key().exportKey()
         publicKey = base64.b64encode(pubkey).decode()
@@ -40,12 +37,9 @@ class InteractSh:
         if registerSuccessSignature in registerCall.content.decode():
             interactUrl = self.subDomain + "." + InteractShStaticValue.interactShPrimaryDomain
             cprint("\n[*] Registered interactSh successfully", "blue")
-            # self.util.saveResult("\n[*] Registered interactSh successfully")  # implement later
             cprint("    [•] Interact URL: " + interactUrl, "cyan")
-            # self.util.saveResult("    [•] Interact URL: " + interact_url)     # implement later
         else:
             cprint("\n[*] Error while registering interactSh", "red")
-            # self.util.saveResult("\n[*] Error while registering interactSh")  # implement later
             exit()
         return interactUrl
 
@@ -60,7 +54,6 @@ class InteractSh:
         session.allow_redirects = True
         maxPollingTime = InteractShStaticValue.maxPollingTime
         cprint("\n[*] Waiting for a response(up to " + str(2 * maxPollingTime) + " seconds)...\n", "yellow")
-        # self.util.saveResult("\n[*] Waiting for a response(up to " + str(2 * maxPollingTime) + " seconds)...\n")  # implement later
         isError = False
         for second in range(maxPollingTime):
             isError = False
@@ -69,20 +62,15 @@ class InteractSh:
                 fetchData = session.get(url=InteractShStaticValue.PollDataApi + queryStr, timeout=InteractShStaticValue.PollDataTimeOut)
             except TimeoutError:
                 cprint("\n[*] Interactsh not responding", "red")
-                # self.util.saveResult("\n[*] InteractSh not responding")        # implement later
                 if second < maxPollingTime - 1:
                     cprint("\n[*] Trying again...", "yellow")
-                    # self.util.saveResult("\n[*] Trying again...")         # implement later
                     isError = True
                     continue
             responseJson = fetchData.json()
 
             if responseJson is None:
-                # print("[Debug - InteractSh-Service] No Response ")
                 isError = True
                 break
-            # else:
-            #     print("[Debug - InteractSh-Service] Response: " + str(responseJson))
 
             if "error" in responseJson:
                 isError = True
@@ -98,17 +86,13 @@ class InteractSh:
         else:
             return None, None
 
-    # Decrypt key from interactSh server
     def decryptAESKey(self, aes_Key):
         privateKey = RSA.import_key(self.key.export_key())
-        # print("[Debug - InteractSh Service] Private key: " + str(self.key.export_key()))
         rsaKey = PKCS1_OAEP.new(key=privateKey, hashAlgo=SHA256)
         rawAESKey = base64.b64decode(aes_Key)
         decryptAESKey = rsaKey.decrypt(rawAESKey)
-        # print("[Debug - InteractSh Service] Decrypted AES key: " + str(decryptAESKey))
         return base64.b64encode(decryptAESKey).decode()
 
-    # Decrypt message from interactSh server (return plaintext)
     @staticmethod
     def decryptMessage(aesKey, dataList):
         if dataList:

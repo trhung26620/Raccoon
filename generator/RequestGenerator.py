@@ -1,9 +1,5 @@
 import sys
-from operator import mod
-import os, yaml
 from urllib.parse import urlparse, parse_qs
-from re import template
-from pathlib import Path
 sys.path.append('../')
 from utils.TemplateUtil import TemplateUtil
 from utils.ConfigUtil import ConfigUtil
@@ -13,8 +9,6 @@ from models.Body import Body
 from models.Request import Request
 import re
 from config.StaticData import Parttern
-# import json
-
 
 class RequestGenerator:
     @staticmethod
@@ -59,7 +53,6 @@ class RequestGenerator:
             list_of_components_url.append(components_url)
         return list_of_components_url
 
-    # Hàm này sẽ nhận một cấu trúc request đầy đủ người dùng cung cấp, sau đó phân tích từng thành phần trong request và trả về giá trị như header, url, query, body, method,...
     @staticmethod
     def analystRequest(req, baseUrl):
         method = None

@@ -4,7 +4,7 @@ class InteractShStaticValue:
     PollDataApi = "https://interact.sh/poll?"
     PollDataTimeOut = 5
     interactShPrimaryDomain = "interact.sh"
-    maxPollingTime = 5
+    maxPollingTime = 3
 
 class DefaultTemplateConfig:
     defaultRedirect = False

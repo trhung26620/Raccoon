@@ -16,9 +16,7 @@ class RaccoonKernel:
                 threads.append(executor.submit(self.fireRequestsAndAnalyzeResponse, dataReq, requestConfig))
 
     def matcherProcess(self, response, requestConfig):
-        # filePath = r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\demo template\addBodyJsonAndQueryToCVE44228.yaml"
         matcherObjList = TemplateConfigService.generateMatcherObjectList(Template.templatePath, requestConfig.reqCondition)
-        # extractorObjList = TemplateConfigService.generateExtractorObjectList(filePath)
         matcherResultList = list()
         dataList = None
         if requestConfig.interactSh:
@@ -54,31 +52,26 @@ class RaccoonKernel:
     def fireRequestsAndAnalyzeResponse(self, dataReq, requestConfig, session=None):
         if dataReq["urlObj"].method.lower() == "get":
             try:
-                r, position = RequestHandle.sendGetRequest(dataReq, requestConfig, session)
+                response, position = RequestHandle.sendGetRequest(dataReq, requestConfig, session)
             except:
-                r = None
-            if r != None:
-                resObj = ResponseGenerator.generateResponseObject(r, position)
+                response = None
+            if response != None:
+                resObj = ResponseGenerator.generateResponseObject(response, position)
                 matcherResult = self.matcherProcess(resObj, requestConfig)
                 print(matcherResult)
             else:
                 print("Muc tieu khong phan hoi")
         elif dataReq["urlObj"].method.lower() == "post":
             try:
-                r, position = RequestHandle.sendPostRequest(dataReq, requestConfig, session)
+                response, position = RequestHandle.sendPostRequest(dataReq, requestConfig, session)
             except:
-                r = None
-            if r != None:
-                resObj = ResponseGenerator.generateResponseObject(r, position)
+                response = None
+            if response != None:
+                resObj = ResponseGenerator.generateResponseObject(response, position)
                 matcherResult = self.matcherProcess(resObj, requestConfig)
                 print(matcherResult)
             else:
                 print("Muc tieu khong phan hoi")
-        # elif dataReq["urlObj"].method.lower() == "put":
-        #     RequestHandle.sendPutRequest(dataReq, requestConfig)
-        #
-        # elif dataReq["urlObj"].method.lower() == "delete":
-        #     RequestHandle.sendDeleteRequest(dataReq, requestConfig)
 
     def fireRequestWithCookieReuse(self, requestConfigObj, requestObjDict):
         session = requests.Session()
