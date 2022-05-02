@@ -63,8 +63,10 @@ requests:
          username={{users}}{{Port}}&passwd={{passwords}}
 
     payloads:
-      users: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\users.txt
-      passwords: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\passwords.txt
+#      users: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\users.txt
+#      passwords: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\passwords.txt
+      users: /mnt/d/FPT LEARNING/Graduation Thesis/Scanner/Injection-Tool/template/fuzzing/users.txt
+      passwords: /mnt/d/FPT LEARNING/Graduation Thesis/Scanner/Injection-Tool/template/fuzzing/passwords.txt
 #      Hostname: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\users.txt
 #      Scheme: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\passwords.txt
     redirect: true

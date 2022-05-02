@@ -14,5 +14,5 @@ url:
 - ftp://103.90.227.30:81/
 - ftp://192.168.1.1
 - http://127.0.0.1/
-- ftp://domainbayba.com
+- http://domainbayba.com
 verbose: false

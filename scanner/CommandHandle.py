@@ -120,6 +120,8 @@ class CommandUtil:
         else:
             config_yaml['verbose'] = False
 
-        with open(r'config\config.yaml', 'w') as file:
+        configFilePath = os.path.join('config', 'config.yaml')
+        # with open(r'config\config.yaml', 'w') as file:
+        with open(configFilePath, 'w') as file:
             documents = yaml.dump(config_yaml, file)
 

@@ -4,8 +4,8 @@ output_file: null
 proxy: {}
 retries: 0
 templates:
-- .\template\demo template\addBodyJsonAndQueryToCVE44228.yaml
-- .\template\demo template\test.yaml
+- template/demo template/addBodyJsonAndQueryToCVE44228.yaml
+- template/demo template/test.yaml
 thread: null
 timeout: 5
 url:
@@ -13,6 +13,7 @@ url:
 - ftp://stackoverflow.com/credential/abcxyz/?abc=xyz
 - ftp://103.90.227.30:81/
 - ftp://192.168.1.1
-- http://127.0.0.1/
+- ftp://127.0.0.1/
+- http://172.21.32.1
 - ftp://domainbayba.com
 verbose: false
