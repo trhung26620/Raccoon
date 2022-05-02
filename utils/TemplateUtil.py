@@ -1,7 +1,6 @@
 import os, yaml
 from utils.FileUtil import FileUtil
 
-
 class TemplateUtil:
     @staticmethod
     def readTemplate(templateFilePath):
@@ -42,6 +41,10 @@ class TemplateUtil:
             return payloadDict
         except:
             return None
+
+    # @staticmethod
+    # def loadSelectedTemplatePath(templateFilePath):
+    #     DefaultTemplateConfig.
 
 
 

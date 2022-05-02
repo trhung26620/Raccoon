@@ -1,4 +1,4 @@
-from scanner import PayloadInjection
+# from scanner import PayloadInjection
 from scanner.CommandHandle import CommandUtil
 from generator.PayloadGenerator import PayloadGenerator
 from services.InteractShService import InteractSh
@@ -6,6 +6,8 @@ from generator.TemplateConfigGenerator import TemplateConfigService
 from scanner.RaccoonKernel import RaccoonKernel
 from generator.RequestGenerator import RequestGenerator
 import urllib3
+from config.StaticData import Template
+
 from generator.InteractshGenerator import InteractshGenerator
 
 urllib3.disable_warnings()
@@ -109,6 +111,9 @@ if __name__ == "__main__":
     args = CommandUtil()
     args.argument()
     args.argumentHandling()
+    Template.templatePath = filePath
+    # print(Template.templatePath)
+    # exit()
 
     # interact = InteractSh()
     # interact_url = interact.registerInteractShServer()
@@ -125,8 +130,8 @@ if __name__ == "__main__":
 
     config = TemplateConfigService.getObjTemplateConfigByTemplate(filePath)
     requests = RequestGenerator.generateRequestObject(filePath)
-    matcherObjList = TemplateConfigService.generateMatcherObjectList(filePath)
-    extractorObjList = TemplateConfigService.generateExtractorObjectList(filePath)
+    # matcherObjList = TemplateConfigService.generateMatcherObjectList(filePath)
+    # extractorObjList = TemplateConfigService.generateExtractorObjectList(filePath)
     # for k, v in requests.items():
     #     for req in v:
     #         print(req.position)

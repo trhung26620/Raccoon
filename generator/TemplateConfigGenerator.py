@@ -58,7 +58,7 @@ class TemplateConfigService:
             print("[Debug - TemplateConfigService] Error: " + error)
 
     @staticmethod
-    def generateMatcherObjectList(templateFilePath):
+    def generateMatcherObjectList(templateFilePath, reqCondition):
         templateRequest = TemplateUtil.readRequestTemplate(templateFilePath)
         matcherList = templateRequest["matchers"]
         matcherObjectList = list()
@@ -84,7 +84,7 @@ class TemplateConfigService:
                 negative = matcher["negative"]
             else:
                 negative = DefaultConfigMatcher.defaultNegative
-            matcherObj = Matcher(type, signature, part, condition, negative)
+            matcherObj = Matcher(type, signature, part, condition, negative, reqCondition)
             matcherObjectList.append(matcherObj)
         return matcherObjectList
 

@@ -2,7 +2,6 @@ import os
 
 
 class FileUtil:
-
     @staticmethod
     def readPayloadFromFile(filePath):
         try:

@@ -17,7 +17,7 @@ class DefaultTemplateConfig:
     defaultRequestCondition = False
 
 class DefaultRequestFiringConfig:
-    defaultTimeout = 5
+    defaultTimeout = 10
     allow_redirect = True
     proxy = {}
 
@@ -34,6 +34,9 @@ class DefaultConfigExtractor:
     defaultPart = "body"
     defaultInternal = False
     defaultGroup = None
+
+class Template:
+    templatePath = None
 
 class Parttern:
     interactUrl = "{{interactsh-url}}"

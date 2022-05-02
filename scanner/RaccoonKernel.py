@@ -5,6 +5,7 @@ from utils.ConfigUtil import ConfigUtil
 from generator.ResponseGenerator import ResponseGenerator
 from generator.TemplateConfigGenerator import TemplateConfigService
 from utils.MatcherUtil import MatcherUtil
+from config.StaticData import Template
 import requests
 
 class RaccoonKernel:
@@ -15,41 +16,45 @@ class RaccoonKernel:
                 threads.append(executor.submit(self.fireRequestsAndAnalyzeResponse, dataReq, requestConfig))
 
     def matcherProcess(self, response, requestConfig):
-        filePath = r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\demo template\addBodyJsonAndQueryToCVE44228.yaml"
-        matcherObjList = TemplateConfigService.generateMatcherObjectList(filePath)
+        # filePath = r"D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\demo template\addBodyJsonAndQueryToCVE44228.yaml"
+        matcherObjList = TemplateConfigService.generateMatcherObjectList(Template.templatePath, requestConfig.reqCondition)
         # extractorObjList = TemplateConfigService.generateExtractorObjectList(filePath)
         matcherResultList = list()
-
+        dataList = None
         if requestConfig.interactSh:
             dataInteractsh, aes_key = requestConfig.interactSh.pollDataFromWeb()
             if aes_key:
                 key = requestConfig.interactSh.decryptAESKey(aes_key)
                 dataList = requestConfig.interactSh.decryptMessage(key, dataInteractsh)
-
+        defaultPart = ["header", "body", "all", "interactsh_protocol", "interactsh_request", "interactsh_response"]
         for matcherObj in matcherObjList:
-            if matcherObj.type == "status":
-                result = MatcherUtil.statusMatchResultList(response.status, matcherObj.signature)
-                result = MatcherUtil.finalMatchResult(result, matcherObj.condition, matcherObj.negative)
-                matcherResultList.append(result)
-            elif matcherObj.type == "word":
-                result = MatcherUtil.wordMatchResultList(response, matcherObj.signature, matcherObj.part, dataList)
-                result = MatcherUtil.finalMatchResult(result, matcherObj.condition, matcherObj.negative)
-                matcherResultList.append(result)
-            elif matcherObj.type == "time":
-                result = MatcherUtil.timeMatchResultList(response.time, matcherObj.signature)
-                result = MatcherUtil.finalMatchResult(result, matcherObj.condition, matcherObj.negative)
-                matcherResultList.append(result)
-            elif matcherObj.type == "regex":
-                result = MatcherUtil.regexMatchResultList(response, matcherObj.signature, matcherObj.part, dataList)
-                result = MatcherUtil.finalMatchResult(result, matcherObj.condition, matcherObj.negative)
-                matcherResultList.append(result)
-        return MatcherUtil.matchResultWithCondition(matcherResultList, requestConfig.matchersCondition)
+            if matcherObj.part:
+                if matcherObj.part in defaultPart or str(response.position) == matcherObj.part.split("_")[1]:
+                    if matcherObj.type == "status":
+                        result = MatcherUtil.statusMatchResultList(response.status, matcherObj.signature)
+                        result = MatcherUtil.finalMatchResult(result, matcherObj.condition, matcherObj.negative)
+                        matcherResultList.append(result)
+                    elif matcherObj.type == "word":
+                        result = MatcherUtil.wordMatchResultList(response, matcherObj.signature, matcherObj.part, dataList)
+                        result = MatcherUtil.finalMatchResult(result, matcherObj.condition, matcherObj.negative)
+                        matcherResultList.append(result)
+                    elif matcherObj.type == "time":
+                        result = MatcherUtil.timeMatchResultList(response.time, matcherObj.signature)
+                        result = MatcherUtil.finalMatchResult(result, matcherObj.condition, matcherObj.negative)
+                        matcherResultList.append(result)
+                    elif matcherObj.type == "regex":
+                        result = MatcherUtil.regexMatchResultList(response, matcherObj.signature, matcherObj.part, dataList)
+                        result = MatcherUtil.finalMatchResult(result, matcherObj.condition, matcherObj.negative)
+                        matcherResultList.append(result)
+        if MatcherUtil.matchResultWithCondition(matcherResultList, requestConfig.matchersCondition):
+            return True
+        else:
+            return False
 
     def fireRequestsAndAnalyzeResponse(self, dataReq, requestConfig, session=None):
         if dataReq["urlObj"].method.lower() == "get":
             try:
                 r, position = RequestHandle.sendGetRequest(dataReq, requestConfig, session)
-                # print(position)
             except:
                 r = None
             if r != None:

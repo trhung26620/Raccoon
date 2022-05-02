@@ -1,0 +1,33 @@
+debug: null
+interactsh_server: null
+output_file: null
+proxy:
+  http: http://127.0.0.1:8080
+  https: http://127.0.0.1:8080
+retries: 0
+templates:
+- template/cve/CVE-2021-26295.yaml
+- template/cve/CVE-2021-44228.yaml
+- template/demo template/addBodyJsonAndQueryToCVE44228.yaml
+- template/demo template/test.yaml
+- template/fuzzing/adminer-panel-fuzz.yaml
+- template/fuzzing/cache-poisoning-fuzz.yaml
+- template/fuzzing/header-command-injection.yaml
+- template/fuzzing/iis-shortname.yaml
+- template/fuzzing/linux-lfi-fuzzing.yaml
+- template/fuzzing/mdb-database-file.yaml
+- template/fuzzing/prestashop-module-fuzz.yaml
+- template/fuzzing/wordpress-plugins-detect.yaml
+- template/fuzzing/wordpress-themes-detect.yaml
+- template/fuzzing/wordpress-weak-credentials.yaml
+- template/fuzzing/xff-403-bypass.yaml
+thread: null
+timeout: 5
+url:
+- ftp://www.facebook.com
+- ftp://stackoverflow.com/credential/abcxyz/?abc=xyz
+- http://103.90.227.30:81/
+- ftp://192.168.1.1
+- ftp://127.0.0.1/
+- ftp://domainbayba.com
+verbose: false
