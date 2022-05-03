@@ -111,7 +111,6 @@ class RaccoonKernel:
             if response != None:
                 resObj = ResponseGenerator.generateResponseObject(response, position, id)
                 matcherResult = self.matcherProcess(resObj, requestConfig)
-                print(resObj.id)
                 print(matcherResult)
             else:
                 print("Muc tieu khong phan hoi")

