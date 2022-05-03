@@ -39,14 +39,20 @@ class RequestGenerator:
         list_of_components_url = list()
         for i in ConfigUtil.readConfig()['url']:
             url = urlparse(i)
+            if url.port:
+                port = url.port
+            elif url.scheme == "https":
+                port = "443"
+            else:
+                port = "80"
+
             components_url = {
                 'baseUrl': i,
                 'rootUrl': url.scheme + "://" + url.netloc,
                 'hostname': url.netloc,
                 'host': url.hostname,
-                'port': url.port,
+                'port': port,
                 'fullPath': i[len(url.scheme + "://" + url.netloc):],
-                # 'path': os.path.split(url.path)[0],
                 'path': url.path,
                 'scheme': url.scheme,
             }
@@ -67,7 +73,6 @@ class RequestGenerator:
         elif baseUrl.split("://")[0] == "https":
             schema = "https"
         else:
-            # print("Not support schema: " + baseUrl.split("://")[0])
             return
         path = firstLine.strip().split()[1]
 

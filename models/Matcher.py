@@ -11,7 +11,7 @@ class Matcher:
         self.negative = negative
 
     def checkValidType(self, type):
-        validType = ["word", "regex", "dsl","status", "size", "time"]
+        validType = ["word", "regex", "helper","status", "size", "time"]
         if type in validType:
             return type
         else:

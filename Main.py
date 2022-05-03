@@ -5,6 +5,7 @@ from generator.RequestGenerator import RequestGenerator
 import urllib3
 from config.StaticData import Template
 from utils.ConfigUtil import ConfigUtil
+from scanner import PayloadInjection
 
 urllib3.disable_warnings()
 
@@ -12,6 +13,9 @@ if __name__ == "__main__":
     args = CommandUtil()
     args.argument()
     args.argumentHandling()
+
+
+    # exit()
     filePathList = ConfigUtil.readConfig()["templates"]
     for filePath in filePathList:
         Template.templatePath = filePath

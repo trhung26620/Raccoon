@@ -1,6 +1,7 @@
 import itertools
 from utils.ExtendedUtil import ExtendedUtil
 from config.StaticData import Parttern
+import copy
 
 def batteringramModeDictInjection(payloadDict, dataDict):
     if len(payloadDict) != 1:
@@ -11,7 +12,7 @@ def batteringramModeDictInjection(payloadDict, dataDict):
         if not dataDict:
             yield None
         else:
-            tempDict = dataDict.copy()
+            tempDict = copy.deepcopy(dataDict)
             yield ExtendedUtil.findAndReplaceInDict(tempDict, '{{' + payloadName + '}}', payload)
 
 def batteringramModeStringInjection(payloadDict, rawString):
@@ -35,7 +36,7 @@ def pitchforkModeDictInjection(payloadDict, dataDict):
         if not dataDict:
             yield None
         else:
-            tempDict = dataDict.copy()
+            tempDict = copy.deepcopy(dataDict)
             for payloadName in payloadNameList:
                 tempDict = ExtendedUtil.findAndReplaceInDict(tempDict, "{{" + payloadName + "}}", payloadDict[payloadName][i])
             yield tempDict
@@ -65,7 +66,7 @@ def clusterbombModeDictInjection(payloadDict, dataDict):
         if not dataDict:
             yield None
         else:
-            tempDict = dataDict.copy()
+            tempDict = copy.deepcopy(dataDict)
             for i in range(len(payloadNameList)):
                 tempDict = ExtendedUtil.findAndReplaceInDict(tempDict, "{{" + payloadNameList[i] + "}}", payloadTuple[i])
             yield tempDict
@@ -110,25 +111,33 @@ def injectAllRawRequest(requestsConfig, requestObjList):
             headerList = batteringramModeDictInjection(requestsConfig.payload.payloadValue, request.header.content)
             paramList = batteringramModeDictInjection(requestsConfig.payload.payloadValue, request.url.paramPath)
             bodyList = batteringramModeStringInjection(requestsConfig.payload.payloadValue, request.body.content)
+            id = 1
             for header, param, body in zip(headerList, paramList, bodyList):
-                yield {"header": header, "param": param, "body": body, "urlObj": request.url, "position": request.position}
+                yield {"header": header, "param": param, "body": body, "urlObj": request.url, "position": request.position, "id": id}
+                id += 1
 
         elif scanMode == "pitchfork":
             headerList = pitchforkModeDictInjection(requestsConfig.payload.payloadValue, request.header.content)
             paramList = pitchforkModeDictInjection(requestsConfig.payload.payloadValue, request.url.paramPath)
             bodyList = pitchforkModeStringInjection(requestsConfig.payload.payloadValue, request.body.content)
+            id = 1
             for header, param, body in zip(headerList, paramList, bodyList):
-                yield {"header": header, "param": param, "body": body, "urlObj": request.url, "position": request.position}
+                yield {"header": header, "param": param, "body": body, "urlObj": request.url, "position": request.position, "id": id}
+                id += 1
 
         elif scanMode == "clusterbomb":
             headerList = clusterbombModeDictInjection(requestsConfig.payload.payloadValue, request.header.content)
             paramList = clusterbombModeDictInjection(requestsConfig.payload.payloadValue, request.url.paramPath)
             bodyList = clusterbombModeStringInjection(requestsConfig.payload.payloadValue, request.body.content)
+            id = 1
             for header, param, body in zip(headerList, paramList, bodyList):
-                yield {"header": header, "param": param, "body": body, "urlObj": request.url, "position": request.position}
+                yield {"header": header, "param": param, "body": body, "urlObj": request.url, "position": request.position, "id": id}
+                id += 1
 
 def getDataRequestWithoutPayloads(requestObjList):
+    id = 1
     for request in requestObjList:
-        yield {"header": request.header.content, "param": request.url.paramPath, "body": request.body.content, "urlObj": request.url, "position": request.position}
+        yield {"header": request.header.content, "param": request.url.paramPath, "body": request.body.content, "urlObj": request.url, "position": request.position, "id": id}
+        id +=1
 
 

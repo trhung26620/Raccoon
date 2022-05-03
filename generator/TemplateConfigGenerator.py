@@ -4,7 +4,7 @@ from models.TemplateConfig import TemplateConfig
 from config.StaticData import DefaultTemplateConfig, DefaultConfigMatcher, DefaultConfigExtractor
 from generator.PayloadGenerator import PayloadGenerator
 from utils.ConfigUtil import ConfigUtil
-from services.InteractShService import InteractSh
+from scanner.InteractShService import InteractSh
 from models.Matcher import Matcher
 from models.Extractor import Extractor
 
