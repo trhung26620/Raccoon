@@ -1,0 +1,52 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link{
+    margin-left: 20px;
+}
+.navbar-dark{
+    background-color: rgb(17,16,12,255);
+}
+
+footer{
+    height: 100px;
+    background-color: rgb(17,16,12,255);
+    position: relative;
+    width: 100%;
+    bottom: 0;
+}
+
+
+.infoList{
+    list-style-type: circle;
+}
+
+.listItem{
+   list-style: none;
+}
+
+main{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.list-item{
+    font-weight: bold;
+}
+
+.title{
+    color: rgb(29, 29, 25);
+    font-size: x-large;
+}
+
+.reportList{
+    border: solid 1px black;
+    margin: 40px;
+}
+
+.exposer{
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
