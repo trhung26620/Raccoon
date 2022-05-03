@@ -9,7 +9,7 @@ class RequestHandle:
             r = session.post(url=dataRequest["urlObj"].baseUrl, params=dataRequest["param"],
                              headers=dataRequest["header"], data=dataRequest["body"],
                              timeout=DefaultRequestFiringConfig.defaultTimeout, allow_redirects=requestConfig.redirect)
-            return r, dataRequest["position"]
+            return r, dataRequest["position"], dataRequest["id"]
 
         else:
             session = requests.Session()
@@ -17,7 +17,7 @@ class RequestHandle:
             session.verify = False
             session.allow_redirects = True
             r = session.post(url=dataRequest["urlObj"].baseUrl, params=dataRequest["param"], headers=dataRequest["header"], data=dataRequest["body"],timeout=DefaultRequestFiringConfig.defaultTimeout, allow_redirects = requestConfig.redirect)
-            return r, dataRequest["position"]
+            return r, dataRequest["position"], dataRequest["id"]
 
 
     @staticmethod
@@ -26,14 +26,14 @@ class RequestHandle:
             r = session.get(url=dataRequest["urlObj"].baseUrl, params=dataRequest["param"],
                              headers=dataRequest["header"], data=dataRequest["body"],
                              timeout=DefaultRequestFiringConfig.defaultTimeout, allow_redirects=requestConfig.redirect)
-            return r, dataRequest["position"]
+            return r, dataRequest["position"], dataRequest["id"]
         session = requests.Session()
         session.proxies.update(ConfigUtil.readConfig()["proxy"])
         session.verify = False
         session.allow_redirects = DefaultRequestFiringConfig.allow_redirect
         r = session.get(url=dataRequest["urlObj"].baseUrl, params=dataRequest["param"], headers=dataRequest["header"], data=dataRequest["body"], timeout=DefaultRequestFiringConfig.defaultTimeout, allow_redirects = requestConfig.redirect)
 
-        return r, dataRequest["position"]
+        return r, dataRequest["position"], dataRequest["id"]
 
     @staticmethod
     def sendPutRequest(dataRequest, requestConfig):
@@ -42,7 +42,7 @@ class RequestHandle:
         session.verify = False
         session.allow_redirects = DefaultRequestFiringConfig.allow_redirect
         r = session.put(url=dataRequest["urlObj"].baseUrl, params=dataRequest["param"], headers=dataRequest["header"], data=dataRequest["body"], timeout=DefaultRequestFiringConfig.defaultTimeout, allow_redirects = requestConfig.redirect)
-        return r, dataRequest["position"]
+        return r, dataRequest["position"], dataRequest["id"]
 
     @staticmethod
     def sendDeleteRequest(dataRequest, requestConfig):
