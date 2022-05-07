@@ -52,7 +52,8 @@ class FileUtil:
             print("[Debug - FileUtil] - Can not print report if there isn't any HTML Report object")
             return None
         try:
-            htmlTemplatePath = "reportTemplate" + os.sep + "html" + os.sep + "report.html"
+            htmlTemplatePath = "reportTemplate" + os.sep + "html" + os.sep + "template.html"
+            htmlExportPath = "reportTemplate" + os.sep + "html"
             exportDirectory = os.path.exists(htmlTemplatePath)
             if exportDirectory:
                 print("Export HTML report to: " + htmlTemplatePath)
@@ -103,13 +104,13 @@ class FileUtil:
                         appendedContent = str(currentHTMLFrame).replace("&nbsp", "")   # delete new line character
                         reportContainer.append(BeautifulSoup(appendedContent, "html.parser"))
                     # print(soup)
-                    isDir = os.path.isdir(htmlTemplatePath)
+                    isDir = os.path.isdir(htmlExportPath)
                     if isDir:
                         randomFileName = "RaccoonReport_" + FileUtil.getRandomString(10) + ".html"
-                        htmlTemplatePath += os.sep + randomFileName
-                        FileUtil.writeToFile(htmlTemplatePath, str(soup))
+                        htmlExportPath += os.sep + randomFileName
+                        FileUtil.writeToFile(htmlExportPath, str(soup))
             else:
-                print("Invalid path !!! Can not export to this path: " + htmlTemplatePath)
+                print("Invalid path !!! Can not export to this path: " + htmlExportPath)
 
         except:
             print(traceback.format_exc())
