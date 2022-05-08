@@ -22,12 +22,6 @@ class RaccoonKernel:
     def matcherProcess(self, response, requestConfig):
         matcherObjList = TemplateConfigService.generateMatcherObjectList(Template.templatePath, requestConfig.reqCondition)
         matcherResultList = list()
-        # dataList = None
-        # if requestConfig.interactSh:
-        #     dataInteractsh, aes_key = requestConfig.interactSh.pollDataFromWeb()
-        #     if aes_key:
-        #         key = requestConfig.interactSh.decryptAESKey(aes_key)
-        #         dataList = requestConfig.interactSh.decryptMessage(key, dataInteractsh)
         defaultPart = ["header", "body", "all", "interactsh_protocol", "interactsh_request", "interactsh_response"]
         for matcherObj in matcherObjList:
             if matcherObj.part:
@@ -56,17 +50,16 @@ class RaccoonKernel:
     def fireRequestsAndAnalyzeResponse(self, dataReq, requestConfig, session=None):
         if dataReq["urlObj"].method.lower() == "get":
             try:
-                response, position, id = RequestHandle.sendGetRequest(dataReq, requestConfig, session)
+                response, position, id, payloadInfo = RequestHandle.sendGetRequest(dataReq, requestConfig, session)
             except:
                 response = None
-
-            return {"response": response, "position": position, "id": id}
+            return {"response": response, "position": position, "id": id, "payloadInfo": payloadInfo}
         elif dataReq["urlObj"].method.lower() == "post":
             try:
-                response, position, id = RequestHandle.sendPostRequest(dataReq, requestConfig, session)
+                response, position, id, payloadInfo = RequestHandle.sendPostRequest(dataReq, requestConfig, session)
             except:
                 response = None
-            return {"response": response, "position": position, "id": id}
+            return {"response": response, "position": position, "id": id, "payloadInfo": payloadInfo}
 
 
     def fireRequestWithCookieReuse(self, requestConfigObj, requestObjDict):
@@ -108,10 +101,13 @@ class RaccoonKernel:
             response = responseDataDict["response"]
             position = responseDataDict["position"]
             id = responseDataDict["id"]
+            payloadInfo = responseDataDict["payloadInfo"]
             if response != None:
-                resObj = ResponseGenerator.generateResponseObject(response, position, id)
+                resObj = ResponseGenerator.generateResponseObject(response, position, id, payloadInfo)
                 matcherResult = self.matcherProcess(resObj, requestConfig)
                 print(matcherResult)
+                print(payloadInfo)
+                print("="*50)
             else:
                 print("Muc tieu khong phan hoi")
 

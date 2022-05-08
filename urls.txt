@@ -3,5 +3,5 @@ ftp://stackoverflow.com/credential/abcxyz/?abc=xyz
 ftp://103.90.227.30:81/
 ftp://192.168.1.1
 ftp://127.0.0.1/
-http://howkteam.vn
+ftp://howkteam.vn
 ftp://domainbayba.com
