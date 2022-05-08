@@ -191,6 +191,7 @@ class Helper:
 # message = "Python is fun"
 # data = eval("""base64.b64encode(message.encode('ascii')).decode('ascii')""")
 # https://www.geeksforgeeks.org/encoding-and-decoding-base64-strings-in-python/
+
 arg1 = r"""https://projectdiscovery.io/test?a=1"""
 # arg1 = input()
 arg2 = r"aa"

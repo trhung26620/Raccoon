@@ -61,6 +61,8 @@ class TemplateConfigService:
     def generateMatcherObjectList(templateFilePath, reqCondition):
         templateRequest = TemplateUtil.readRequestTemplate(templateFilePath)
         matcherList = templateRequest["matchers"]
+        if matcherList == None:
+            return
         matcherObjectList = list()
         for matcher in matcherList:
             if "type" in matcher:

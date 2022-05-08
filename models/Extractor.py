@@ -9,14 +9,14 @@ class Extractor:
         self.group = group
 
     def checkValidType(self, type):
-        validType = ["regex", "kval", "json", "xpath", "dsl", "interactsh_protocol", "interactsh_request", "interactsh_response"]
+        validType = ["regex", "kval", "xpath", "dsl"]
         if type in validType:
             return type
         else:
             return DefaultConfigExtractor.defaultType
 
     def checkValidPart(self, part):
-        validPart = ["header", "body", "all"]
+        validPart = ["header", "body", "all", "interactsh_protocol", "interactsh_request", "interactsh_response"]
         if part in validPart:
             return part
         else:

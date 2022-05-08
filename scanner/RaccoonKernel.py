@@ -19,8 +19,7 @@ class RaccoonKernel:
             futureList.append(future.result())
         return futureList
 
-    def matcherProcess(self, response, requestConfig):
-        matcherObjList = TemplateConfigService.generateMatcherObjectList(Template.templatePath, requestConfig.reqCondition)
+    def matcherProcess(self, response, requestConfig, matcherObjList):
         matcherResultList = list()
         defaultPart = ["header", "body", "all", "interactsh_protocol", "interactsh_request", "interactsh_response"]
         for matcherObj in matcherObjList:
@@ -46,6 +45,17 @@ class RaccoonKernel:
             return True
         else:
             return False
+
+    def exposerProcess(self, response, requestConfig, matcherObjList):
+        exposerObjList = TemplateConfigService.generateExtractorObjectList(Template.templatePath)
+        for exposer in exposerObjList:
+            print(exposer.type)
+            print(exposer.signature)
+            print(exposer.part)
+            print(exposer.internal)
+            print(exposer.group)
+            print("="*50)
+
 
     def fireRequestsAndAnalyzeResponse(self, dataReq, requestConfig, session=None):
         if dataReq["urlObj"].method.lower() == "get":
@@ -97,6 +107,10 @@ class RaccoonKernel:
         self.analyzeResponse(responseDataDictList, requestConfigObj)
 
     def analyzeResponse(self, responseDataDictList, requestConfig):
+        matcherObjList = TemplateConfigService.generateMatcherObjectList(Template.templatePath,
+                                                                         requestConfig.reqCondition)
+        if not matcherObjList:
+            return False
         for responseDataDict in responseDataDictList:
             response = responseDataDict["response"]
             position = responseDataDict["position"]
@@ -104,10 +118,17 @@ class RaccoonKernel:
             payloadInfo = responseDataDict["payloadInfo"]
             if response != None:
                 resObj = ResponseGenerator.generateResponseObject(response, position, id, payloadInfo)
-                matcherResult = self.matcherProcess(resObj, requestConfig)
-                print(matcherResult)
-                print(payloadInfo)
-                print("="*50)
+                matcherResult = self.matcherProcess(resObj, requestConfig, matcherObjList)
+                # print(matcherResult)
+                # print(payloadInfo)
+                # print("="*50)
+                self.exposerProcess(response, requestConfig, matcherObjList)
+                # if matcherResult:
+                #     return True
+                # else:
+                #     return False
+                if requestConfig.stopAtFirstMatch:
+                    break
             else:
                 print("Muc tieu khong phan hoi")
 
