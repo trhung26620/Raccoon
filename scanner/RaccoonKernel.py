@@ -49,12 +49,13 @@ class RaccoonKernel:
     def exposerProcess(self, response, requestConfig, matcherObjList):
         exposerObjList = TemplateConfigService.generateExtractorObjectList(Template.templatePath)
         for exposer in exposerObjList:
-            print(exposer.type)
-            print(exposer.signature)
-            print(exposer.part)
-            print(exposer.internal)
-            print(exposer.group)
-            print("="*50)
+            # print(exposer.type)
+            # print(exposer.signature)
+            # print(exposer.part)
+            # print(exposer.internal)
+            # print(exposer.group)
+            # print("="*50)
+            continue
 
 
     def fireRequestsAndAnalyzeResponse(self, dataReq, requestConfig, session=None):
@@ -119,9 +120,9 @@ class RaccoonKernel:
             if response != None:
                 resObj = ResponseGenerator.generateResponseObject(response, position, id, payloadInfo)
                 matcherResult = self.matcherProcess(resObj, requestConfig, matcherObjList)
-                # print(matcherResult)
-                # print(payloadInfo)
-                # print("="*50)
+                print(matcherResult)
+                print(payloadInfo)
+                print("="*50)
                 self.exposerProcess(response, requestConfig, matcherObjList)
                 # if matcherResult:
                 #     return True

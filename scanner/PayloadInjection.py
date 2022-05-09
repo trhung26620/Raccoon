@@ -24,7 +24,7 @@ def batteringramModeInjection(payloadDict, dataDict):
                         dataList.append(data.replace('{{' + payloadName + '}}', payload))
                 else:
                     dataList.append(None)
-            yield {"requestData": dataList, "payloadInfo": [{payloadName: payload}]}
+            yield {"requestData": dataList, "payloadInfo": {payloadName: payload}}
 
 
 def pitchforkModeInjection(payloadDict, dataDict):
@@ -35,7 +35,7 @@ def pitchforkModeInjection(payloadDict, dataDict):
             smallestSize = len(v)
     for i in range(smallestSize):
         dataList = []
-        payloadInfo = []
+        payloadInfo = dict()
         for key, data in dataDict.items():
             if isinstance(data, dict):
                 if not data:
@@ -54,7 +54,7 @@ def pitchforkModeInjection(payloadDict, dataDict):
                         tempString = tempString.replace('{{' + payloadName + '}}', payloadDict[payloadName][i])
                     dataList.append(tempString)
         for payloadName in payloadNameList:
-            payloadInfo.append({payloadName: payloadDict[payloadName][i]})
+            payloadInfo[payloadName] = payloadDict[payloadName][i]
         yield {"requestData": dataList, "payloadInfo": payloadInfo}
 
 def clusterbombModeInjection(payloadDict, dataDict):
@@ -65,7 +65,7 @@ def clusterbombModeInjection(payloadDict, dataDict):
     payloadTupleList = list(itertools.product(*bigPayloadList))
     for payloadTuple in payloadTupleList:
         dataList = []
-        payloadInfo = []
+        payloadInfo = dict()
         for key, data in dataDict.items():
             if isinstance(data, dict):
                 if not data:
@@ -84,7 +84,7 @@ def clusterbombModeInjection(payloadDict, dataDict):
                         tempString = tempString.replace('{{' + payloadNameList[i] + '}}', payloadTuple[i])
                     dataList.append(tempString)
         for i in range(len(payloadNameList)):
-            payloadInfo.append({payloadNameList[i]:payloadTuple[i]})
+            payloadInfo[payloadNameList[i]] = payloadTuple[i]
         yield {"requestData": dataList, "payloadInfo": payloadInfo}
 
 
