@@ -1,152 +1,110 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
-<!-- Required meta tags -->
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
-<!-- Bootstrap CSS -->
-<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet"/>
-<!-- css -->
-<link href="../css/style.css" rel="stylesheet"/>
-<!-- icon -->
-<link href="../images/favicon-16x16.png" rel="icon" type="images/x-icon"/>
-<title>Raccoon Report</title>
-</head>
-<body>
-<header>
-<nav class="navbar navbar-expand-lg navbar-dark static-top">
-<div class="container">
-<a class="navbar-brand" href="#">
-<img alt="..." height="50" src="../images/favicon.ico"/>
-</a>
-<button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button">
-<span class="navbar-toggler-icon"></span>
-</button>
-<div class="collapse navbar-collapse" id="navbarSupportedContent">
-<ul class="navbar-nav ms-auto">
-<li class="nav-item">
-<a aria-current="page" class="nav-link active" href="#">Getting Started</a>
-</li>
-<li class="nav-item">
-<a class="nav-link active" href="#">Template Guide</a>
-</li>
-<li class="nav-item">
-<a class="nav-link active" href="#">About Us</a>
-</li>
-</ul>
-</div>
-</div>
-</nav>
-</header>
-<main>
-<h1 style="text-align: center;">
-          Raccoon - Report Detail
-        </h1>
-<div id="container">
-<ol class="reportList">
-<li class="info listItem">
-<span class="title"> Template Information:</span>
-<hr/>
-<ul class="infoList">
-<li>
-<span class="list-item">Id:</span>
-<span class="id">CVE-2021-44228</span>
-</li>
-<li>
-<span class="list-item">Name:</span>
-<span class="name">Apache Log4j2 Remote Code Injection</span>
-</li>
-<li>
-<span class="list-item">Author:</span>
-<span class="author">melbadry9,dhiyaneshDK,daffainfo,anon-artist,0xceba,Tea</span>
-</li>
-<li>
-<span class="list-item">Remediation:</span>
-<span class="remediation">
-</span>
-</li>
-<li>
-<span class="list-item">Severity:</span>
-<span class="severity">critical</span>
-</li>
-<li>
-<span class="list-item">Tag:</span>
-<span class="tags">cve,cve2021,rce,oast,log4j,injection</span>
-</li>
-<li>
-<span class="list-item">Description:</span>
-<span class="description">Apache Log4j2 &lt;=2.14.1 JNDI features used in configuration, log messages, and parameters do not protect against attacker controlled LDAP and other JNDI related endpoints. An attacker who can control log messages or log message parameters can execute arbitrary code loaded from LDAP servers when message lookup substitution is enabled.</span>
-</li>
-<li>
-<span class="list-item">Reference:</span>
-<div class="reference">
-- https://logging.apache.org/log4j/2.x/security.html<br/>- https://nvd.nist.gov/vuln/detail/CVE-2021-44228<br/>- https://github.com/advisories/GHSA-jfh8-c2jp-5v3q<br/>- https://www.lunasec.io/docs/blog/log4j-zero-day/<br/>- https://gist.github.com/bugbountynights/dde69038573db1c12705edb39f9a704a<br/></div>
-</li>
-</ul>
-</li>
-<li class="exposer listItem">
-<span class="title">Exposer:</span>
-<hr/>
-<div class="exposerContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas viverra ligula justo, ultrices maximus leo rutrum dapibus. Pellentesque in sem id lectus sodales aliquet at tempor metus. Maecenas scelerisque dolor ac orci semper porttitor. Sed sed eros ipsum. Etiam at nulla a nisl convallis fringilla et quis diam. Aliquam molestie augue elit, a gravida metus condimentum vitae. Pellentesque quis quam tortor. Proin sit amet pulvinar orci. Maecenas et suscipit neque. Nam dapibus eget felis id placerat. Pellentesque ultricies metus nibh, nec fringilla ex euismod feugiat. Ut et magna elit. Donec eget dui aliquet, venenatis felis nec, vestibulum ipsum. Integer at sem in turpis mollis suscipit. Vestibulum elementum neque ac mi gravida, id varius tellus molestie.</div>
-</li>
-</ol>
-<ol class="reportList">
-<li class="info listItem">
-<span class="title"> Template Information:</span>
-<hr/>
-<ul class="infoList">
-<li>
-<span class="list-item">Id:</span>
-<span class="id">CVE-2021-44228</span>
-</li>
-<li>
-<span class="list-item">Name:</span>
-<span class="name">Apache Log4j2 Remote Code Injection</span>
-</li>
-<li>
-<span class="list-item">Author:</span>
-<span class="author">melbadry9,dhiyaneshDK,daffainfo,anon-artist,0xceba,Tea</span>
-</li>
-<li>
-<span class="list-item">Remediation:</span>
-<span class="remediation">
-</span>
-</li>
-<li>
-<span class="list-item">Severity:</span>
-<span class="severity">critical</span>
-</li>
-<li>
-<span class="list-item">Tag:</span>
-<span class="tags">cve,cve2021,rce,oast,log4j,injection</span>
-</li>
-<li>
-<span class="list-item">Description:</span>
-<span class="description">Apache Log4j2 &lt;=2.14.1 JNDI features used in configuration, log messages, and parameters do not protect against attacker controlled LDAP and other JNDI related endpoints. An attacker who can control log messages or log message parameters can execute arbitrary code loaded from LDAP servers when message lookup substitution is enabled.</span>
-</li>
-<li>
-<span class="list-item">Reference:</span>
-<div class="reference">
-- https://logging.apache.org/log4j/2.x/security.html<br/>- https://nvd.nist.gov/vuln/detail/CVE-2021-44228<br/>- https://github.com/advisories/GHSA-jfh8-c2jp-5v3q<br/>- https://www.lunasec.io/docs/blog/log4j-zero-day/<br/>- https://gist.github.com/bugbountynights/dde69038573db1c12705edb39f9a704a<br/></div>
-</li>
-</ul>
-</li>
-<li class="exposer listItem">
-<span class="title">Exposer:</span>
-<hr/>
-<div class="exposerContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas viverra ligula justo, ultrices maximus leo rutrum dapibus. Pellentesque in sem id lectus sodales aliquet at tempor metus. Maecenas scelerisque dolor ac orci semper porttitor. Sed sed eros ipsum. Etiam at nulla a nisl convallis fringilla et quis diam. Aliquam molestie augue elit, a gravida metus condimentum vitae. Pellentesque quis quam tortor. Proin sit amet pulvinar orci. Maecenas et suscipit neque. Nam dapibus eget felis id placerat. Pellentesque ultricies metus nibh, nec fringilla ex euismod feugiat. Ut et magna elit. Donec eget dui aliquet, venenatis felis nec, vestibulum ipsum. Integer at sem in turpis mollis suscipit. Vestibulum elementum neque ac mi gravida, id varius tellus molestie.</div>
-</li>
-</ol></div>
-</main>
-<footer class="text-center text-lg-start">
-<div class="text-center p-3" style="background-color: rgb(17,16,12,255); color: white;">
-          2022 - Raccoon - Custom Vulnerability Scanner <br/>
-          Racoon v1.1.0 <br/>
-          Coded by Hung, Dat, Danh, Hoa
-        </div>
-</footer>
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script crossorigin="anonymous" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+        <!-- Bootstrap CSS -->
+        <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet"/>
+        <!-- css -->
+        <link href="../css/style.css" rel="stylesheet"/>
+        <!-- icon -->
+        <link href="../images/favicon-16x16.png" rel="icon" type="images/x-icon"/>
+        <title>Raccoon Report</title>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark static-top">
+                <div class="container">
+                    <a class="navbar-brand" href="#">
+                        <img alt="..." height="50" src="../images/favicon.ico"/>
+                    </a>
+                    <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a aria-current="page" class="nav-link active" href="#">Getting Started</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Template Guide</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">About Us</a>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    <main>
+    <h1 style="text-align: center;">
+              Raccoon - Report Detail
+            </h1>
+    <div id="container">
+        <ol class="reportList">
+            <li class="info listItem">
+                <span class="title"> Template Information:</span>
+                <hr/>
+                <ul class="infoList">
+                <li>
+                    <span class="list-item">Id:</span>
+                    <span class="id"></span>
+                </li>
+                <li>
+                    <span class="list-item">Name:</span>
+                    <span class="name"></span>
+                </li>
+                <li>
+                    <span class="list-item">Author:</span>
+                    <span class="author"></span>
+                </li>
+                <li>
+                    <span class="list-item">Remediation:</span>
+                    <span class="remediation">
+                </span>
+                </li>
+                <li>
+                    <span class="list-item">Severity:</span>
+                    <span class="severity"></span>
+                </li>
+                <li>
+                    <span class="list-item">Tag:</span>
+                    <span class="tags"></span>
+                </li>
+                <li>
+                    <span class="list-item">Description:</span>
+                    <span class="description"></span>
+                </li>
+                <li>
+                    <span class="list-item">Reference:</span>
+                    <div class="reference"></div>
+                </li>
+                </ul>
+            </li>
+            <li class="exposer listItem">
+                <span class="title">Exposer:</span>
+                <hr/>
+                <div class="exposerContent"></div>
+            </li>
+            <li class="payloads listItem">
+                <span class="title">Injected Payloads:</span>
+                <hr/>
+                <div class="listPayloads"></div>
+            </li>
+        </ol>
+    </div>
+    </main>
+        <footer class="text-center text-lg-start">
+                 <div class="text-center p-3" style="background-color: rgb(17,16,12,255); color: white;">
+                      2022 - Raccoon - Custom Vulnerability Scanner <br/>
+                      Racoon v1.1.0 <br/>
+                      Coded by Hung Tran, Dat Tran, Danh Dao, Hoa Le
+                </div>
+        </footer>
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script crossorigin="anonymous" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
 </html>
