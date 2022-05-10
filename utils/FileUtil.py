@@ -3,8 +3,8 @@ import string
 import traceback
 from bs4 import BeautifulSoup
 import random
-from models.HTMLReport import HTMLReport
 from utils import TemplateUtil
+from models.HTMLReport import HTMLReport
 
 
 class FileUtil:
@@ -52,19 +52,15 @@ class FileUtil:
             print("[Debug - FileUtil] - Can not print report if there isn't any HTML Report object")
             return None
         try:
-            htmlTemplatePath = "reportTemplate" + os.sep + "html" + os.sep + "template.html"
-            htmlExportPath = "reportTemplate" + os.sep + "html"
+            htmlTemplatePath = "reportTemplate" + os.sep + "html" + os.sep + "report.html"
             exportDirectory = os.path.exists(htmlTemplatePath)
             if exportDirectory:
-                print("Export HTML report to: " + htmlTemplatePath)
-                # htmlTemplatePath = r"reportTemplate/html/report.html"
-
                 with open(htmlTemplatePath) as fp:
                     soup = BeautifulSoup(fp, "html.parser")
-                    reportContainer = soup.select_one("#container")     # container class contain all report
-                    reportFrames = soup.find_all("ol", {"class": "reportList"})   # first report frame
+                    reportContainer = soup.select_one("#container")     # container class contain all report frame
                     for HTMLReportIndex, HTMLReportObj in enumerate(listHTMLReportObject):
-                        if HTMLReportIndex >= len(reportFrames):
+                        reportFrames = soup.find_all("ol", {"class": "reportList"})  # find all report frame and put to a list every time
+                        if HTMLReportIndex > (len(reportFrames) - 1):
                             break
 
                         currentHTMLFrame = reportFrames[HTMLReportIndex]
@@ -77,40 +73,80 @@ class FileUtil:
                         referenceList = currentHTMLFrame.find_all("div", {"class": "reference"})
                         tagTags = currentHTMLFrame.find_all("span", {"class": "tags"})
                         exposerContent = currentHTMLFrame.find_all("div", {"class": "exposerContent"})
+                        payloadsContent = currentHTMLFrame.find_all("div", {"class": "listPayloads"})
 
                         templatePath = HTMLReportObj.templateFilePath
                         templateInfo = TemplateUtil.TemplateUtil.readInfoTemplate(templatePath)
 
+                        # append content in HTML
+                        # append info
                         if "id" in templateInfo:
-                            idTags[HTMLReportIndex].string = templateInfo["id"]
+                            idTags[0].string = templateInfo["id"]
+                        else:
+                            idTags[0].string = ""
                         if "name" in templateInfo:
-                            nameTags[HTMLReportIndex].string = templateInfo["name"]
+                            nameTags[0].string = templateInfo["name"]
+                        else:
+                            nameTags[0].string = ""
                         if "author" in templateInfo:
-                            authorTags[HTMLReportIndex].string = templateInfo["author"]
+                            authorTags[0].string = templateInfo["author"]
+                        else:
+                            authorTags[0].string = ""
                         if "severity" in templateInfo:
-                            severityTags[HTMLReportIndex].string = templateInfo["severity"]
+                            severityTags[0].string = templateInfo["severity"]
+                        else:
+                            severityTags[0].string = ""
                         if "description" in templateInfo:
-                            descriptionTags[HTMLReportIndex].string = templateInfo["description"]
+                            descriptionTags[0].string = templateInfo["description"]
+                        else:
+                            descriptionTags[0].string = ""
                         if "remediation" in templateInfo:
-                            remediationTags[HTMLReportIndex] = templateInfo["remediation"]
+                            remediationTags[0].string = templateInfo["remediation"]
+                        else:
+                            remediationTags[0].string = ""
                         if "reference" in templateInfo:
                             for reference in templateInfo["reference"]:
                                 appendStr = "- " + reference + "<br>"
-                                referenceList[HTMLReportIndex].append(BeautifulSoup(appendStr, "html.parser"))
+                                referenceList[0].append(BeautifulSoup(appendStr, "html.parser"))
+                        else:
+                            referenceList[0].string = ""
                         if "tags" in templateInfo:
-                            tagTags[HTMLReportIndex].string = templateInfo["tags"]
-                        exposerContent[HTMLReportIndex].string = HTMLReportObj.exposer
+                            tagTags[0].string = templateInfo["tags"]
+                        else:
+                            tagTags[0].string = ""
 
-                        appendedContent = str(currentHTMLFrame).replace("&nbsp", "")   # delete new line character
+                        # reset content of each tag before append new content
+                        exposerContent[0].string = ""
+                        payloadsContent[0].string = ""
+
+                        # append exposer
+                        exposerContent[0].string = HTMLReportObj.exposer
+                        # append injected payloads
+                        injectedPayloads = HTMLReportObj.injectedPayload
+                        for payloadKey in injectedPayloads:
+                            appendedPayload = "- " + payloadKey + ": " + injectedPayloads[payloadKey] + "<br>"
+                            payloadsContent[0].append(BeautifulSoup(appendedPayload, "html.parser"))
+
+                        appendedContent = str(currentHTMLFrame).replace("&nbsp", "")   # delete new line character to append HTML content
                         reportContainer.append(BeautifulSoup(appendedContent, "html.parser"))
-                    # print(soup)
-                    isDir = os.path.isdir(htmlExportPath)
-                    if isDir:
-                        randomFileName = "RaccoonReport_" + FileUtil.getRandomString(10) + ".html"
-                        htmlExportPath += os.sep + randomFileName
-                        FileUtil.writeToFile(htmlExportPath, str(soup))
+
+                    # delete final frame
+                    reportFrames = soup.find_all("ol", {"class": "reportList"})
+                    finalFrame = reportFrames[len(reportFrames) - 1]
+                    for childTag in finalFrame:
+                        try:
+                            childTag.decompose()
+                        except:
+                            pass
+                    finalFrame.decompose()
+
+                    # export to file
+                    randomFileName = "RaccoonReport_" + FileUtil.getRandomString(10) + ".html"
+                    htmlExportTemplateFile = "reportTemplate" + os.sep + "html" + os.sep + randomFileName
+                    FileUtil.writeToFile(htmlExportTemplateFile, str(soup))
+                    print("Export HTML report to: " + os.path.abspath(htmlExportTemplateFile))
             else:
-                print("Invalid path !!! Can not export to this path: " + htmlExportPath)
+                print("Invalid path !!! Can not find template path: " + htmlTemplatePath)
 
         except:
             print(traceback.format_exc())
