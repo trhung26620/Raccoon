@@ -6,6 +6,7 @@ from generator.ResponseGenerator import ResponseGenerator
 from generator.TemplateConfigGenerator import TemplateConfigService
 from utils.MatcherUtil import MatcherUtil
 from config.StaticData import Template
+from utils.ExposerUtil import ExposerUtil
 import requests
 
 class RaccoonKernel:
@@ -46,16 +47,21 @@ class RaccoonKernel:
         else:
             return False
 
-    def exposerProcess(self, response, requestConfig, matcherObjList):
-        exposerObjList = TemplateConfigService.generateExtractorObjectList(Template.templatePath)
+    def exposerProcess(self, response, requestConfig, exposerObjList):
+        # exposerObjList = TemplateConfigService.generateExtractorObjectList(Template.templatePath)
+        matcherResultList = list()
         for exposer in exposerObjList:
+            if exposer.type == "xpath":
+                # result = ExposerUtil.getXpathResultList(response, exposer.signature, exposer.attribute, requestConfig.interactSh)
+                matcherResultList += ExposerUtil.getXpathResultList(response, exposer.signature, exposer.attribute, requestConfig.interactSh)
+        return matcherResultList
             # print(exposer.type)
             # print(exposer.signature)
             # print(exposer.part)
             # print(exposer.internal)
             # print(exposer.group)
             # print("="*50)
-            continue
+
 
 
     def fireRequestsAndAnalyzeResponse(self, dataReq, requestConfig, session=None):
@@ -123,13 +129,12 @@ class RaccoonKernel:
                 print(matcherResult)
                 print(payloadInfo)
                 print("="*50)
-                self.exposerProcess(response, requestConfig, matcherObjList)
-                # if matcherResult:
-                #     return True
-                # else:
-                #     return False
-                if requestConfig.stopAtFirstMatch:
-                    break
+                exposerObjList = TemplateConfigService.generateExtractorObjectList(Template.templatePath)
+                if matcherResult:
+                    info = self.exposerProcess(resObj, requestConfig, exposerObjList)
+                    print(info)
+                    if requestConfig.stopAtFirstMatch:
+                        break
             else:
                 print("Muc tieu khong phan hoi")
 

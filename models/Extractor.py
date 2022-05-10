@@ -1,12 +1,13 @@
 from config.StaticData import DefaultConfigExtractor
 
 class Extractor:
-    def __init__(self, type, signature, part, internal, group):
+    def __init__(self, type, signature, part, internal, group, attribute):
         self.type = self.checkValidType(type)
         self.signature = signature
         self.part = self.checkValidPart(part)
         self.internal = internal
         self.group = group
+        self.attribute = attribute
 
     def checkValidType(self, type):
         validType = ["regex", "kval", "xpath", "dsl"]

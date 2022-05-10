@@ -21,7 +21,7 @@ info:
 requests:
   - request:
       - |
-        GET /dvwa?username={{users}}&passwd={{passwords}}&email={{emails}} HTTP/1.1
+        GET /test.html?username={{users}}&passwd={{passwords}}&email={{emails}} HTTP/1.1
         Host: {{Hostname}}
         User-Agent: {{users}}{{passwords}}&email={{emails}}
 
@@ -103,18 +103,18 @@ requests:
 #          - '([a-zA-Z0-9\.\-]+)\.([a-z0-9]+)\.([a-z0-9]+)\.([a-z0-9]+)\.\w+'   # Print extracted ${hostName} in output
 #          -
 
-      - type: status
-        status:
-          - 404
-        condition: or
-        negative: false
+#      - type: status
+#        status:
+#          - 404
+#        condition: or
+#        negative: false
 
       - type: word
         word:
 #          - dns
-          - "Document-Policy: force-load-at-top"
-          - <div id="main_menu_padded">
-          - The requested URL was not found on this server
+          - "Tillie"
+#          - <div id="main_menu_padded">
+#          - The requested URL was not found on this server
         part: all
         condition: or
 
@@ -122,18 +122,22 @@ requests:
 #        time:
 #          - ">0.01"
     extractors:
-      - type: kval
-        kval:
-          - interactsh_ip # Print remote interaction IP in output
-
-      - type: regex
-        part: interactsh_request
-        group: 2
-        regex:
-          - '([a-zA-Z0-9\.\-]+)\.([a-z0-9]+)\.([a-z0-9]+)\.([a-z0-9]+)\.\w+'   # Print injection point in output
-
-      - type: regex
-        part: interactsh_request
-        group: 1
-        regex:
-          - '([a-zA-Z0-9\.\-]+)\.([a-z0-9]+)\.([a-z0-9]+)\.([a-z0-9]+)\.\w+'   # Print extracted ${hostName} in output
+#      - type: kval
+#        kval:
+#          - interactsh_ip # Print remote interaction IP in output
+#
+#      - type: regex
+#        part: interactsh_request
+#        group: 2
+#        regex:
+#          - '([a-zA-Z0-9\.\-]+)\.([a-z0-9]+)\.([a-z0-9]+)\.([a-z0-9]+)\.\w+'   # Print injection point in output
+#
+#      - type: regex
+#        part: interactsh_request
+#        group: 1
+#        regex:
+#          - '([a-zA-Z0-9\.\-]+)\.([a-z0-9]+)\.([a-z0-9]+)\.([a-z0-9]+)\.\w+'   # Print extracted ${hostName} in output
+      - type: xpath
+        xpath:
+          - "/html/body/form/div[2]/input[2]"
+        attribute: csrf-token

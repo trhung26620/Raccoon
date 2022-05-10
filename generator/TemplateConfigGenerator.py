@@ -117,7 +117,11 @@ class TemplateConfigService:
                 group = extractor["group"]
             else:
                 group = DefaultConfigExtractor.defaultGroup
-            extractorObj = Extractor(type, signature, part, internal, group)
+            if "attribute" in extractor:
+                attribute = extractor["attribute"]
+            else:
+                attribute = None
+            extractorObj = Extractor(type, signature, part, internal, group, attribute)
             extractorObjectList.append(extractorObj)
         return extractorObjectList
 
