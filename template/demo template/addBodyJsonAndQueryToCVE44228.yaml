@@ -72,8 +72,8 @@ requests:
       users:
         - user1
         - user2
-#        - user3
-#        - user4
+        - user3
+        - user4
       passwords:
         - pass1
         - pass2
@@ -85,9 +85,9 @@ requests:
 #      Hostname: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\users.txt
 #      Scheme: D:\FPT LEARNING\Graduation Thesis\Scanner\Injection-Tool\template\fuzzing\passwords.txt
     redirect: true
-    thread: 20
-    scanMode: clusterbomb
-    stopAtFirstMatch: true
+    thread: 10
+    scanMode: pitchfork
+    stopAtFirstMatch: false
     matchersCondition: and
     cookieReuse: true
     requestCondition: false
@@ -102,6 +102,7 @@ requests:
 #        regex:
 #          - '([a-zA-Z0-9\.\-]+)\.([a-z0-9]+)\.([a-z0-9]+)\.([a-z0-9]+)\.\w+'   # Print extracted ${hostName} in output
 #          -
+
       - type: status
         status:
           - 404
@@ -116,6 +117,7 @@ requests:
           - The requested URL was not found on this server
         part: all
         condition: or
+
 #      - type: time
 #        time:
 #          - ">0.01"

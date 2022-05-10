@@ -1,9 +1,7 @@
 debug: null
 interactsh_server: null
 output_file: null
-proxy:
-  http: http://127.0.0.1:8080
-  https: http://127.0.0.1:8080
+proxy: {}
 retries: 0
 templates:
 - template\demo template\addBodyJsonAndQueryToCVE44228.yaml
