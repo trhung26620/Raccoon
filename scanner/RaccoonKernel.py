@@ -9,6 +9,7 @@ from config.StaticData import Template
 from utils.ExposerUtil import ExposerUtil
 from utils.FileUtil import FileUtil
 from models.HTMLReport import HTMLReport
+from config.StaticData import HTMLReportGlobal
 import requests
 
 
@@ -127,7 +128,7 @@ class RaccoonKernel:
                 key = requestConfig.interactSh.decryptAESKey(aes_key)
                 dataList = requestConfig.interactSh.decryptMessage(key, dataInteractsh)
         # List of HTML report object
-        HTMLReportList = []
+        # HTMLReportList = []
         for responseDataDict in responseDataDictList:
             response = responseDataDict["response"]
             position = responseDataDict["position"]
@@ -150,13 +151,13 @@ class RaccoonKernel:
                     if payloadInfo is None:
                         payloadInfo = {}
                     HTMLReportObject = HTMLReport(targetUrl, Template.templatePath, info, payloadInfo)
-                    HTMLReportList.append(HTMLReportObject)
+                    HTMLReportGlobal.HTMLReportList.append(HTMLReportObject)
                     if requestConfig.stopAtFirstMatch:
                         break
             else:
                 print("No response from target")
-        if len(HTMLReportList) > 0:
-            FileUtil.printHTMLReport(HTMLReportList)
+        # if len(HTMLReportList) > 0:
+        #     FileUtil.printHTMLReport(HTMLReportList)
 
     def raccoonFlowControl(self, requestConfigObj, requestObjDict):
         PayloadInjection.injectInteractShUrl(requestConfigObj, requestObjDict)

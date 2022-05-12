@@ -6,6 +6,7 @@ class InteractShStaticValue:
     interactShPrimaryDomain = "interact.sh"
     maxPollingTime = 3
 
+
 class DefaultTemplateConfig:
     defaultRedirect = False
     defaultStopAtFirstMatch = False
@@ -16,10 +17,12 @@ class DefaultTemplateConfig:
     defaultMatchersCondition = "or"
     defaultRequestCondition = False
 
+
 class DefaultRequestFiringConfig:
     defaultTimeout = 10
     allow_redirect = True
     proxy = {}
+
 
 class DefaultConfigMatcher:
     defaultCondition = "or"
@@ -28,6 +31,7 @@ class DefaultConfigMatcher:
     defaultType = None
     defaultSignature = None
 
+
 class DefaultConfigExtractor:
     defaultType = None
     defaultSignature = None
@@ -35,8 +39,10 @@ class DefaultConfigExtractor:
     defaultInternal = False
     defaultGroup = 0
 
+
 class Template:
     templatePath = None
+
 
 class Parttern:
     interactUrl = "{{interactsh-url}}"
@@ -48,6 +54,11 @@ class Parttern:
     fullPath = "{{FullPath}}"
     path = "{{Path}}"
     scheme = "{{Scheme}}"
+
+
+class HTMLReportGlobal:
+    HTMLReportList = []
+
 
 class AboutUs:
     version = "Raccoon version 1.1.0"

@@ -5,6 +5,8 @@ from generator.RequestGenerator import RequestGenerator
 import urllib3
 from config.StaticData import Template
 from utils.ConfigUtil import ConfigUtil
+from config.StaticData import HTMLReportGlobal
+from utils.FileUtil import FileUtil
 
 urllib3.disable_warnings()
 
@@ -21,3 +23,5 @@ if __name__ == "__main__":
         raccoon = RaccoonKernel()
         raccoon.raccoonFlowControl(config, requests)
 
+    HTMLReportList = HTMLReportGlobal.HTMLReportList
+    FileUtil.printHTMLReport(HTMLReportList)
