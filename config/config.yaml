@@ -6,7 +6,7 @@ proxy:
   https: http://127.0.0.1:8080
 retries: 0
 templates:
-- template\demo template\Demo-13-5-2022\CVE-2021-44228.yaml
+- template\demo template\Demo-13-5-2022\Bruteforce-Shoes-Shop.yaml
 thread: null
 timeout: 10
 url:

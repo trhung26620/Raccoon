@@ -7,14 +7,18 @@ class ExposerUtil:
         if responseObject and exposerRegexList and part:
             listResult = []
             data = ExposerUtil.getResponseByPart(responseObject, part, sshDataList)
+
             if data:
                 for regex in exposerRegexList:
                     if re.findall(regex, data):
-                        listResult += re.findall(regex, data)
+                        if "interactsh" in part:
+                            listResult += list(re.findall(regex, data)[0])
+                        else:
+                            listResult += re.findall(regex, data)
             if group > len(listResult) or group < 0:
                 return listResult
             elif group != 0:
-                return listResult[group-1]
+                return [listResult[group-1]]
             else:
                 return listResult
         else:
@@ -49,6 +53,7 @@ class ExposerUtil:
                 data =responseObject.headerAndBody
             elif "interactsh_protocol" in part or "interactsh_request" in part or "interactsh_response" in part:
                 if sshDataList:
+
                     # dataList = None
                     # dataInteractsh, aes_key = interactsh.pollDataFromWeb()
                     # if aes_key:

@@ -120,8 +120,8 @@ class RaccoonKernel:
                                                                          requestConfig.reqCondition)
         if not matcherObjList:
             return False
+        dataList = None
         if requestConfig.interactSh:
-            dataList = None
             dataInteractsh, aes_key = requestConfig.interactSh.pollDataFromWeb()
             if aes_key:
                 key = requestConfig.interactSh.decryptAESKey(aes_key)
