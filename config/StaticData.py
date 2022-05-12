@@ -63,7 +63,7 @@ class AboutUs:
     ██║  ██║██║  ██║╚██████╗╚██████╗╚██████╔╝╚██████╔╝██║ ╚████║
     ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
      Racoon v1.1.0
-     Coded by Hung, Dat, Danh, Hoa  
+     Coded by Hung Tran, Dat Tran, Danh Dao, Hoa Le  
      
      
 

@@ -64,6 +64,8 @@ class FileUtil:
                             break
 
                         currentHTMLFrame = reportFrames[HTMLReportIndex]
+                        targetTags = currentHTMLFrame.find_all("span", {"class": "target"})
+                        infectedResult = currentHTMLFrame.find_all("span", {"class": "infectedResult"})
                         idTags = currentHTMLFrame.find_all("span", {"class": "id"})
                         nameTags = currentHTMLFrame.find_all("span", {"class": "name"})
                         authorTags = currentHTMLFrame.find_all("span", {"class": "author"})
@@ -118,9 +120,21 @@ class FileUtil:
                         # reset content of each tag before append new content
                         exposerContent[0].string = ""
                         payloadsContent[0].string = ""
+                        targetTags[0].string = ""
+                        infectedResult[0].string = ""
 
+                        # append target url
+                        targetTags[0].string = HTMLReportObj.target
+                        # append infected result
+                        infectedResult[0].string = str(True)
                         # append exposer
-                        exposerContent[0].string = HTMLReportObj.exposer
+                        listExposer = HTMLReportObj.exposer
+                        if len(listExposer) <= 0:
+                            exposerContent[0].string = ""
+                        else:
+                            for exposer in listExposer:
+                                appendedExposer = "- " + str(exposer) + "<br>"
+                                exposerContent[0].append(BeautifulSoup(appendedExposer, "html.parser"))
                         # append injected payloads
                         injectedPayloads = HTMLReportObj.injectedPayload
                         for payloadKey in injectedPayloads:

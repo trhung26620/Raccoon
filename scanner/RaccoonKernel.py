@@ -7,7 +7,10 @@ from generator.TemplateConfigGenerator import TemplateConfigService
 from utils.MatcherUtil import MatcherUtil
 from config.StaticData import Template
 from utils.ExposerUtil import ExposerUtil
+from utils.FileUtil import FileUtil
+from models.HTMLReport import HTMLReport
 import requests
+
 
 class RaccoonKernel:
     def runner(self, dataReqList, requestConfig):
@@ -100,7 +103,7 @@ class RaccoonKernel:
                     dataReqList = PayloadInjection.getDataRequestWithoutPayloads(requestObjList)
                     for dataReq in dataReqList:
                         responseDataDictList.append(self.fireRequestsAndAnalyzeResponse(dataReq, requestConfigObj, session))
-        self.analyzeResponse(responseDataDictList, requestConfigObj)
+        self.analyzeResponse(str(url), responseDataDictList, requestConfigObj)
 
     def fireRequestWithMultiThread(self, requestConfigObj, requestObjDict):
         if requestConfigObj.payload:
@@ -114,32 +117,44 @@ class RaccoonKernel:
                 if requestObjList:
                     dataReqList = PayloadInjection.getDataRequestWithoutPayloads(requestObjList)
                     responseDataDictList = self.runner(dataReqList, requestConfigObj)
-        self.analyzeResponse(responseDataDictList, requestConfigObj)
+        self.analyzeResponse(str(url), responseDataDictList, requestConfigObj)
 
-    def analyzeResponse(self, responseDataDictList, requestConfig):
+    def analyzeResponse(self, targetUrl, responseDataDictList, requestConfig):
         matcherObjList = TemplateConfigService.generateMatcherObjectList(Template.templatePath,
                                                                          requestConfig.reqCondition)
         if not matcherObjList:
             return False
+        # List of HTML report object
+        HTMLReportList = []
         for responseDataDict in responseDataDictList:
             response = responseDataDict["response"]
             position = responseDataDict["position"]
             id = responseDataDict["id"]
             payloadInfo = responseDataDict["payloadInfo"]
-            if response != None:
+            if response is not None:
                 resObj = ResponseGenerator.generateResponseObject(response, position, id, payloadInfo)
                 matcherResult = self.matcherProcess(resObj, requestConfig, matcherObjList)
-                print(matcherResult)
+                print("[Debug] - Infected result: " + str(matcherResult))
                 print(payloadInfo)
                 print("="*50)
                 exposerObjList = TemplateConfigService.generateExtractorObjectList(Template.templatePath)
                 if matcherResult:
                     info = self.exposerProcess(resObj, requestConfig, exposerObjList)
-                    print(info)
+                    print("[Debug] - Payload: " + str(info))
+
+                    # Default value if exposer and payload dict is none
+                    if info is None:
+                        info = ""
+                    if payloadInfo is None:
+                        payloadInfo = {}
+                    HTMLReportObject = HTMLReport(targetUrl, Template.templatePath, info, payloadInfo)
+                    HTMLReportList.append(HTMLReportObject)
                     if requestConfig.stopAtFirstMatch:
                         break
             else:
-                print("Muc tieu khong phan hoi")
+                print("No response from target")
+        if len(HTMLReportList) > 0:
+            FileUtil.printHTMLReport(HTMLReportList)
 
     def raccoonFlowControl(self, requestConfigObj, requestObjDict):
         PayloadInjection.injectInteractShUrl(requestConfigObj, requestObjDict)
