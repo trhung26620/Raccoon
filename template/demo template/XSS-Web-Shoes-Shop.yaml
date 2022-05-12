@@ -1,5 +1,6 @@
 id: XSS-Web-Shoes-Shop
 # nuclei -u http://103.90.225.135:8001 -t XSS-Web-Shoes-Shop.yaml
+# XSS: "<script>alert(document.domain)</script>"
 
 info:
   name: XSS in Web Shoes Shop

