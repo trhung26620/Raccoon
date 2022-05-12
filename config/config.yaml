@@ -4,9 +4,9 @@ output_file: null
 proxy: {}
 retries: 0
 templates:
-- template\demo template\addBodyJsonAndQueryToCVE44228.yaml
+- template\demo template\TimebasedSQLInjection-Shoes-Shop.yaml
 thread: null
 timeout: 5
 url:
-- http://127.0.0.1
+- http://103.90.225.135:8001
 verbose: false
