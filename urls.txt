@@ -1,7 +1,8 @@
-https://www.facebook.com
+ftp://www.facebook.com
 ftp://stackoverflow.com/credential/abcxyz/?abc=xyz
 ftp://103.90.227.30:81/
 ftp://192.168.1.1
 ftp://127.0.0.1/
 ftp://howkteam.vn
 ftp://domainbayba.com
+http://103.90.225.135:8001

@@ -3,10 +3,10 @@ from bs4 import BeautifulSoup
 
 class ExposerUtil:
     @staticmethod
-    def getRegexResultList(responseObject, exposerRegexList, part, interactsh, group):
+    def getRegexResultList(responseObject, exposerRegexList, part, sshDataList, group):
         if responseObject and exposerRegexList and part:
             listResult = []
-            data = ExposerUtil.getResponseByPart(responseObject, part, interactsh)
+            data = ExposerUtil.getResponseByPart(responseObject, part, sshDataList)
             if data:
                 for regex in exposerRegexList:
                     if re.findall(regex, data):
@@ -21,10 +21,10 @@ class ExposerUtil:
             return None
 
     @staticmethod
-    def getXpathResultList(responseObject, xpathRegexList, attribute,interactsh):
+    def getXpathResultList(responseObject, xpathRegexList, attribute, sshDataList):
         if responseObject and xpathRegexList:
             listResult = []
-            data = ExposerUtil.getResponseByPart(responseObject, "body", interactsh)
+            data = ExposerUtil.getResponseByPart(responseObject, "body", sshDataList)
             if data:
                 for xpath in xpathRegexList:
                     tagData = ExposerUtil.getDataFromXpath(data, xpath, attribute)
@@ -38,7 +38,7 @@ class ExposerUtil:
 
 
     @staticmethod
-    def getResponseByPart(responseObject, part, interactsh):
+    def getResponseByPart(responseObject, part, sshDataList):
         if responseObject and part:
             data = ""
             if "header" in part:
@@ -48,23 +48,54 @@ class ExposerUtil:
             elif "all" in part:
                 data =responseObject.headerAndBody
             elif "interactsh_protocol" in part or "interactsh_request" in part or "interactsh_response" in part:
-                if interactsh:
-                    dataList = None
-                    dataInteractsh, aes_key = interactsh.pollDataFromWeb()
-                    if aes_key:
-                        key = interactsh.decryptAESKey(aes_key)
-                        dataList = interactsh.decryptMessage(key, dataInteractsh)
+                if sshDataList:
+                    # dataList = None
+                    # dataInteractsh, aes_key = interactsh.pollDataFromWeb()
+                    # if aes_key:
+                    #     key = interactsh.decryptAESKey(aes_key)
+                    #     dataList = interactsh.decryptMessage(key, dataInteractsh)
                     if "interactsh_protocol" in part:
-                        data = ExposerUtil.concatProtocolInteractsh(dataList)
+                        data = ExposerUtil.concatProtocolInteractsh(sshDataList)
                     elif "interactsh_request" in part:
-                        data = ExposerUtil.concatRequestInteractsh(dataList)
+                        data = ExposerUtil.concatRequestInteractsh(sshDataList)
                     elif "interactsh_response" in part:
-                        data = ExposerUtil.concatResponseInteractsh(dataList)
+                        data = ExposerUtil.concatResponseInteractsh(sshDataList)
                 else:
                     return None
             return data
         else:
             return None
+
+    @staticmethod
+    def concatProtocolInteractsh(dataInteractsh):
+        if dataInteractsh:
+            protocols = ""
+            for data in dataInteractsh:
+                protocols += data["protocol"] + "\n"
+            return protocols[:-1]
+        else:
+            return None
+
+    @staticmethod
+    def concatRequestInteractsh(dataInteractsh):
+        if dataInteractsh:
+            requestRaws = ""
+            for data in dataInteractsh:
+                requestRaws += data["raw-request"] + "\n"
+            return requestRaws[:-1]
+        else:
+            return None
+
+    @staticmethod
+    def concatResponseInteractsh(dataInteractsh):
+        if dataInteractsh:
+            responseRaws = ""
+            for data in dataInteractsh:
+                responseRaws += data["raw-response"] + "\n"
+            return responseRaws[:-1]
+        else:
+            return None
+
 
     @staticmethod
     def getSubTagIndex(tag):

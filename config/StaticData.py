@@ -33,7 +33,7 @@ class DefaultConfigExtractor:
     defaultSignature = None
     defaultPart = "body"
     defaultInternal = False
-    defaultGroup = None
+    defaultGroup = 0
 
 class Template:
     templatePath = None

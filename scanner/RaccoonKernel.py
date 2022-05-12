@@ -23,7 +23,7 @@ class RaccoonKernel:
             futureList.append(future.result())
         return futureList
 
-    def matcherProcess(self, response, requestConfig, matcherObjList):
+    def matcherProcess(self, response, requestConfig, matcherObjList, dataList):
         matcherResultList = list()
         defaultPart = ["header", "body", "all", "interactsh_protocol", "interactsh_request", "interactsh_response"]
         for matcherObj in matcherObjList:
@@ -34,7 +34,7 @@ class RaccoonKernel:
                         result = MatcherUtil.finalMatchResult(result, matcherObj.condition, matcherObj.negative)
                         matcherResultList.append(result)
                     elif matcherObj.type == "word":
-                        result = MatcherUtil.wordMatchResultList(response, matcherObj.signature, matcherObj.part, requestConfig.interactSh)
+                        result = MatcherUtil.wordMatchResultList(response, matcherObj.signature, matcherObj.part, dataList)
                         result = MatcherUtil.finalMatchResult(result, matcherObj.condition, matcherObj.negative)
                         matcherResultList.append(result)
                     elif matcherObj.type == "time":
@@ -42,32 +42,28 @@ class RaccoonKernel:
                         result = MatcherUtil.finalMatchResult(result, matcherObj.condition, matcherObj.negative)
                         matcherResultList.append(result)
                     elif matcherObj.type == "regex":
-                        result = MatcherUtil.regexMatchResultList(response, matcherObj.signature, matcherObj.part, requestConfig.interactSh)
+                        result = MatcherUtil.regexMatchResultList(response, matcherObj.signature, matcherObj.part, dataList)
                         result = MatcherUtil.finalMatchResult(result, matcherObj.condition, matcherObj.negative)
                         matcherResultList.append(result)
+        print(matcherResultList)
         if MatcherUtil.matchResultWithCondition(matcherResultList, requestConfig.matchersCondition):
             return True
         else:
             return False
 
-    def exposerProcess(self, response, requestConfig, exposerObjList):
+    def exposerProcess(self, response, requestConfig, exposerObjList, sshDataList):
         # exposerObjList = TemplateConfigService.generateExtractorObjectList(Template.templatePath)
         matcherResultList = list()
         if exposerObjList:
             for exposer in exposerObjList:
                 if exposer.type == "xpath":
                     # result = ExposerUtil.getXpathResultList(response, exposer.signature, exposer.attribute, requestConfig.interactSh)
-                    matcherResultList += ExposerUtil.getXpathResultList(response, exposer.signature, exposer.attribute, requestConfig.interactSh)
+                    matcherResultList += ExposerUtil.getXpathResultList(response, exposer.signature, exposer.attribute, sshDataList)
+                elif exposer.type == "regex":
+                    matcherResultList += ExposerUtil.getRegexResultList(response, exposer.signature, exposer.part, sshDataList, exposer.group)
             return matcherResultList
         else:
             return [None]
-            # print(exposer.type)
-            # print(exposer.signature)
-            # print(exposer.part)
-            # print(exposer.internal)
-            # print(exposer.group)
-            # print("="*50)
-
 
 
     def fireRequestsAndAnalyzeResponse(self, dataReq, requestConfig, session=None):
@@ -75,13 +71,13 @@ class RaccoonKernel:
             try:
                 response, position, id, payloadInfo = RequestHandle.sendGetRequest(dataReq, requestConfig, session)
             except:
-                response = None
+                response, position, id, payloadInfo = None, None, None, None
             return {"response": response, "position": position, "id": id, "payloadInfo": payloadInfo}
         elif dataReq["urlObj"].method.lower() == "post":
             try:
                 response, position, id, payloadInfo = RequestHandle.sendPostRequest(dataReq, requestConfig, session)
             except:
-                response = None
+                response, position, id, payloadInfo = None, None, None, None
             return {"response": response, "position": position, "id": id, "payloadInfo": payloadInfo}
 
 
@@ -124,6 +120,12 @@ class RaccoonKernel:
                                                                          requestConfig.reqCondition)
         if not matcherObjList:
             return False
+        if requestConfig.interactSh:
+            dataList = None
+            dataInteractsh, aes_key = requestConfig.interactSh.pollDataFromWeb()
+            if aes_key:
+                key = requestConfig.interactSh.decryptAESKey(aes_key)
+                dataList = requestConfig.interactSh.decryptMessage(key, dataInteractsh)
         # List of HTML report object
         HTMLReportList = []
         for responseDataDict in responseDataDictList:
@@ -133,13 +135,13 @@ class RaccoonKernel:
             payloadInfo = responseDataDict["payloadInfo"]
             if response is not None:
                 resObj = ResponseGenerator.generateResponseObject(response, position, id, payloadInfo)
-                matcherResult = self.matcherProcess(resObj, requestConfig, matcherObjList)
+                matcherResult = self.matcherProcess(resObj, requestConfig, matcherObjList, dataList)
                 print("[Debug] - Infected result: " + str(matcherResult))
                 print(payloadInfo)
                 print("="*50)
                 exposerObjList = TemplateConfigService.generateExtractorObjectList(Template.templatePath)
                 if matcherResult:
-                    info = self.exposerProcess(resObj, requestConfig, exposerObjList)
+                    info = self.exposerProcess(resObj, requestConfig, exposerObjList, dataList)
                     print("[Debug] - Payload: " + str(info))
 
                     # Default value if exposer and payload dict is none

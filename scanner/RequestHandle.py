@@ -8,7 +8,7 @@ class RequestHandle:
         if requestConfig.cookieReuse and session:
             r = session.post(url=dataRequest["urlObj"].baseUrl, params=dataRequest["param"],
                              headers=dataRequest["header"], data=dataRequest["body"],
-                             timeout=DefaultRequestFiringConfig.defaultTimeout, allow_redirects=requestConfig.redirect)
+                             timeout=int(ConfigUtil.readConfig()["timeout"]), allow_redirects=requestConfig.redirect)
             return r, dataRequest["position"], dataRequest["id"], dataRequest["payloadInfo"]
 
         else:
@@ -16,7 +16,7 @@ class RequestHandle:
             session.proxies.update(ConfigUtil.readConfig()["proxy"])
             session.verify = False
             session.allow_redirects = True
-            r = session.post(url=dataRequest["urlObj"].baseUrl, params=dataRequest["param"], headers=dataRequest["header"], data=dataRequest["body"],timeout=DefaultRequestFiringConfig.defaultTimeout, allow_redirects = requestConfig.redirect)
+            r = session.post(url=dataRequest["urlObj"].baseUrl, params=dataRequest["param"], headers=dataRequest["header"], data=dataRequest["body"],timeout=int(ConfigUtil.readConfig()["timeout"]), allow_redirects = requestConfig.redirect)
             return r, dataRequest["position"], dataRequest["id"], dataRequest["payloadInfo"]
 
     @staticmethod
@@ -24,14 +24,13 @@ class RequestHandle:
         if requestConfig.cookieReuse and session:
             r = session.get(url=dataRequest["urlObj"].baseUrl, params=dataRequest["param"],
                              headers=dataRequest["header"], data=dataRequest["body"],
-                             timeout=DefaultRequestFiringConfig.defaultTimeout, allow_redirects=requestConfig.redirect)
+                             timeout=int(ConfigUtil.readConfig()["timeout"]), allow_redirects=requestConfig.redirect)
             return r, dataRequest["position"], dataRequest["id"], dataRequest["payloadInfo"]
         session = requests.Session()
         session.proxies.update(ConfigUtil.readConfig()["proxy"])
         session.verify = False
         session.allow_redirects = DefaultRequestFiringConfig.allow_redirect
-        r = session.get(url=dataRequest["urlObj"].baseUrl, params=dataRequest["param"], headers=dataRequest["header"], data=dataRequest["body"], timeout=DefaultRequestFiringConfig.defaultTimeout, allow_redirects = requestConfig.redirect)
-
+        r = session.get(url=dataRequest["urlObj"].baseUrl, params=dataRequest["param"], headers=dataRequest["header"], data=dataRequest["body"], timeout=int(ConfigUtil.readConfig()["timeout"]), allow_redirects = requestConfig.redirect)
         return r, dataRequest["position"], dataRequest["id"], dataRequest["payloadInfo"]
 
     @staticmethod

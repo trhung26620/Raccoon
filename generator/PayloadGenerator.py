@@ -9,6 +9,9 @@ class PayloadGenerator:
         payloadDict = TemplateUtil.readPayloadsField(templateFilePath)
         if payloadDict is None:
             return None
+        for k,v in payloadDict.items():
+            for index in range(len(v)):
+                payloadDict[k][index] = str(payloadDict[k][index])
         resultPayloads = Payload(payloadDict)
         return resultPayloads
 

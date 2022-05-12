@@ -28,10 +28,10 @@ class MatcherUtil:
             return None
 
     @staticmethod
-    def wordMatchResultList(responseObject, matcherWordList, part, interactsh):
+    def wordMatchResultList(responseObject, matcherWordList, part, dataList):
         if responseObject and matcherWordList and part:
             listResult = list()
-            data = MatcherUtil.getResponseByPart(responseObject, part, interactsh)
+            data = MatcherUtil.getResponseByPart(responseObject, part, dataList)
             if data:
                 for word in matcherWordList:
                     if word in data:
@@ -46,10 +46,10 @@ class MatcherUtil:
             return None
 
     @staticmethod
-    def regexMatchResultList(responseObject, matcherRegexList, part, interactsh):
+    def regexMatchResultList(responseObject, matcherRegexList, part, dataList):
         if responseObject and matcherRegexList and part:
             listResult = list()
-            data = MatcherUtil.getResponseByPart(responseObject, part, interactsh)
+            data = MatcherUtil.getResponseByPart(responseObject, part, dataList)
             if data:
                 for regex in matcherRegexList:
                     if re.search(regex, data):
@@ -93,7 +93,7 @@ class MatcherUtil:
             return None
 
     @staticmethod
-    def getResponseByPart(responseObject, part, interactsh):
+    def getResponseByPart(responseObject, part, dataList):
         if responseObject and part:
             data = ""
             if "header" in part:
@@ -103,12 +103,12 @@ class MatcherUtil:
             elif "all" in part:
                 data =responseObject.headerAndBody
             elif "interactsh_protocol" in part or "interactsh_request" in part or "interactsh_response" in part:
-                if interactsh:
-                    dataList = None
-                    dataInteractsh, aes_key = interactsh.pollDataFromWeb()
-                    if aes_key:
-                        key = interactsh.decryptAESKey(aes_key)
-                        dataList = interactsh.decryptMessage(key, dataInteractsh)
+                if dataList:
+                    # dataList = None
+                    # dataInteractsh, aes_key = interactsh.pollDataFromWeb()
+                    # if aes_key:
+                    #     key = interactsh.decryptAESKey(aes_key)
+                    #     dataList = interactsh.decryptMessage(key, dataInteractsh)
                     if "interactsh_protocol" in part:
                         data = MatcherUtil.concatProtocolInteractsh(dataList)
                     elif "interactsh_request" in part:
@@ -116,6 +116,7 @@ class MatcherUtil:
                     elif "interactsh_response" in part:
                         data = MatcherUtil.concatResponseInteractsh(dataList)
                 else:
+
                     return None
             return data
         else:
@@ -192,72 +193,72 @@ class Helper:
 # data = eval("""base64.b64encode(message.encode('ascii')).decode('ascii')""")
 # https://www.geeksforgeeks.org/encoding-and-decoding-base64-strings-in-python/
 
-arg1 = r"""https://projectdiscovery.io/test?a=1"""
-# arg1 = input()
-arg2 = r"aa"
-arg3 = r""
-helperDict = {
-    "base64": "(base64.b64encode(arg1.encode('ascii')).decode('ascii'))",
-    "base64_decode": """(base64.b64decode(arg1.encode("ascii")).decode("ascii"))""",
-    "concat": "(arg1 + arg2)",
-    "contains": "(arg2 in arg1)",
-    "html_escape": "(html.escape(arg1))",
-    "html_unescape": "(html.unescape(arg1))",
-    "len": "(len(arg1))",
-    "regex": "(bool(re.match(arg1,arg2)))",
-    "repeat": "(arg1*int(arg2))",
-    "replace": "(arg1.replace(arg2,arg3))",
-    "replace_regex": "(re.sub(arg2, arg3, arg1))",
-    "to_lower": "(arg1.lower())",
-    "to_upper": "(arg1.upper())",
-    "trim": "(arg1.strip(arg2))",
-    "trim_left": "(arg1.lstrip(arg2))",
-    "trim_righ": "(arg1.rstrip(arg2))",
-    "trim_prefix": "(Helper.remove_prefix(arg1,arg2))",
-    "trim_space": """(arg1.strip(" "))""",
-    "trim_suffix": "(Helper.remove_suffix(arg1,arg2))",
-    "url_encode": "(url_encode(arg1, safe=''))",
-    "url_decode": "(url_decode(arg1))"
-}
-
-def findManyIndex(data, pattern):
-    return [i for i, ltr in enumerate(data) if ltr == pattern]
-
-def checkValidParenthesis(helperString):
-    openParenthesisIndexList = findManyIndex(helperString, "(")
-    closeParenthesisIndexList = findManyIndex(helperString, ")")
-    if not len(openParenthesisIndexList) == len(closeParenthesisIndexList):
-        print("Error: Wrong helper systax")
-        exit()
-
-def getFunctionListWithName(functionName, helperString):
-    functionPattern = functionName+"("
-    resultList = []
-    pos = 0
-    while pos < len(helperString)-1:
-        funcStartPosition = helperString.find(functionPattern, pos)
-        if funcStartPosition != -1:
-            argStartPosition = funcStartPosition + len(functionPattern)
-            tempString = helperString[argStartPosition:]
-            countOpenParenthesis = 0
-            countChar = 0
-            for char in tempString:
-                countChar += 1
-                if char == "(":
-                    countOpenParenthesis +=1
-                elif char == ")" and countOpenParenthesis == 0:
-                    resultList.append(helperString[funcStartPosition:argStartPosition+countChar])
-                    pos = funcStartPosition + len(helperString[funcStartPosition:argStartPosition+countChar])
-                    print(pos)
-                    break
-                elif char == ")":
-                    countOpenParenthesis -= 1
-        else:
-            break
-    if resultList:
-        return resultList
-    else:
-        return None
+# arg1 = r"""https://projectdiscovery.io/test?a=1"""
+# # arg1 = input()
+# arg2 = r"aa"
+# arg3 = r""
+# helperDict = {
+#     "base64": "(base64.b64encode(arg1.encode('ascii')).decode('ascii'))",
+#     "base64_decode": """(base64.b64decode(arg1.encode("ascii")).decode("ascii"))""",
+#     "concat": "(arg1 + arg2)",
+#     "contains": "(arg2 in arg1)",
+#     "html_escape": "(html.escape(arg1))",
+#     "html_unescape": "(html.unescape(arg1))",
+#     "len": "(len(arg1))",
+#     "regex": "(bool(re.match(arg1,arg2)))",
+#     "repeat": "(arg1*int(arg2))",
+#     "replace": "(arg1.replace(arg2,arg3))",
+#     "replace_regex": "(re.sub(arg2, arg3, arg1))",
+#     "to_lower": "(arg1.lower())",
+#     "to_upper": "(arg1.upper())",
+#     "trim": "(arg1.strip(arg2))",
+#     "trim_left": "(arg1.lstrip(arg2))",
+#     "trim_righ": "(arg1.rstrip(arg2))",
+#     "trim_prefix": "(Helper.remove_prefix(arg1,arg2))",
+#     "trim_space": """(arg1.strip(" "))""",
+#     "trim_suffix": "(Helper.remove_suffix(arg1,arg2))",
+#     "url_encode": "(url_encode(arg1, safe=''))",
+#     "url_decode": "(url_decode(arg1))"
+# }
+#
+# def findManyIndex(data, pattern):
+#     return [i for i, ltr in enumerate(data) if ltr == pattern]
+#
+# def checkValidParenthesis(helperString):
+#     openParenthesisIndexList = findManyIndex(helperString, "(")
+#     closeParenthesisIndexList = findManyIndex(helperString, ")")
+#     if not len(openParenthesisIndexList) == len(closeParenthesisIndexList):
+#         print("Error: Wrong helper systax")
+#         exit()
+#
+# def getFunctionListWithName(functionName, helperString):
+#     functionPattern = functionName+"("
+#     resultList = []
+#     pos = 0
+#     while pos < len(helperString)-1:
+#         funcStartPosition = helperString.find(functionPattern, pos)
+#         if funcStartPosition != -1:
+#             argStartPosition = funcStartPosition + len(functionPattern)
+#             tempString = helperString[argStartPosition:]
+#             countOpenParenthesis = 0
+#             countChar = 0
+#             for char in tempString:
+#                 countChar += 1
+#                 if char == "(":
+#                     countOpenParenthesis +=1
+#                 elif char == ")" and countOpenParenthesis == 0:
+#                     resultList.append(helperString[funcStartPosition:argStartPosition+countChar])
+#                     pos = funcStartPosition + len(helperString[funcStartPosition:argStartPosition+countChar])
+#                     print(pos)
+#                     break
+#                 elif char == ")":
+#                     countOpenParenthesis -= 1
+#         else:
+#             break
+#     if resultList:
+#         return resultList
+#     else:
+#         return None
 
 # """replace("abc,dxy",",d","xxx")"""
 # # abcxxxxy

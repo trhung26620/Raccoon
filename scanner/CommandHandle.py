@@ -3,6 +3,7 @@ import os
 import glob
 from utils.ConfigUtil import ConfigUtil
 from utils.DisplayUtil import DisplayUtil
+from config.StaticData import DefaultRequestFiringConfig
 from config.StaticData import AboutUs
 from colorama import Fore, Back, Style
 
@@ -22,7 +23,7 @@ class CommandUtil:
         parser.add_argument("--output-file", "-o", help="Specify file path to write info and result during scanning to a file.", required=False)
         parser.add_argument("--thread", "-T", help="Max number of concurrent HTTP(s) requests (default 10)", required=False)
         parser.add_argument("--interactsh-server", "-is", help="Specify an interactsh server url for self-hosted instance. (Warning: We can not analyze or parse result with this option)", required=False)
-        parser.add_argument("--timeout", help="Time to wait in seconds before timeout (default 5).", required=False)
+        parser.add_argument("--timeout", help="Time to wait in seconds before timeout (default 10).", required=False)
         parser.add_argument("--retries", help="Number of times to retry a failed request (default 0).", required=False)
         parser.add_argument("--debug", help="Show all requests and responses.", required=False, action="store_true")
         parser.add_argument("--debug-req", help="Show all sent requests.", required=False, action="store_true")
@@ -92,7 +93,7 @@ class CommandUtil:
         if self.args.timeout:
             config_yaml['timeout'] = self.args.timeout
         else:
-            config_yaml['timeout'] = 5
+            config_yaml['timeout'] = DefaultRequestFiringConfig.defaultTimeout
 
         if self.args.retries:
             config_yaml['retries'] = self.args.retries
