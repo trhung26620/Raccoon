@@ -21,7 +21,7 @@ info:
 requests:
   - request:
       - |
-        GET /test.html?username={{users}}&passwd={{passwords}}&email={{emails}} HTTP/1.1
+        GET /test2.html?username={{users}}&passwd={{passwords}}&email={{emails}} HTTP/1.1
         Host: {{Hostname}}
         User-Agent: {{users}}{{passwords}}&email={{emails}}
 
@@ -112,7 +112,7 @@ requests:
       - type: word
         word:
 #          - dns
-          - "Tillie"
+          - "The Dormouse's story"
 #          - <div id="main_menu_padded">
 #          - The requested URL was not found on this server
         part: all
@@ -139,5 +139,6 @@ requests:
 #          - '([a-zA-Z0-9\.\-]+)\.([a-z0-9]+)\.([a-z0-9]+)\.([a-z0-9]+)\.\w+'   # Print extracted ${hostName} in output
       - type: xpath
         xpath:
-          - "/html/body/form/div[2]/input[2]"
+          - "/html/body/form/div[2]/input[@id='__VIEWSTATE']"
+#          - "/html/body/form/div[2]/input[2]"
         attribute: csrf-token

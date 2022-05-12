@@ -50,11 +50,14 @@ class RaccoonKernel:
     def exposerProcess(self, response, requestConfig, exposerObjList):
         # exposerObjList = TemplateConfigService.generateExtractorObjectList(Template.templatePath)
         matcherResultList = list()
-        for exposer in exposerObjList:
-            if exposer.type == "xpath":
-                # result = ExposerUtil.getXpathResultList(response, exposer.signature, exposer.attribute, requestConfig.interactSh)
-                matcherResultList += ExposerUtil.getXpathResultList(response, exposer.signature, exposer.attribute, requestConfig.interactSh)
-        return matcherResultList
+        if exposerObjList:
+            for exposer in exposerObjList:
+                if exposer.type == "xpath":
+                    # result = ExposerUtil.getXpathResultList(response, exposer.signature, exposer.attribute, requestConfig.interactSh)
+                    matcherResultList += ExposerUtil.getXpathResultList(response, exposer.signature, exposer.attribute, requestConfig.interactSh)
+            return matcherResultList
+        else:
+            return [None]
             # print(exposer.type)
             # print(exposer.signature)
             # print(exposer.part)
