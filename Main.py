@@ -23,5 +23,6 @@ if __name__ == "__main__":
         raccoon = RaccoonKernel()
         raccoon.raccoonFlowControl(config, requests)
 
-    HTMLReportList = HTMLReportGlobal.HTMLReportList
-    FileUtil.printHTMLReport(HTMLReportList)
+    if len(HTMLReportGlobal.HTMLReportList) > 0:
+        HTMLReportList = HTMLReportGlobal.HTMLReportList
+        FileUtil.printHTMLReport(HTMLReportList)
