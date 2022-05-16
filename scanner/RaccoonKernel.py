@@ -113,13 +113,13 @@ class RaccoonKernel:
                 if requestObjList:
                     dataReqList = PayloadInjection.injectAllRawRequest(requestConfigObj, requestObjList)
                     responseDataDictList = self.runner(dataReqList, requestConfigObj)
-
+                    self.analyzeResponse(str(url), responseDataDictList, requestConfigObj)
         else:
             for url, requestObjList in requestObjDict.items():
                 if requestObjList:
                     dataReqList = PayloadInjection.getDataRequestWithoutPayloads(requestObjList)
                     responseDataDictList = self.runner(dataReqList, requestConfigObj)
-        self.analyzeResponse(str(url), responseDataDictList, requestConfigObj)
+                    self.analyzeResponse(str(url), responseDataDictList, requestConfigObj)
 
     def analyzeResponse(self, targetUrl, responseDataDictList, requestConfig):
         matcherObjList = TemplateConfigService.generateMatcherObjectList(Template.templatePath,
