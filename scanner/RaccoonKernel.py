@@ -62,7 +62,12 @@ class RaccoonKernel:
                     matcherResultList += ExposerUtil.getXpathResultList(response, exposer.signature, exposer.attribute, sshDataList)
                 elif exposer.type == "regex":
                     matcherResultList += ExposerUtil.getRegexResultList(response, exposer.signature, exposer.part, sshDataList, exposer.group)
-            return matcherResultList
+                elif exposer.type == "kval":
+                    matcherResultList += ExposerUtil.getKeyValueResultList(response, exposer.signature, sshDataList)
+            if matcherResultList:
+                return matcherResultList
+            else:
+                return [None]
         else:
             return [None]
 

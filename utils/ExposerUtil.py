@@ -7,7 +7,6 @@ class ExposerUtil:
         if responseObject and exposerRegexList and part:
             listResult = []
             data = ExposerUtil.getResponseByPart(responseObject, part, sshDataList)
-
             if data:
                 for regex in exposerRegexList:
                     if re.findall(regex, data):
@@ -22,7 +21,21 @@ class ExposerUtil:
             else:
                 return listResult
         else:
-            return None
+            return [None]
+
+    @staticmethod
+    def getKeyValueResultList(responseObject, exposerKvalList, sshDataList):
+        if responseObject and exposerKvalList:
+            listResult = []
+            data = responseObject.headerDict
+            for kVal in exposerKvalList:
+                if kVal == "interactsh_ip" and sshDataList:
+                    listResult += ExposerUtil.getIpRemoteListFromInteract(sshDataList)
+                else:
+                    if kVal in data:
+                        listResult += [data[kVal]]
+            return listResult
+        return [None]
 
     @staticmethod
     def getXpathResultList(responseObject, xpathRegexList, attribute, sshDataList):
@@ -33,12 +46,9 @@ class ExposerUtil:
                 for xpath in xpathRegexList:
                     tagData = ExposerUtil.getDataFromXpath(data, xpath, attribute)
                     listResult.append(tagData)
-                if listResult:
-                    return listResult
-                else:
-                    return None
+                return listResult
             else:
-                return None
+                return [None]
 
 
     @staticmethod
@@ -169,3 +179,11 @@ class ExposerUtil:
             else:
                 return None
         return result
+
+    @staticmethod
+    def getIpRemoteListFromInteract(sshDataList):
+        ipList = list()
+        for sshData in sshDataList:
+            if sshData["remote-address"] not in ipList:
+                ipList.append(sshData["remote-address"])
+        return ipList
