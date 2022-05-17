@@ -60,6 +60,10 @@ class HTMLReportGlobal:
     HTMLReportList = []
 
 
+class Debug:
+    DebugInfo = []
+
+
 class AboutUs:
     version = "Raccoon version 1.1.0"
     author = "Hung, Dat, Danh, Hoa"

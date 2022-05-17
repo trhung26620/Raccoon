@@ -9,6 +9,8 @@ class Response:
         self.id = id
         self.payloadInfo = payloadInfo
         self.headerDict = header
+
+
     def getRawHeader(self, headerDict):
         raw_header = ""
         for k, v in headerDict.items():

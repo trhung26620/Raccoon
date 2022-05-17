@@ -7,10 +7,12 @@ from generator.TemplateConfigGenerator import TemplateConfigService
 from utils.MatcherUtil import MatcherUtil
 from config.StaticData import Template
 from utils.ExposerUtil import ExposerUtil
-from utils.FileUtil import FileUtil
 from models.HTMLReport import HTMLReport
 from config.StaticData import HTMLReportGlobal
 import requests
+from termcolor import colored, cprint
+from config.StaticData import Debug
+
 
 
 class RaccoonKernel:
@@ -99,12 +101,18 @@ class RaccoonKernel:
                     dataReqList = PayloadInjection.injectAllRawRequest(requestConfigObj, requestObjList)
                     for dataReq in dataReqList:
                         responseDataDictList.append(self.fireRequestsAndAnalyzeResponse(dataReq, requestConfigObj, session))
+                        for request, response in zip(requestObjList, responseDataDictList):
+                            debugObject = {request: response}
+                            Debug.DebugInfo.append(debugObject)
         else:
             for url, requestObjList in requestObjDict.items():
                 if requestObjList:
                     dataReqList = PayloadInjection.getDataRequestWithoutPayloads(requestObjList)
                     for dataReq in dataReqList:
                         responseDataDictList.append(self.fireRequestsAndAnalyzeResponse(dataReq, requestConfigObj, session))
+                        for request, response in zip(requestObjList, responseDataDictList):
+                            debugObject = {request: response}
+                            Debug.DebugInfo.append(debugObject)
         self.analyzeResponse(str(url), responseDataDictList, requestConfigObj)
 
     def fireRequestWithMultiThread(self, requestConfigObj, requestObjDict):
@@ -113,12 +121,20 @@ class RaccoonKernel:
                 if requestObjList:
                     dataReqList = PayloadInjection.injectAllRawRequest(requestConfigObj, requestObjList)
                     responseDataDictList = self.runner(dataReqList, requestConfigObj)
+                    for request, response in zip(requestObjList, responseDataDictList):
+                        debugObject = {request: response}
+                        Debug.DebugInfo.append(debugObject)
                     self.analyzeResponse(str(url), responseDataDictList, requestConfigObj)
         else:
             for url, requestObjList in requestObjDict.items():
                 if requestObjList:
                     dataReqList = PayloadInjection.getDataRequestWithoutPayloads(requestObjList)
                     responseDataDictList = self.runner(dataReqList, requestConfigObj)
+                    for request, response in zip(requestObjList, responseDataDictList):
+                        debugObject = {request: response}
+                        Debug.DebugInfo.append(debugObject)
+                    # for response in responseDataDictList:
+                    #     cprint("Response: " + str(response["response"].headers))
                     self.analyzeResponse(str(url), responseDataDictList, requestConfigObj)
 
     def analyzeResponse(self, targetUrl, responseDataDictList, requestConfig):
@@ -161,8 +177,7 @@ class RaccoonKernel:
                         break
             else:
                 print("No response from target")
-        # if len(HTMLReportList) > 0:
-        #     FileUtil.printHTMLReport(HTMLReportList)
+
 
     def raccoonFlowControl(self, requestConfigObj, requestObjDict):
         PayloadInjection.injectInteractShUrl(requestConfigObj, requestObjDict)

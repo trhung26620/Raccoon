@@ -7,6 +7,9 @@ from config.StaticData import Template
 from utils.ConfigUtil import ConfigUtil
 from config.StaticData import HTMLReportGlobal
 from utils.FileUtil import FileUtil
+from scanner.Debugger import Debugger
+from config.StaticData import Debug
+
 
 urllib3.disable_warnings()
 
@@ -15,7 +18,9 @@ if __name__ == "__main__":
     args.argument()
     args.argumentHandling()
 
-    filePathList = ConfigUtil.readConfig()["templates"]
+    configValue = ConfigUtil.readConfig()
+    filePathList = configValue["templates"]
+
     for filePath in filePathList:
         Template.templatePath = filePath
         config = TemplateConfigService.getObjTemplateConfigByTemplate(Template.templatePath)
@@ -26,3 +31,12 @@ if __name__ == "__main__":
     if len(HTMLReportGlobal.HTMLReportList) > 0:
         HTMLReportList = HTMLReportGlobal.HTMLReportList
         FileUtil.printHTMLReport(HTMLReportList)
+
+    DebugInfo = Debug.DebugInfo
+    if "debug" in configValue:
+        Debugger.debugCall(DebugInfo)
+
+
+
+
+

@@ -137,6 +137,6 @@ def getDataRequestWithoutPayloads(requestObjList):
     id = 1
     for request in requestObjList:
         yield {"header": request.header.content, "param": request.url.paramPath, "body": request.body.content, "urlObj": request.url, "position": request.position, "id": id, "payloadInfo": None}
-        id +=1
+        id += 1
 
 

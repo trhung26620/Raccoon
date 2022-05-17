@@ -4,7 +4,8 @@ import traceback
 from bs4 import BeautifulSoup
 import random
 from utils import TemplateUtil
-from models.HTMLReport import HTMLReport
+from termcolor import colored, cprint
+
 
 
 class FileUtil:
@@ -42,14 +43,13 @@ class FileUtil:
                 fileObject.write(content)
                 fileObject.close()
             else:
-                print("Can not write to file - Invalid content - Written content must be string")
+                cprint("[Error] - Can not write to file - Invalid content - Written content must be string", "red")
         except:
             print(traceback.format_exc())
 
     @staticmethod
     def printHTMLReport(listHTMLReportObject):
         if len(listHTMLReportObject) <= 0:
-            print("[Debug - FileUtil] - Can not print report if there isn't any HTML Report object")
             return None
         try:
             htmlTemplatePath = "reportTemplate" + os.sep + "html" + os.sep + "report.html"
@@ -65,7 +65,6 @@ class FileUtil:
 
                         currentHTMLFrame = reportFrames[HTMLReportIndex]
                         targetTags = currentHTMLFrame.find_all("span", {"class": "target"})
-                        infectedResult = currentHTMLFrame.find_all("span", {"class": "infectedResult"})
                         idTags = currentHTMLFrame.find_all("span", {"class": "id"})
                         nameTags = currentHTMLFrame.find_all("span", {"class": "name"})
                         authorTags = currentHTMLFrame.find_all("span", {"class": "author"})
@@ -121,16 +120,13 @@ class FileUtil:
                         exposerContent[0].string = ""
                         payloadsContent[0].string = ""
                         targetTags[0].string = ""
-                        infectedResult[0].string = ""
 
                         # append target url
                         targetTags[0].string = HTMLReportObj.target
-                        # append infected result
-                        infectedResult[0].string = str(True)
                         # append exposer
                         listExposer = HTMLReportObj.exposer
                         if len(listExposer) <= 0:
-                            exposerContent[0].string = ""
+                            exposerContent[0].string = "No exposer was specify"
                         else:
                             for exposer in listExposer:
                                 appendedExposer = "- " + str(exposer) + "<br>"
@@ -158,9 +154,9 @@ class FileUtil:
                     randomFileName = "RaccoonReport_" + FileUtil.getRandomString(10) + ".html"
                     htmlExportTemplateFile = "reportTemplate" + os.sep + "html" + os.sep + randomFileName
                     FileUtil.writeToFile(htmlExportTemplateFile, str(soup))
-                    print("Export HTML report to: " + os.path.abspath(htmlExportTemplateFile))
+                    cprint("[Info] - Export HTML report to: " + os.path.abspath(htmlExportTemplateFile), "yellow")
             else:
-                print("Invalid path !!! Can not find template path: " + htmlTemplatePath)
+                cprint("[Error] - Invalid path !!! Can not find template path: " + htmlTemplatePath, "red")
 
         except:
             print(traceback.format_exc())

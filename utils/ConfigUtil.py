@@ -2,6 +2,7 @@ import yaml
 from pathlib import Path
 from utils.TemplateUtil import TemplateUtil
 
+
 class ConfigUtil:
     @staticmethod
     def readConfig():
