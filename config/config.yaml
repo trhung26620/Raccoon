@@ -1,10 +1,13 @@
-debug: debug_resp
+debug: null
 interactsh_server: null
 output_file: null
 proxy: {}
 retries: 0
 templates:
+- .\template\demo template\Demo-13-5-2022\Bruteforce-Shoes-Shop.yaml
 - .\template\demo template\Demo-13-5-2022\CVE-2021-44228.yaml
+- .\template\demo template\Demo-13-5-2022\TimebasedSQLInjection-Shoes-Shop.yaml
+- .\template\demo template\Demo-13-5-2022\XSS-Web-Shoes-Shop.yaml
 thread: null
 timeout: 10
 url:
