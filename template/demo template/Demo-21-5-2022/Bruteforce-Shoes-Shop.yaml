@@ -50,7 +50,7 @@ requests:
     scanMode: clusterbomb  # Available options: sniper, pitchfork and clusterbomb
     redirect: true
 
-    matchersCondition: and
+    matchers-condition: and
     matchers:
       - type: word
         part: body
