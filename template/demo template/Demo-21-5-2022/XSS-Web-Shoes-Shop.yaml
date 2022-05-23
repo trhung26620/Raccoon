@@ -25,7 +25,7 @@ requests:
         GET /search?name=%3Cscript%3Ealert%28document.domain%29%3C%2Fscript%3E HTTP/1.1
         Host: {{Hostname}}
         
-    matchersCondition: and
+    matchers-condition: and
     matchers:
       - type: status
         status:
