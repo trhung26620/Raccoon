@@ -125,17 +125,20 @@ class FileUtil:
                         targetTags[0].string = HTMLReportObj.target
                         # append exposer
                         listExposer = HTMLReportObj.exposer
-                        if len(listExposer) <= 0:
-                            exposerContent[0].string = "No exposer was specify"
+                        if len(listExposer) == 0:
+                            exposerContent[0].string = "- No exposer was specify"
                         else:
                             for exposer in listExposer:
                                 appendedExposer = "- " + str(exposer) + "<br>"
                                 exposerContent[0].append(BeautifulSoup(appendedExposer, "html.parser"))
                         # append injected payloads
                         injectedPayloads = HTMLReportObj.injectedPayload
-                        for payloadKey in injectedPayloads:
-                            appendedPayload = "- " + payloadKey + ": " + injectedPayloads[payloadKey] + "<br>"
-                            payloadsContent[0].append(BeautifulSoup(appendedPayload, "html.parser"))
+                        if len(injectedPayloads) == 0:
+                            payloadsContent[0].string = "- No payload was specify"
+                        else:
+                            for payloadKey in injectedPayloads:
+                                appendedPayload = "- " + payloadKey + ": " + injectedPayloads[payloadKey] + "<br>"
+                                payloadsContent[0].append(BeautifulSoup(appendedPayload, "html.parser"))
 
                         appendedContent = str(currentHTMLFrame).replace("&nbsp", "")   # delete new line character to append HTML content
                         reportContainer.append(BeautifulSoup(appendedContent, "html.parser"))

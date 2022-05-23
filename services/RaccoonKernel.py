@@ -158,17 +158,17 @@ class RaccoonKernel:
             if response is not None:
                 resObj = ResponseGenerator.generateResponseObject(response, position, id, payloadInfo)
                 matcherResult = self.matcherProcess(resObj, requestConfig, matcherObjList, dataList)
-                print("[Debug] - Infected result: " + str(matcherResult))
+                # print("[Debug] - Infected result: " + str(matcherResult))
                 print(payloadInfo)
                 print("="*50)
                 exposerObjList = TemplateConfigService.generateExtractorObjectList(Template.templatePath)
                 if matcherResult:
                     info = self.exposerProcess(resObj, requestConfig, exposerObjList, dataList)
-                    print("[Debug] - Payload: " + str(info))
+                    print("[Debug] - Payload: " + str(info) + "    " + str(len(info)))
 
                     # Default value if exposer and payload dict is none
-                    if info is None:
-                        info = ""
+                    if None in info and len(info) == 1:
+                        info = []
                     if payloadInfo is None:
                         payloadInfo = {}
                     HTMLReportObject = HTMLReport(targetUrl, Template.templatePath, info, payloadInfo)
@@ -176,7 +176,7 @@ class RaccoonKernel:
                     if requestConfig.stopAtFirstMatch:
                         break
             else:
-                print("No response from target")
+                cprint(" [INFO] - No response from target", "yellow")
 
 
     def raccoonFlowControl(self, requestConfigObj, requestObjDict):
