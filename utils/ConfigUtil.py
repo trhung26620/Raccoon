@@ -37,10 +37,11 @@ class ConfigUtil:
         selectedTemplatePathList = list()
         for templatePath in templatePathList:
             info = TemplateUtil.readInfoTemplate(templatePath)
-            for tag in tagList:
-                if tag in info["tags"].split(","):
-                    selectedTemplatePathList.append(templatePath)
-                    break
+            if "tags" in info:
+                for tag in tagList:
+                    if tag in info["tags"].split(","):
+                        selectedTemplatePathList.append(templatePath)
+                        break
         return selectedTemplatePathList
 
     @staticmethod
