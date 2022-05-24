@@ -9,6 +9,7 @@ from config.StaticData import HTMLReportGlobal
 from utils.FileUtil import FileUtil
 from services.Debugger import Debugger
 from config.StaticData import Debug
+from utils.PrinterUtil import Printer
 
 
 urllib3.disable_warnings()
@@ -17,6 +18,8 @@ if __name__ == "__main__":
     args = CommandUtil()
     args.argument()
     args.argumentHandling()
+
+    Printer.printStartWarning()
 
     configValue = ConfigUtil.readConfig()
     filePathList = configValue["templates"]

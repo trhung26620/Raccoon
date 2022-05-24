@@ -9,6 +9,7 @@ import requests
 from config.StaticData import InteractShStaticValue
 import random, string
 from utils.ConfigUtil import ConfigUtil
+from utils.PrinterUtil import Printer
 
 class InteractSh:
     def __init__(self):
@@ -36,10 +37,12 @@ class InteractSh:
         registerSuccessSignature = "registration successful"
         if registerSuccessSignature in registerCall.content.decode():
             interactUrl = self.subDomain + "." + InteractShStaticValue.interactShPrimaryDomain
-            cprint("\n[*] Registered interactSh successfully", "blue")
-            cprint("    [•] Interact URL: " + interactUrl, "cyan")
+            Printer.printInfo("Registered interactSh successfully")
+            Printer.printInfo("Interact URL: " + interactUrl)
+            Printer.printInfo("Using OOB server: interactsh.com")
+            # cprint("    [•]")
         else:
-            cprint("\n[*] Error while registering interactSh", "red")
+            Printer.printError("[*] Error while registering interactSh")
             exit()
         return interactUrl
 
@@ -61,9 +64,9 @@ class InteractSh:
             try:
                 fetchData = session.get(url=InteractShStaticValue.PollDataApi + queryStr, timeout=InteractShStaticValue.PollDataTimeOut)
             except TimeoutError:
-                cprint("\n[*] Interactsh not responding", "red")
+                Printer.printError("[*] OOB server not responding")
                 if second < maxPollingTime - 1:
-                    cprint("\n[*] Trying again...", "yellow")
+                    Printer.printWarning("[*] Trying again...")
                     isError = True
                     continue
             responseJson = fetchData.json()
@@ -74,7 +77,7 @@ class InteractSh:
 
             if "error" in responseJson:
                 isError = True
-                cprint("\nError when polling data: " + responseJson["error"], "red")
+                Printer.printError("Error when polling data: " + responseJson["error"])
                 break
 
             if responseJson["data"]:

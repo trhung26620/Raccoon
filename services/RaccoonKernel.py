@@ -10,8 +10,8 @@ from utils.ExposerUtil import ExposerUtil
 from models.HTMLReport import HTMLReport
 from config.StaticData import HTMLReportGlobal
 import requests
-from termcolor import colored, cprint
 from config.StaticData import Debug
+from utils.PrinterUtil import Printer
 
 
 
@@ -48,7 +48,7 @@ class RaccoonKernel:
                         result = MatcherUtil.regexMatchResultList(response, matcherObj.signature, matcherObj.part, dataList)
                         result = MatcherUtil.finalMatchResult(result, matcherObj.condition, matcherObj.negative)
                         matcherResultList.append(result)
-        print(matcherResultList)
+        # print(matcherResultList)
         if MatcherUtil.matchResultWithCondition(matcherResultList, requestConfig.matchersCondition):
             return True
         else:
@@ -158,13 +158,14 @@ class RaccoonKernel:
             if response is not None:
                 resObj = ResponseGenerator.generateResponseObject(response, position, id, payloadInfo)
                 matcherResult = self.matcherProcess(resObj, requestConfig, matcherObjList, dataList)
-                # print("[Debug] - Infected result: " + str(matcherResult))
-                print(payloadInfo)
-                print("="*50)
+                if matcherResult:
+                    Printer.printScanResult(targetUrl, "Target is infected !!!", matcherResult)
+                else:
+                    Printer.printScanResult(targetUrl, "Target is negative", matcherResult)
+                # print(payloadInfo)
                 exposerObjList = TemplateConfigService.generateExtractorObjectList(Template.templatePath)
                 if matcherResult:
                     info = self.exposerProcess(resObj, requestConfig, exposerObjList, dataList)
-                    print("[Debug] - Payload: " + str(info) + "    " + str(len(info)))
 
                     # Default value if exposer and payload dict is none
                     if None in info and len(info) == 1:
@@ -176,7 +177,7 @@ class RaccoonKernel:
                     if requestConfig.stopAtFirstMatch:
                         break
             else:
-                cprint(" [INFO] - No response from target", "yellow")
+                Printer.printError("No response from target")
 
 
     def raccoonFlowControl(self, requestConfigObj, requestObjDict):

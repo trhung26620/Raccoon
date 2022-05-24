@@ -78,6 +78,7 @@ class AboutUs:
     ██║  ██║██║  ██║╚██████╗╚██████╗╚██████╔╝╚██████╔╝██║ ╚████║
     ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
      Raccoon v1.1.0
+     Visit our documentation at https://raccoon-solution.online
      Coded by Hung Tran, Dat Tran, Danh Dao, Hoa Le  
      
      

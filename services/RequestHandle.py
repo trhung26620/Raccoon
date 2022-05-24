@@ -1,6 +1,10 @@
 import requests
 from config.StaticData import DefaultRequestFiringConfig
 from utils.ConfigUtil import ConfigUtil
+from utils.PrinterUtil import Printer
+from termcolor import colored
+from datetime import datetime
+
 
 class RequestHandle:
     @staticmethod
@@ -40,6 +44,7 @@ class RequestHandle:
         session.verify = False
         session.allow_redirects = DefaultRequestFiringConfig.allow_redirect
         r = session.put(url=dataRequest["urlObj"].baseUrl, params=dataRequest["param"], headers=dataRequest["header"], data=dataRequest["body"], timeout=DefaultRequestFiringConfig.defaultTimeout, allow_redirects = requestConfig.redirect)
+        Printer.printInfo("\nSend PUT request to target: " + dataRequest["urlObj"].baseUrl)
         return r, dataRequest["position"], dataRequest["id"]
 
     @staticmethod
