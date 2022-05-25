@@ -1,17 +1,14 @@
 debug: null
 interactsh_server: null
 output_file: null
-proxy: {}
+proxy:
+  http: http://127.0.0.1:8080
+  https: http://127.0.0.1:8080
 retries: 0
 templates:
-- template/demo template/Demo-21-5-2022/Bruteforce-Shoes-Shop.yaml
-- template/demo template/Demo-21-5-2022/CVE-2021-44228.yaml
-- template/demo template/Demo-21-5-2022/TimebasedSQLInjection-Shoes-Shop.yaml
-- template/demo template/Demo-21-5-2022/XSS-Web-Shoes-Shop.yaml
-- template/demo template/Demo-21-5-2022/wordpress/CVE-2022-0653.yaml
-- template/demo template/Demo-21-5-2022/wordpress/CVE-2022-1119.yaml
+- template/wordpress/CVE-2022-27849.yaml
 thread: null
 timeout: 10
 url:
-- http://103.90.225.135:8001/
+- https://danhdcse140043.000webhostapp.com/
 verbose: false
