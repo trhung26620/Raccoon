@@ -1,8 +1,7 @@
-id: TimebasedSQLInjection-Shoes-Shop
 # python Main.py -u http://103.90.225.135:8001 -t "template\demo template\TimebasedSQLInjection-Shoes-Shop.yaml"
 # SQL Injection command:"1' UNION ALL SELECT 1, sleep(5),3,4,5 -- "
-
 info:
+  id: TimebasedSQLInjection-Shoes-Shop
   name: Time-based SQL Injection in Web Shoes Shop
   author: Hung, Dat, Hoa, Danh
   severity: high
