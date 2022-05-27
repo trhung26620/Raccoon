@@ -1,14 +1,17 @@
-debug: null
+debug: debug
 interactsh_server: null
 output_file: null
-proxy:
-  http: http://127.0.0.1:8080
-  https: http://127.0.0.1:8080
+proxy: {}
 retries: 0
 templates:
-- template/wordpress/CVE-2022-27849.yaml
+- .\template\wordpress\CVE-2019-14205.yaml
+- .\template\wordpress\CVE-2021-24495.yaml
+- .\template\wordpress\CVE-2022-0288.yaml
+- .\template\wordpress\CVE-2022-0653.yaml
+- .\template\wordpress\CVE-2022-1119.yaml
+- .\template\wordpress\CVE-2022-27849.yaml
 thread: null
 timeout: 10
 url:
-- https://danhdcse140043.000webhostapp.com/
+- http://103.90.225.135:8001/
 verbose: false
