@@ -47,5 +47,19 @@ class Printer:
         print(warningTag + " Our developer team do not responsible for any misuse or damage")
         print(warningTag + " Please update our template repository regularly for latest CVEs")
 
-
-
+    @staticmethod
+    def getRaccoonMode():
+        print("Raccoon Mode")
+        print(" 1. Gathering target")
+        print(" 2. Scan with template")
+        mode = input("Select Raccoon mode: ")
+        if mode == "1":
+            target = input("Enter domain/IP target: ")
+            if target.strip().replace('.', '').isnumeric():
+                return {"ip": target}
+            else:
+                return {"domain": target}
+        elif mode == "2":
+            return 2
+        else:
+            return None

@@ -10,6 +10,20 @@ from termcolor import colored, cprint
 
 class FileUtil:
     @staticmethod
+    def getWordlistPath():
+        dirname = os.path.dirname(__file__)
+        try:
+            wordlistPath = os.path.join(dirname, "../config/small.txt")
+            return wordlistPath
+        except:
+            try:
+                wordlistPath = os.path.join(dirname, "..\config\small.txt")
+                return wordlistPath
+            except FileNotFoundError:
+                print("Wordlist file not found")
+                exit()
+
+    @staticmethod
     def readPayloadFromFile(filePath):
         try:
             isFileExist = os.path.isfile(filePath)

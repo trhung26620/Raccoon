@@ -10,34 +10,40 @@ from utils.FileUtil import FileUtil
 from services.Debugger import Debugger
 from config.StaticData import Debug
 from utils.PrinterUtil import Printer
-
+from services.EnumSubdomain import EnumSubdomain
 
 urllib3.disable_warnings()
 
 if __name__ == "__main__":
-    args = CommandUtil()
-    args.argument()
-    args.argumentHandling()
+    raccoonMode = Printer.getRaccoonMode()
+    if isinstance(raccoonMode, dict):
+        if "domain" in raccoonMode:
+            print("Scanning...")
+            subList = EnumSubdomain.getFinalSubdomainList(raccoonMode["domain"])
+            print(subList)
+    elif raccoonMode == 2:
+        args = CommandUtil()
+        args.argument()
+        args.argumentHandling()
+        Printer.printStartWarning()
 
-    Printer.printStartWarning()
+        configValue = ConfigUtil.readConfig()
+        filePathList = configValue["templates"]
 
-    configValue = ConfigUtil.readConfig()
-    filePathList = configValue["templates"]
+        for filePath in filePathList:
+            Template.templatePath = filePath
+            config = TemplateConfigService.getObjTemplateConfigByTemplate(Template.templatePath)
+            requests = RequestGenerator.generateRequestObject(Template.templatePath)
+            raccoon = RaccoonKernel()
+            raccoon.raccoonFlowControl(config, requests)
 
-    for filePath in filePathList:
-        Template.templatePath = filePath
-        config = TemplateConfigService.getObjTemplateConfigByTemplate(Template.templatePath)
-        requests = RequestGenerator.generateRequestObject(Template.templatePath)
-        raccoon = RaccoonKernel()
-        raccoon.raccoonFlowControl(config, requests)
+        if len(HTMLReportGlobal.HTMLReportList) > 0:
+            HTMLReportList = HTMLReportGlobal.HTMLReportList
+            FileUtil.printHTMLReport(HTMLReportList)
 
-    if len(HTMLReportGlobal.HTMLReportList) > 0:
-        HTMLReportList = HTMLReportGlobal.HTMLReportList
-        FileUtil.printHTMLReport(HTMLReportList)
-
-    DebugInfo = Debug.DebugInfo
-    if "debug" in configValue:
-        Debugger.debugCall(DebugInfo)
+        DebugInfo = Debug.DebugInfo
+        if "debug" in configValue:
+            Debugger.debugCall(DebugInfo)
 
 
 
