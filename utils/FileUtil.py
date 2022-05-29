@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import random
 from utils import TemplateUtil
 from termcolor import colored, cprint
+from utils.PrinterUtil import Printer
 
 
 
@@ -20,7 +21,7 @@ class FileUtil:
                 wordlistPath = os.path.join(dirname, "..\config\small.txt")
                 return wordlistPath
             except FileNotFoundError:
-                print("Wordlist file not found")
+                Printer.printError("Wordlist file not found")
                 exit()
 
     @staticmethod
@@ -36,10 +37,10 @@ class FileUtil:
                         payloadValues.append(payloadValue)
                 return payloadValues
             else:
-                print("File not found !!!")
+                Printer.printError("Payload file not found")
                 return None
         except FileNotFoundError:
-            print("Can not read this file !!! ")
+            Printer.printError("Can not read this file: " + filePath)
             fileObject.close()
             return None
 
@@ -57,7 +58,7 @@ class FileUtil:
                 fileObject.write(content)
                 fileObject.close()
             else:
-                cprint("[Error] - Can not write to file - Invalid content - Written content must be string", "red")
+                Printer.printError("Can not write to file - Invalid content - Written content must be string")
         except:
             print(traceback.format_exc())
 
@@ -173,7 +174,7 @@ class FileUtil:
                     FileUtil.writeToFile(htmlExportTemplateFile, str(soup))
                     cprint("[Info] - Export HTML report to: " + os.path.abspath(htmlExportTemplateFile), "yellow")
             else:
-                cprint("[Error] - Invalid path !!! Can not find template path: " + htmlTemplatePath, "red")
+                Printer.printError("Invalid path !!! Can not find template path: " + htmlTemplatePath)
 
         except:
             print(traceback.format_exc())

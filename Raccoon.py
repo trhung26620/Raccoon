@@ -11,6 +11,7 @@ from services.Debugger import Debugger
 from config.StaticData import Debug
 from utils.PrinterUtil import Printer
 from services.EnumSubdomain import EnumSubdomain
+from services.PortScanner import Scanner
 
 urllib3.disable_warnings()
 
@@ -18,9 +19,49 @@ if __name__ == "__main__":
     raccoonMode = Printer.getRaccoonMode()
     if isinstance(raccoonMode, dict):
         if "domain" in raccoonMode:
-            print("Scanning...")
+            targetDomain = raccoonMode["domain"]
+            Printer.printInfo("Scanning information at target: " + targetDomain)
             subList = EnumSubdomain.getFinalSubdomainList(raccoonMode["domain"])
             print(subList)
+
+            resolveIps = Scanner.resolveToIP(targetDomain)
+            if len(resolveIps) != 0:
+                for ip in resolveIps:
+                    Printer.printInfo(targetDomain + "resolve to: " + ip)
+                mainIp = resolveIps[0]
+            else:
+                Printer.printInfo(targetDomain + " is not point to any ip address")
+
+            openPorts = Scanner.getOpenPort(mainIp)
+            if len(openPorts) != 0:
+                Printer.printInfo("Open port at target " + mainIp + " " + str(openPorts))
+            else:
+                Printer.printInfo("Can not find any open port at: " + mainIp)
+
+            runningServices = Scanner.getRunningService(mainIp)
+            if len(runningServices) != 0:
+                Printer.printInfo("Running service on: " + mainIp + ":")
+                for service in runningServices:
+                    print(service)
+            else:
+                Printer.printInfo("No service running on: " + mainIp)
+
+        elif "ip" in raccoonMode:
+            targetIP = raccoonMode["ip"]
+            openPorts = Scanner.getOpenPort(targetIP)
+            if len(openPorts) != 0:
+                Printer.printInfo("Open port at target " + targetIP + " " + str(openPorts))
+            else:
+                Printer.printInfo("Can not find any open port at: " + targetIP)
+
+            runningServices = Scanner.getRunningService(targetIP)
+            Printer.printInfo("Running services on: " + targetIP + ":")
+            if len(runningServices) != 0:
+                for service in runningServices:
+                    print(service)
+            else:
+                Printer.printInfo("No service running on: " + targetIP)
+
     elif raccoonMode == 2:
         args = CommandUtil()
         args.argument()
