@@ -1,11 +1,12 @@
 from bs4 import BeautifulSoup
 import requests
 from utils.FileUtil import FileUtil
+from config.StaticData import Subdomain
 
 class EnumSubdomain:
     @staticmethod
     def enumSubdomainWithThirdParty(domain):
-        target = "https://crt.sh/?q=" + domain
+        target = Subdomain.apiUrl + domain
         subList = list()
         try:
             r = requests.get(target)
