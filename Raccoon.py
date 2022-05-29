@@ -10,7 +10,7 @@ from utils.FileUtil import FileUtil
 from services.Debugger import Debugger
 from config.StaticData import Debug
 from utils.PrinterUtil import Printer
-from services.EnumSubdomain import EnumSubdomain
+from services.EnumerateSubdomain import EnumSubdomain
 
 urllib3.disable_warnings()
 

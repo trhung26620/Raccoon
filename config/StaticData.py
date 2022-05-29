@@ -59,6 +59,8 @@ class Parttern:
 class HTMLReportGlobal:
     HTMLReportList = []
 
+class Subdomain:
+    apiUrl = "https://crt.sh/?q="
 
 class Debug:
     DebugInfo = []
