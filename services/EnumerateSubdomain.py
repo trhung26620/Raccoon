@@ -41,9 +41,9 @@ class EnumSubdomain:
     def getFinalSubdomainList(domain):
         wordlist = FileUtil.getWordlistPath()
         subList1 = EnumSubdomain.enumSubdomainWithThirdParty(domain)
-        # subList2 = EnumSubdomain.enumSubdomainWithWordList(domain, wordlist)
-        # subList = list(dict.fromkeys(subList1 + subList2))
-        subList = list(dict.fromkeys(subList1))
+        subList2 = EnumSubdomain.enumSubdomainWithWordList(domain, wordlist)
+        subList = list(dict.fromkeys(subList1 + subList2))
+        # subList = list(dict.fromkeys(subList1))
         return subList
 
 
