@@ -32,7 +32,7 @@ class EnumSubdomain:
             url = f"https://{subdomain}.{domain_name}"
             try:
                 requests.get(url)
-                subList.append(subdomain+domain_name)
+                subList.append(subdomain+"."+domain_name)
             except:
                 pass
         return subList
