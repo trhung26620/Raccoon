@@ -32,33 +32,21 @@ if __name__ == "__main__":
             else:
                 Printer.printInfo(targetDomain + " is not point to any ip address")
 
-            openPorts = Scanner.getOpenPort(mainIp)
-            if len(openPorts) != 0:
-                Printer.printInfo("Open port at target " + mainIp + " " + str(openPorts))
-            else:
-                Printer.printInfo("Can not find any open port at: " + mainIp)
-
             runningServices = Scanner.getRunningService(mainIp)
             if len(runningServices) != 0:
                 Printer.printInfo("Running service on: " + mainIp + ":")
                 for service in runningServices:
-                    print(service)
+                    print(str(service) + ": " + str(runningServices[service]))
             else:
                 Printer.printInfo("No service running on: " + mainIp)
 
         elif "ip" in raccoonMode:
             targetIP = raccoonMode["ip"]
-            openPorts = Scanner.getOpenPort(targetIP)
-            if len(openPorts) != 0:
-                Printer.printInfo("Open port at target " + targetIP + " " + str(openPorts))
-            else:
-                Printer.printInfo("Can not find any open port at: " + targetIP)
-
             runningServices = Scanner.getRunningService(targetIP)
             Printer.printInfo("Running services on: " + targetIP + ":")
             if len(runningServices) != 0:
                 for service in runningServices:
-                    print(service)
+                    print(str(service) + ": " + str(runningServices[service]))
             else:
                 Printer.printInfo("No service running on: " + targetIP)
 

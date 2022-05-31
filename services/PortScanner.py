@@ -22,29 +22,29 @@ class Scanner:
         Printer.printInfo("Scanning services at target: " + str(target) + " .... ")
         nm.scan(target, '1-65535')
         allHost = nm.all_hosts()
-        services = []
+        infoDict = {}
         for host in allHost:
             ports = nm[host]['tcp'].keys()
             for port in ports:
                 state = nm[host]['tcp'][port]['state']
                 if state == "open":
                     service = nm[host]['tcp'][port]
-                    services.append(service)
-        return services
+                    infoDict[port] = service
+        return infoDict
 
     # return list of open port
-    @staticmethod
-    def getOpenPort(target):
-        openPorts = []
-        nm = nmap.PortScanner()
-        Printer.printInfo("Scanning for open ports at: " + target + " ... ")
-        nm.scan(target, '1-65535')
-        ports = nm[target]['tcp'].keys()
-        for port in ports:
-            state = nm[target]['tcp'][port]['state']
-            if state == "open":
-                openPorts.append(port)
-        return openPorts
+    # @staticmethod
+    # def getOpenPort(target):
+    #     openPorts = []
+    #     nm = nmap.PortScanner()
+    #     Printer.printInfo("Scanning for open ports at: " + target + " ... ")
+    #     nm.scan(target, '1-65535')
+    #     ports = nm[target]['tcp'].keys()
+    #     for port in ports:
+    #         state = nm[target]['tcp'][port]['state']
+    #         if state == "open":
+    #             openPorts.append(port)
+    #     return openPorts
 
 
 
