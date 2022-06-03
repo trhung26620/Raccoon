@@ -1,7 +1,7 @@
 info:
   id: cache-poisoning-fuzz
   name: Cache Poison Fuzzing
-  author: dwisiswant0
+  author: Hung, Dat, Danh, Hoa
   severity: info
   reference:
     - https://youst.in/posts/cache-poisoning-at-scale/

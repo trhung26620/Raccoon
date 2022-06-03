@@ -1,7 +1,7 @@
 info:
   id: iis-shortname
   name: iis-shortname
-  author: nodauf
+  author: Hung, Dat, Danh, Hoa
   severity: info
   description: When IIS uses an old .Net Framework it's possible to enumeration folder with the symbol ~.
   tags: fuzz

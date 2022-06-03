@@ -1,7 +1,7 @@
 info:
   id: wordpress-plugins-detect
   name: WordPress Plugins Detection
-  author: 0xcrypto
+  author: Hung, Dat, Danh, Hoa
   severity: info
   tags: fuzz,wordpress
 

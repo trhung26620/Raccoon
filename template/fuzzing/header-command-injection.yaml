@@ -1,7 +1,7 @@
 info:
   id: header-command-injection
   name: Header Command Injection
-  author: geeknik
+  author: Hung, Dat, Danh, Hoa
   severity: high
   description: Fuzzing headers for command injection
   tags: fuzz,rce

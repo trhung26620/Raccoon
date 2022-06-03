@@ -1,7 +1,7 @@
 info:
   id: wordpress-themes-detect
   name: WordPress Theme Detection
-  author: 0xcrypto
+  author: Hung, Dat, Danh, Hoa
   severity: info
   tags: fuzz,wordpress
 

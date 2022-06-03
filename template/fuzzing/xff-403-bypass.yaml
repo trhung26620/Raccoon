@@ -1,7 +1,7 @@
 info:
   id: xff-403-bypass
   name: X-Forwarded-For 403-forbidden bypass
-  author: vavkamil
+  author: Hung, Dat, Danh, Hoa
   severity: info
   description: Template to detect 403 forbidden endpoint bypass behind Nginx/Apache proxy & load balancers, based on X-Forwarded-For header.
   tags: fuzz
