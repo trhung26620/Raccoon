@@ -13,8 +13,6 @@ import requests
 from config.StaticData import Debug
 from utils.PrinterUtil import Printer
 
-
-
 class RaccoonKernel:
     def runner(self, dataReqList, requestConfig):
         threads = []

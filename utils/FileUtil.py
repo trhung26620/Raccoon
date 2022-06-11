@@ -6,7 +6,7 @@ import random
 from utils import TemplateUtil
 from termcolor import colored, cprint
 from utils.PrinterUtil import Printer
-
+from config.StaticData import Subdomain
 
 
 class FileUtil:
@@ -14,11 +14,11 @@ class FileUtil:
     def getWordlistPath():
         dirname = os.path.dirname(__file__)
         try:
-            wordlistPath = os.path.join(dirname, "../config/small.txt")
+            wordlistPath = os.path.join(dirname, f"../config/{Subdomain.wordListFileName}")
             return wordlistPath
         except:
             try:
-                wordlistPath = os.path.join(dirname, "..\config\small.txt")
+                wordlistPath = os.path.join(dirname, f"..\config\{Subdomain.wordListFileName}")
                 return wordlistPath
             except FileNotFoundError:
                 Printer.printError("Wordlist file not found")
