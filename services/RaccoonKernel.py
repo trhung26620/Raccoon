@@ -102,6 +102,9 @@ class RaccoonKernel:
                         for request, response in zip(requestObjList, responseDataDictList):
                             debugObject = {request: response}
                             Debug.DebugInfo.append(debugObject)
+                            requestPath = request.url.baseUrl
+                            requestMethod = request.url.method
+                            Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(requestPath))
         else:
             for url, requestObjList in requestObjDict.items():
                 if requestObjList:
@@ -111,6 +114,9 @@ class RaccoonKernel:
                         for request, response in zip(requestObjList, responseDataDictList):
                             debugObject = {request: response}
                             Debug.DebugInfo.append(debugObject)
+                            requestPath = request.url.baseUrl
+                            requestMethod = request.url.method
+                            Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(requestPath))
         self.analyzeResponse(str(url), responseDataDictList, requestConfigObj)
 
     def fireRequestWithMultiThread(self, requestConfigObj, requestObjDict):
@@ -122,6 +128,9 @@ class RaccoonKernel:
                     for request, response in zip(requestObjList, responseDataDictList):
                         debugObject = {request: response}
                         Debug.DebugInfo.append(debugObject)
+                        requestPath = request.url.baseUrl
+                        requestMethod = request.url.method
+                        Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(requestPath))
                     self.analyzeResponse(str(url), responseDataDictList, requestConfigObj)
         else:
             for url, requestObjList in requestObjDict.items():
@@ -133,6 +142,9 @@ class RaccoonKernel:
                         Debug.DebugInfo.append(debugObject)
                     # for response in responseDataDictList:
                     #     cprint("Response: " + str(response["response"].headers))
+                        requestPath = request.url.baseUrl
+                        requestMethod = request.url.method
+                        Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(requestPath))
                     self.analyzeResponse(str(url), responseDataDictList, requestConfigObj)
 
     def analyzeResponse(self, targetUrl, responseDataDictList, requestConfig):
@@ -156,10 +168,11 @@ class RaccoonKernel:
             if response is not None:
                 resObj = ResponseGenerator.generateResponseObject(response, position, id, payloadInfo)
                 matcherResult = self.matcherProcess(resObj, requestConfig, matcherObjList, dataList)
+                currentUsedTemplatePath = Template.templatePath
                 if matcherResult:
-                    Printer.printScanResult(targetUrl, "Target is infected !!!", matcherResult)
+                    Printer.printScanResult(targetUrl, "Target is infected !!!", matcherResult, currentUsedTemplatePath)
                 else:
-                    Printer.printScanResult(targetUrl, "Target is negative", matcherResult)
+                    Printer.printScanResult(targetUrl, "Target is negative", matcherResult, currentUsedTemplatePath)
                 # print(payloadInfo)
                 exposerObjList = TemplateConfigService.generateExtractorObjectList(Template.templatePath)
                 if matcherResult:

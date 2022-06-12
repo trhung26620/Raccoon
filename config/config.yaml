@@ -4,23 +4,9 @@ output_file: null
 proxy: {}
 retries: 0
 templates:
-- template/demo template/Demo-21-5-2022/Bruteforce-Shoes-Shop.yaml
-- template/demo template/Demo-21-5-2022/CVE-2021-44228.yaml
-- template/demo template/Demo-21-5-2022/TimebasedSQLInjection-Shoes-Shop.yaml
-- template/demo template/Demo-21-5-2022/XSS-Web-Shoes-Shop.yaml
-- template/demo template/Demo-21-5-2022/wordpress/CVE-2022-0653.yaml
-- template/demo template/Demo-21-5-2022/wordpress/CVE-2022-1119.yaml
+- .\template\cve\CVE-2021-44228.yaml
 thread: null
 timeout: 10
 url:
-- ftp://www.facebook.com
-- ftp://stackoverflow.com/credential/abcxyz/?abc=xyz
-- ftp://103.90.227.30:81/
-- ftp://192.168.1.1
-- ftp://127.0.0.1/
-- ftp://howkteam.vn
-- ftp://domainbayba.com
-- http://103.90.225.135:8001
-- ftp://127.0.0.1/test.html
-- http://danhdcse140043.000webhostapp.com
+- http://demo.raccoon-solution.online/
 verbose: false

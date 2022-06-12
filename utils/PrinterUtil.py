@@ -9,7 +9,7 @@ class Printer:
         now = datetime.now()
         nowTag = colored(str(now), "cyan")
         errorTag = colored("[ERROR]", "red", attrs=["bold"])
-        print("\n[" + nowTag + "] " + errorTag + " " + str(err))
+        print("[" + nowTag + "] " + errorTag + " " + str(err))
 
 
     @staticmethod
@@ -17,7 +17,7 @@ class Printer:
         now = datetime.now()
         nowTag = colored(str(now), "cyan")
         warningTag = colored("[WARNING]", "yellow", attrs=["underline"])
-        print("\n[" + nowTag + "] " + warningTag + " " + str(warning))
+        print("[" + nowTag + "] " + warningTag + " " + str(warning))
 
 
     @staticmethod
@@ -25,10 +25,10 @@ class Printer:
         now = datetime.now()
         nowTag = colored(str(now), "cyan")
         infoTag = colored("[INFO]", "blue", attrs=["underline"])
-        print("\n[" + nowTag + "] " + infoTag + " " + str(info))
+        print("[" + nowTag + "] " + infoTag + " " + str(info))
 
     @staticmethod
-    def printScanResult(targetUrl, info, result):
+    def printScanResult(targetUrl, info, result, templatePath):
         now = datetime.now()
         nowTag = colored(str(now), "cyan")
         targetUrlTag = colored(str(targetUrl), "blue")
@@ -37,7 +37,26 @@ class Printer:
         else:
             infoTag = colored(info, "green")
 
-        print("[" + nowTag + "] " + "[" + targetUrlTag + "] " + infoTag)
+        if str(templatePath).strip() != '':
+            from utils.TemplateUtil import TemplateUtil
+            templateInfo = TemplateUtil.readInfoTemplate(templatePath)
+            templateId = templateInfo['id']
+            severity = templateInfo['severity']
+        else:
+            templateId = 'None'
+            severity = 'None'
+
+        templateIdTag = colored(str(templateId), "red")
+        if severity.lower() == "critical" or severity.lower() == "high":
+            severityTag = colored(str(severity), "red")
+        elif severity.lower() == "medium":
+            severityTag = colored(str(severity), "yellow")
+        elif severity.lower() == "low":
+            severityTag = colored(str(severity), "blue")
+        else:
+            severityTag = colored(str(severity), "green")
+
+        print("[" + nowTag + "] " + "[" + targetUrlTag + "] " + "[" + templateIdTag + "] " + "[" + severityTag + "] " + infoTag)
 
 
     @staticmethod

@@ -56,7 +56,7 @@ class InteractSh:
         session.verify = False
         session.allow_redirects = True
         maxPollingTime = InteractShStaticValue.maxPollingTime
-        cprint("\n[*] Waiting for a response(up to " + str(2 * maxPollingTime) + " seconds)...\n", "yellow")
+        Printer.printWarning("[*] Waiting for a response from interactSh server(up to " + str(2 * maxPollingTime) + " seconds)...")
         isError = False
         for second in range(maxPollingTime):
             isError = False

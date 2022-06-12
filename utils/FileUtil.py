@@ -60,7 +60,8 @@ class FileUtil:
             else:
                 Printer.printError("Can not write to file - Invalid content - Written content must be string")
         except:
-            print(traceback.format_exc())
+            # print(traceback.format_exc())
+            Printer.printError("Can not write to file - Something wrong happen!")
 
     @staticmethod
     def printHTMLReport(listHTMLReportObject):

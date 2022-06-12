@@ -10,7 +10,7 @@ class TemplateUtil:
             template_content = yaml.load(f_template, Loader=yaml.FullLoader)
             return template_content
         except FileNotFoundError:
-            print("Template '" + templateFilePath+ "' not found!!")
+            print("Can not find path: '" + templateFilePath)
             exit()
 
     @staticmethod
