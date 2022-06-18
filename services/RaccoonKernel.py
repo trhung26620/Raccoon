@@ -13,6 +13,7 @@ import requests
 from config.StaticData import Debug
 from utils.PrinterUtil import Printer
 
+
 class RaccoonKernel:
     def runner(self, dataReqList, requestConfig):
         threads = []
@@ -171,8 +172,12 @@ class RaccoonKernel:
                 currentUsedTemplatePath = Template.templatePath
                 if matcherResult:
                     Printer.printScanResult(targetUrl, "Target is infected !!!", matcherResult, currentUsedTemplatePath)
+
                 else:
-                    Printer.printScanResult(targetUrl, "Target is negative", matcherResult, currentUsedTemplatePath)
+                    config = ConfigUtil.readConfig()
+                    verboseOption = config['verbose']   # verbose to print all result (event not infected)
+                    if verboseOption:
+                        Printer.printScanResult(targetUrl, "Target is negative", matcherResult, currentUsedTemplatePath)
                 # print(payloadInfo)
                 exposerObjList = TemplateConfigService.generateExtractorObjectList(Template.templatePath)
                 if matcherResult:

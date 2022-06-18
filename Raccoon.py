@@ -27,7 +27,7 @@ if __name__ == "__main__":
             resolveIps = Scanner.resolveToIP(targetDomain)
             if len(resolveIps) != 0:
                 for ip in resolveIps:
-                    Printer.printInfo(targetDomain + "resolve to: " + ip)
+                    Printer.printInfo(targetDomain + " cleresolve to: " + ip)
                 mainIp = resolveIps[0]
             else:
                 Printer.printInfo(targetDomain + " is not point to any ip address")

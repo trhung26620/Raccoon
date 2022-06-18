@@ -47,13 +47,19 @@ class Printer:
             severity = 'None'
 
         templateIdTag = colored(str(templateId), "red")
-        if severity.lower() == "critical" or severity.lower() == "high":
-            severityTag = colored(str(severity), "red")
-        elif severity.lower() == "medium":
-            severityTag = colored(str(severity), "yellow")
-        elif severity.lower() == "low":
-            severityTag = colored(str(severity), "blue")
+
+
+        if str(info).__contains__("infected"):
+            if severity.lower() == "critical" or severity.lower() == "high":
+                severityTag = colored(str(severity), "red")
+            elif severity.lower() == "medium":
+                severityTag = colored(str(severity), "yellow")
+            elif severity.lower() == "low":
+                severityTag = colored(str(severity), "blue")
+            else:
+                severityTag = colored(str(severity), "green")
         else:
+            severity = "None"
             severityTag = colored(str(severity), "green")
 
         print("[" + nowTag + "] " + "[" + targetUrlTag + "] " + "[" + templateIdTag + "] " + "[" + severityTag + "] " + infoTag)

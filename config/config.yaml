@@ -4,9 +4,14 @@ output_file: null
 proxy: {}
 retries: 0
 templates:
-- .\template\cve\CVE-2021-44228.yaml
+- .\template\demo template\Demo-21-5-2022\Bruteforce-Shoes-Shop.yaml
+- .\template\demo template\Demo-21-5-2022\CVE-2021-44228.yaml
+- .\template\demo template\Demo-21-5-2022\TimebasedSQLInjection-Shoes-Shop.yaml
+- .\template\demo template\Demo-21-5-2022\XSS-Web-Shoes-Shop.yaml
+- .\template\demo template\Demo-21-5-2022\wordpress\CVE-2022-0653.yaml
+- .\template\demo template\Demo-21-5-2022\wordpress\CVE-2022-1119.yaml
 thread: null
 timeout: 10
 url:
-- http://demo.raccoon-solution.online/
-verbose: false
+- https://demo.raccoon-solution.online
+verbose: true

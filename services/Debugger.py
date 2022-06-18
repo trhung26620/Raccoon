@@ -1,5 +1,5 @@
 from utils.ConfigUtil import ConfigUtil
-from termcolor import colored, cprint
+from termcolor import cprint
 
 
 class Debugger:
