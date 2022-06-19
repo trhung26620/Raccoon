@@ -1,6 +1,6 @@
 from termcolor import colored
 from datetime import datetime
-
+import validators
 
 class Printer:
 
@@ -74,17 +74,17 @@ class Printer:
 
     @staticmethod
     def getRaccoonMode():
-        print("Raccoon Mode")
-        print(" 1. Gathering target")
-        print(" 2. Scan with template")
-        mode = input("Select Raccoon mode: ")
-        if mode == "1":
-            target = input("Enter domain/IP target: ")
-            if target.strip().replace('.', '').isnumeric():
-                return {"ip": target}
-            else:
-                return {"domain": target}
-        elif mode == "2":
-            return 2
+        print("Gathering Mode")
+        # print(" 1. Gathering target")
+        # print(" 2. Scan with template")
+        # mode = input("Select Raccoon mode: ")
+        # if mode == "1":
+        target = input("Enter domain/IP target: ")
+        if target.strip().replace('.', '').isnumeric():
+            return {"ip": target}
+        elif validators.domain(target):
+            return {"domain": target}
         else:
+            errorTag = colored("[ERROR]", "red", attrs=["bold"])
+            print(errorTag + "Invalid Domain/IP")
             return None

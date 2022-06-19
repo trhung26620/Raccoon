@@ -16,47 +16,51 @@ from services.PortScanner import Scanner
 urllib3.disable_warnings()
 
 if __name__ == "__main__":
-    raccoonMode = Printer.getRaccoonMode()
-    if isinstance(raccoonMode, dict):
-        if "domain" in raccoonMode:
-            targetDomain = raccoonMode["domain"]
-            Printer.printInfo("Scanning information at target: " + targetDomain)
-            subList = EnumSubdomain.getFinalSubdomainList(raccoonMode["domain"])
-            print(subList)
+    args = CommandUtil()
+    args.argument()
+    args.argumentHandling()
+    Printer.printStartWarning()
+    configValue = ConfigUtil.readConfig()
+    isGatheringMode = configValue["Gathering-Mode"]
+    # if isinstance(raccoonMode, dict):
+    if isGatheringMode:
+        raccoonMode = Printer.getRaccoonMode()
+        if isinstance(raccoonMode, dict):
+            if "domain" in raccoonMode:
+                targetDomain = raccoonMode["domain"]
+                Printer.printInfo("Scanning information at target: " + targetDomain)
+                subList = EnumSubdomain.getFinalSubdomainList(raccoonMode["domain"])
+                print(subList)
 
-            resolveIps = Scanner.resolveToIP(targetDomain)
-            if len(resolveIps) != 0:
-                for ip in resolveIps:
-                    Printer.printInfo(targetDomain + " cleresolve to: " + ip)
-                mainIp = resolveIps[0]
-            else:
-                Printer.printInfo(targetDomain + " is not point to any ip address")
+                resolveIps = Scanner.resolveToIP(targetDomain)
+                if len(resolveIps) != 0:
+                    for ip in resolveIps:
+                        Printer.printInfo(targetDomain + " cleresolve to: " + ip)
+                    mainIp = resolveIps[0]
+                else:
+                    Printer.printInfo(targetDomain + " is not point to any ip address")
 
-            runningServices = Scanner.getRunningService(mainIp)
-            if len(runningServices) != 0:
-                Printer.printInfo("Running service on: " + mainIp + ":")
-                for service in runningServices:
-                    print(str(service) + ": " + str(runningServices[service]))
-            else:
-                Printer.printInfo("No service running on: " + mainIp)
+                runningServices = Scanner.getRunningService(mainIp)
+                if len(runningServices) != 0:
+                    Printer.printInfo("Running service on: " + mainIp + ":")
+                    for service in runningServices:
+                        print(str(service) + ": " + str(runningServices[service]))
+                else:
+                    Printer.printInfo("No service running on: " + mainIp)
 
-        elif "ip" in raccoonMode:
-            targetIP = raccoonMode["ip"]
-            runningServices = Scanner.getRunningService(targetIP)
-            Printer.printInfo("Running services on: " + targetIP + ":")
-            if len(runningServices) != 0:
-                for service in runningServices:
-                    print(str(service) + ": " + str(runningServices[service]))
-            else:
-                Printer.printInfo("No service running on: " + targetIP)
-
-    elif raccoonMode == 2:
-        args = CommandUtil()
-        args.argument()
-        args.argumentHandling()
-        Printer.printStartWarning()
-
-        configValue = ConfigUtil.readConfig()
+            elif "ip" in raccoonMode:
+                targetIP = raccoonMode["ip"]
+                runningServices = Scanner.getRunningService(targetIP)
+                Printer.printInfo("Running services on: " + targetIP + ":")
+                if len(runningServices) != 0:
+                    for service in runningServices:
+                        print(str(service) + ": " + str(runningServices[service]))
+                else:
+                    Printer.printInfo("No service running on: " + targetIP)
+        else:
+            exit()
+    # elif raccoonMode == 2:
+    else:
         filePathList = configValue["templates"]
 
         for filePath in filePathList:
