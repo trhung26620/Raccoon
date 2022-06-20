@@ -182,5 +182,82 @@ class FileUtil:
             return None
 
 
+    @staticmethod
+    def printHTMLInfoReport(listInfoDict, target, subDomains):
+
+        if len(listInfoDict) <= 0:
+            Printer.printError("Can not print report")
+            return
+
+        htmlTemplatePath = "reportTemplate" + os.sep + "html" + os.sep + "information.html"
+        exportDirectory = os.path.exists(htmlTemplatePath)
+        if not exportDirectory:
+            Printer.printInfo("Path " + str(htmlTemplatePath) + " does not exist")
+            return
+        with open(htmlTemplatePath) as fp:
+            soup = BeautifulSoup(fp, "html.parser")
+            reportContainer = soup.select_one("#container")  # container class contain all report frame
+
+            # append sub-domains
+            subDomainContent = soup.find_all("div", {"class": "subDomains"})
+            if len(subDomains) <= 0:
+                subDomainContent[0].string = "No sub domain was found"
+            else:
+                for subDomain in subDomains:
+                    appendedSubDomain = "- " + str(subDomain) + "<br>"
+                    subDomainContent[0].append(BeautifulSoup(appendedSubDomain, "html.parser"))
+
+            # append service detail
+            for HTMLReportIndex, serviceDict in enumerate(listInfoDict):
+                reportFrames = soup.find_all("ol", {"class": "reportList"})   # find all report frame and put to a list every time
+                if HTMLReportIndex > (len(reportFrames) - 1):
+                    break
+
+                currentHTMLFrame = reportFrames[HTMLReportIndex]
+                targetTags = currentHTMLFrame.find_all("span", {"class": "target"})
+                portTags = currentHTMLFrame.find_all("span", {"class": "port"})
+                conTypeTags = currentHTMLFrame.find_all("span", {"class": "conType"})
+                stateTags = currentHTMLFrame.find_all("span", {"class": "state"})
+                serviceTags = currentHTMLFrame.find_all("span", {"class": "service"})
+                serviceNameTags = currentHTMLFrame.find_all("span", {"class": "serviceName"})
+                versionTags = currentHTMLFrame.find_all("span", {"class": "version"})
+                targetTags[0].string = target
+
+                for port, services in listInfoDict[HTMLReportIndex].items():
+                    portTags[0].string = str(port)
+                    conTypeTags[0].string = services["reason"]
+                    stateTags[0].string = services["state"]
+                    serviceTags[0].string = services["name"]
+                    serviceNameTags[0].string = services["product"]
+                    versionTags[0].string = services["version"]
+
+
+                # delete new line character to append HTML content
+                appendedContent = str(currentHTMLFrame).replace("&nbsp", "")
+                reportContainer.append(BeautifulSoup(appendedContent, "html.parser"))
+
+            # delete final frame
+            reportFrames = soup.find_all("ol", {"class": "reportList"})
+            finalFrame = reportFrames[len(reportFrames) - 1]
+            for childTag in finalFrame:
+                try:
+                    childTag.decompose()
+                except:
+                    pass
+            finalFrame.decompose()
+
+            #export to file
+            randomFileName = "RaccoonReportInformation_" + FileUtil.getRandomString(10) + ".html"
+            htmlExportTemplateFile = "reportTemplate" + os.sep + "html" + os.sep + randomFileName
+            FileUtil.writeToFile(htmlExportTemplateFile, str(soup))
+            cprint("[Info] - Export HTML report to: " + os.path.abspath(htmlExportTemplateFile), "yellow")
+
+
+
+
+
+
+
+
 
 

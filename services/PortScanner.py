@@ -22,15 +22,17 @@ class Scanner:
         Printer.printInfo("Scanning services at target: " + str(target) + " .... ")
         nm.scan(target, '1-65535')
         allHost = nm.all_hosts()
-        infoDict = {}
+        resultList = []
         for host in allHost:
             ports = nm[host]['tcp'].keys()
             for port in ports:
+                infoDict = {}
                 state = nm[host]['tcp'][port]['state']
                 if state == "open":
                     service = nm[host]['tcp'][port]
                     infoDict[port] = service
-        return infoDict
+                    resultList.append(infoDict.copy())
+        return resultList
 
     # return list of open port
     # @staticmethod

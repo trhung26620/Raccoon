@@ -61,7 +61,7 @@ class HTMLReportGlobal:
 
 class Subdomain:
     apiUrl = "https://crt.sh/?q="
-    wordListFileName = "small.txt"
+    wordListFileName = "testWordlist.txt"
     thread = 40
 
 class Debug:

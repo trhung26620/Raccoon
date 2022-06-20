@@ -56,3 +56,8 @@ main{
 .infectedResult{
     font-weight: bold;
 }
+
+.reportList2{
+    border: solid 1px black;
+    margin: 40px;
+}

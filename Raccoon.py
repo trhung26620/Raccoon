@@ -28,14 +28,14 @@ if __name__ == "__main__":
         if isinstance(raccoonMode, dict):
             if "domain" in raccoonMode:
                 targetDomain = raccoonMode["domain"]
-                Printer.printInfo("Scanning information at target: " + targetDomain)
+                Printer.printInfo("Scanning information at target: " + targetDomain + " ....")
                 subList = EnumSubdomain.getFinalSubdomainList(raccoonMode["domain"])
-                print(subList)
+                # print(subList)
 
                 resolveIps = Scanner.resolveToIP(targetDomain)
                 if len(resolveIps) != 0:
                     for ip in resolveIps:
-                        Printer.printInfo(targetDomain + " cleresolve to: " + ip)
+                        Printer.printInfo(targetDomain + " resolve to: " + ip)
                     mainIp = resolveIps[0]
                 else:
                     Printer.printInfo(targetDomain + " is not point to any ip address")
@@ -43,18 +43,17 @@ if __name__ == "__main__":
                 runningServices = Scanner.getRunningService(mainIp)
                 if len(runningServices) != 0:
                     Printer.printInfo("Running service on: " + mainIp + ":")
-                    for service in runningServices:
-                        print(str(service) + ": " + str(runningServices[service]))
+                    FileUtil.printHTMLInfoReport(runningServices, targetDomain, subList)
                 else:
                     Printer.printInfo("No service running on: " + mainIp)
 
             elif "ip" in raccoonMode:
                 targetIP = raccoonMode["ip"]
+                subList = []
                 runningServices = Scanner.getRunningService(targetIP)
-                Printer.printInfo("Running services on: " + targetIP + ":")
                 if len(runningServices) != 0:
-                    for service in runningServices:
-                        print(str(service) + ": " + str(runningServices[service]))
+                    Printer.printInfo("Running services on: " + targetIP + ":")
+                    FileUtil.printHTMLInfoReport(runningServices, targetIP, subList)
                 else:
                     Printer.printInfo("No service running on: " + targetIP)
         else:

@@ -171,8 +171,7 @@ class RaccoonKernel:
                 matcherResult = self.matcherProcess(resObj, requestConfig, matcherObjList, dataList)
                 currentUsedTemplatePath = Template.templatePath
                 if matcherResult:
-                    Printer.printScanResult(targetUrl, "Target is infected !!!", matcherResult, currentUsedTemplatePath)
-
+                    Printer.printScanResult(targetUrl, "Payload: " + str(payloadInfo), matcherResult, currentUsedTemplatePath)
                 else:
                     config = ConfigUtil.readConfig()
                     verboseOption = config['verbose']   # verbose to print all result (event not infected)
