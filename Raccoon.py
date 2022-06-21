@@ -61,7 +61,6 @@ if __name__ == "__main__":
     # elif raccoonMode == 2:
     else:
         filePathList = configValue["templates"]
-        exit()
         for filePath in filePathList:
             Template.templatePath = filePath
             config = TemplateConfigService.getObjTemplateConfigByTemplate(Template.templatePath)
