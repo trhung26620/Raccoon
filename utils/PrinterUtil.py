@@ -49,7 +49,7 @@ class Printer:
         templateIdTag = colored(str(templateId), "red")
 
 
-        if str(info).__contains__("infected"):
+        if str(info).lower().__contains__("payload"):
             if severity.lower() == "critical" or severity.lower() == "high":
                 severityTag = colored(str(severity), "red")
             elif severity.lower() == "medium":
