@@ -58,6 +58,8 @@ class CommandUtil:
                 exit()
             if self.args.templates:
                 path = self.args.templates
+                if path.endswith("\"") or path.endswith("'"):
+                    path = path[:-1]
                 if os.path.isdir(path):
                     files = glob.glob(path + '/**/*.yaml', recursive=True)
                     config_yaml['templates'] = files
