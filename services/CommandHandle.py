@@ -13,6 +13,7 @@ class CommandUtil:
 
     def argument(self):
         parser = argparse.ArgumentParser(description=DisplayUtil.displayBanner())
+
         parser.add_argument("--gathering", "-g", help="Raccoon will gather information about the target like subdomain, port, services,...", required=False, action="store_true")
         parser.add_argument("--target", "-u", help="Specify a URL to scan.", required=False)
         parser.add_argument("--list", "-l", help="Specify path to file containing a list of target URLs to scan (one per line)", required=False)
