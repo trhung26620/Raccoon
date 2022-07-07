@@ -61,3 +61,11 @@ main{
     border: solid 1px black;
     margin: 40px;
 }
+
+#container {
+    font-size: x-large;
+}
+
+#subDomainContainer{
+    font-size: x-large;
+}

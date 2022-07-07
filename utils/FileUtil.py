@@ -110,6 +110,14 @@ class FileUtil:
                         else:
                             authorTags[0].string = ""
                         if "severity" in templateInfo:
+                            # add color to severity tag
+                            severityContent = templateInfo["severity"]
+                            if str(severityContent).lower() == "critical" or str(severityContent).lower() == "high":
+                                severityTags[0].attrs['style'] = 'color: red; font-weight: bold'
+                            elif str(severityContent).lower() == "medium":
+                                severityTags[0].attrs['style'] = 'color: orange; font-weight: bold'
+                            else:
+                                severityTags[0].attrs['style'] = 'color: yellow; font-weight: bold'
                             severityTags[0].string = templateInfo["severity"]
                         else:
                             severityTags[0].string = ""
@@ -136,6 +144,7 @@ class FileUtil:
                         exposerContent[0].string = ""
                         payloadsContent[0].string = ""
                         targetTags[0].string = ""
+
 
                         # append target url
                         targetTags[0].string = HTMLReportObj.target
@@ -246,7 +255,7 @@ class FileUtil:
                     pass
             finalFrame.decompose()
 
-            #export to file
+            # export to file
             randomFileName = "RaccoonReportInformation_" + FileUtil.getRandomString(10) + ".html"
             htmlExportTemplateFile = "reportTemplate" + os.sep + "html" + os.sep + randomFileName
             FileUtil.writeToFile(htmlExportTemplateFile, str(soup))
