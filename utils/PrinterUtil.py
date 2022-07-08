@@ -2,6 +2,7 @@ from termcolor import colored
 from datetime import datetime
 import validators
 
+
 class Printer:
 
     @staticmethod
@@ -73,6 +74,49 @@ class Printer:
         print(warningTag + " Please update our template repository regularly for latest CVEs")
 
     @staticmethod
+    def printConfig():
+        from utils.ConfigUtil import ConfigUtil
+
+        configTag = colored("[CONFIG]", "yellow", attrs=["underline"])
+        config = ConfigUtil.readConfig()
+        usedTemplates = config["templates"]
+
+        # print used template
+        if len(usedTemplates) != 0:
+            print(configTag + " Template used: ")
+            for template in usedTemplates:
+                print("- Template path: " + template)
+        else:
+            print(configTag + " No template was specify")
+
+        # print proxy
+        if "proxy" in config:
+            proxyValue = config["proxy"]
+            print(configTag + " Proxy:  " + str(proxyValue))
+        else:
+            print(configTag + " No proxy was specify")
+
+        # print debug
+        if "debug" in config and config["debug"] is not None:
+            debugMode = config["debug"]
+            print(configTag + " Debug mode: " + str(debugMode))
+        else:
+            print(configTag + " Debug mode: No")
+
+        # print verbose
+        if "verbose" in config and config["verbose"] is not None:
+            print(configTag + " Verbose: yes")
+        else:
+            print(configTag + " Verbose: no")
+
+        # print mode
+        if "Gathering-Mode" in config and config["Gathering-Mode"] is True:
+            print(configTag + " Raccoon Mode: gathering")
+        else:
+            print(configTag + " Raccoon Mode: custom")
+
+
+    @staticmethod
     def getRaccoonMode():
         print("Gathering Mode")
         # print(" 1. Gathering target")
@@ -88,3 +132,5 @@ class Printer:
             errorTag = colored("[ERROR]", "red", attrs=["bold"])
             print(errorTag + "Invalid Domain/IP")
             return None
+
+

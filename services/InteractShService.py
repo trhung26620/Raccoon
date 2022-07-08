@@ -37,9 +37,13 @@ class InteractSh:
         registerSuccessSignature = "registration successful"
         if registerSuccessSignature in registerCall.content.decode():
             interactUrl = self.subDomain + "." + InteractShStaticValue.interactShPrimaryDomain
-            Printer.printInfo("Registered interactSh successfully")
-            Printer.printInfo("Interact URL: " + interactUrl)
-            Printer.printInfo("Using OOB server: interactsh.com")
+
+            config = ConfigUtil.readConfig()
+            verbose = config["verbose"]
+            if verbose:
+                Printer.printInfo("Registered interactSh successfully")
+                Printer.printInfo("Interact URL: " + interactUrl)
+                Printer.printInfo("Using OOB server: interactsh.com")
             # cprint("    [•]")
         else:
             Printer.printError("[*] Error while registering interactSh")
@@ -56,7 +60,12 @@ class InteractSh:
         session.verify = False
         session.allow_redirects = True
         maxPollingTime = InteractShStaticValue.maxPollingTime
-        Printer.printWarning("[*] Waiting for a response from interactSh server(up to " + str(2 * maxPollingTime) + " seconds)...")
+
+        config = ConfigUtil.readConfig()
+        verbose = config["verbose"]
+        if verbose:
+            Printer.printWarning("[*] Waiting for a response from interactSh server(up to " + str(2 * maxPollingTime) + " seconds)...")
+
         isError = False
         for second in range(maxPollingTime):
             isError = False

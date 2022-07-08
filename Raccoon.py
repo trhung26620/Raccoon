@@ -13,6 +13,7 @@ from utils.PrinterUtil import Printer
 from services.EnumerateSubdomain import EnumSubdomain
 from services.PortScanner import Scanner
 
+
 urllib3.disable_warnings()
 
 if __name__ == "__main__":
@@ -20,9 +21,12 @@ if __name__ == "__main__":
     args.argument()
     args.argumentHandling()
     Printer.printStartWarning()
+    Printer.printConfig()
     configValue = ConfigUtil.readConfig()
     isGatheringMode = configValue["Gathering-Mode"]
     # if isinstance(raccoonMode, dict):
+
+
     if isGatheringMode:
         raccoonMode = Printer.getRaccoonMode()
         if isinstance(raccoonMode, dict):
