@@ -79,13 +79,14 @@ class Printer:
 
         configTag = colored("[CONFIG]", "yellow", attrs=["underline"])
         config = ConfigUtil.readConfig()
-        usedTemplates = config["templates"]
 
         # print used template
-        if len(usedTemplates) != 0:
+        if "templates" in config and len(config["templates"]) != 0:
+            usedTemplates = config["templates"]
             print(configTag + " Template used: ")
             for template in usedTemplates:
                 print("- Template path: " + template)
+
         else:
             print(configTag + " No template was specify")
 

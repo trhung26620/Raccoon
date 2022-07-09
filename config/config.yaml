@@ -1,13 +1,1 @@
-Gathering-Mode: false
-debug: null
-interactsh_server: null
-output_file: null
-proxy: {}
-retries: 0
-templates:
-- .\template\cve\CVE-2021-44228.yaml
-thread: null
-timeout: 10
-url:
-- https://demo.raccoon-solution.online
-verbose: true
+Gathering-Mode: true
