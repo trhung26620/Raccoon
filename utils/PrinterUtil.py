@@ -105,7 +105,7 @@ class Printer:
             print(configTag + " Debug mode: No")
 
         # print verbose
-        if "verbose" in config and config["verbose"] is not None:
+        if "verbose" in config and config["verbose"] is True:
             print(configTag + " Verbose: yes")
         else:
             print(configTag + " Verbose: no")
