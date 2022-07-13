@@ -94,6 +94,10 @@ class RaccoonKernel:
         session.verify = False
         session.allow_redirects = True
         responseDataDictList = list()
+
+        config = ConfigUtil.readConfig()
+        verboseOption = config['verbose']
+
         if requestConfigObj.payload:
             for url, requestObjList in requestObjDict.items():
                 if requestObjList:
@@ -105,7 +109,8 @@ class RaccoonKernel:
                             Debug.DebugInfo.append(debugObject)
                             requestPath = request.url.baseUrl
                             requestMethod = request.url.method
-                            Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(requestPath))
+                            if verboseOption:
+                                Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(requestPath))
         else:
             for url, requestObjList in requestObjDict.items():
                 if requestObjList:
@@ -117,10 +122,15 @@ class RaccoonKernel:
                             Debug.DebugInfo.append(debugObject)
                             requestPath = request.url.baseUrl
                             requestMethod = request.url.method
-                            Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(requestPath))
+                            if verboseOption:
+                                Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(requestPath))
         self.analyzeResponse(str(url), responseDataDictList, requestConfigObj)
 
     def fireRequestWithMultiThread(self, requestConfigObj, requestObjDict):
+
+        config = ConfigUtil.readConfig()
+        verboseOption = config['verbose']
+
         if requestConfigObj.payload:
             for url, requestObjList in requestObjDict.items():
                 if requestObjList:
@@ -131,7 +141,8 @@ class RaccoonKernel:
                         Debug.DebugInfo.append(debugObject)
                         requestPath = request.url.baseUrl
                         requestMethod = request.url.method
-                        Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(requestPath))
+                        if verboseOption:
+                            Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(requestPath))
                     self.analyzeResponse(str(url), responseDataDictList, requestConfigObj)
         else:
             for url, requestObjList in requestObjDict.items():
@@ -145,7 +156,8 @@ class RaccoonKernel:
                     #     cprint("Response: " + str(response["response"].headers))
                         requestPath = request.url.baseUrl
                         requestMethod = request.url.method
-                        Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(requestPath))
+                        if verboseOption:
+                            Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(requestPath))
                     self.analyzeResponse(str(url), responseDataDictList, requestConfigObj)
 
     def analyzeResponse(self, targetUrl, responseDataDictList, requestConfig):
