@@ -80,7 +80,7 @@ class FileUtil:
                             break
 
                         currentHTMLFrame = reportFrames[HTMLReportIndex]
-                        targetTags = currentHTMLFrame.find_all("span", {"class": "target"})
+                        targetTags = currentHTMLFrame.find_all("a", {"class": "target"})
                         idTags = currentHTMLFrame.find_all("span", {"class": "id"})
                         nameTags = currentHTMLFrame.find_all("span", {"class": "name"})
                         authorTags = currentHTMLFrame.find_all("span", {"class": "author"})
@@ -148,6 +148,7 @@ class FileUtil:
 
                         # append target url
                         targetTags[0].string = HTMLReportObj.target
+                        targetTags[0].attrs['href'] = HTMLReportObj.target
                         # append exposer
                         listExposer = HTMLReportObj.exposer
                         if len(listExposer) == 0:

@@ -199,7 +199,7 @@ class RaccoonKernel:
                         info = []
                     if payloadInfo is None:
                         payloadInfo = {}
-                    HTMLReportObject = HTMLReport(targetUrl, Template.templatePath, info, payloadInfo)
+                    HTMLReportObject = HTMLReport(targetUrl, Template.templatePath, info, payloadInfo)  # payload here is dict
                     HTMLReportGlobal.HTMLReportList.append(HTMLReportObject)
                     if requestConfig.stopAtFirstMatch:
                         break

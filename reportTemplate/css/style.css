@@ -1,6 +1,7 @@
 body{
     margin: 0;
     padding: 0;
+    font-family: Arial;
 }
 
 .nav-link{
@@ -38,7 +39,8 @@ main{
 
 .title{
     color: rgb(29, 29, 25);
-    font-size: x-large;
+    font-size: xx-large;
+    font-weight: bold;
 }
 
 .reportList{

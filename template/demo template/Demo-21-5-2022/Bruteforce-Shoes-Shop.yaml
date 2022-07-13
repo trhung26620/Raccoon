@@ -5,6 +5,7 @@ info:
   author: Hung, Dat, Hoa, Danh
   severity: high
   description: Shoes Shop check some login credentials
+  remediation: Change to more powerfull password. These passwords and users are default credentials which are weak and can easily be guessed.
   tags: tomcat,apache,default-login
 
 requests:

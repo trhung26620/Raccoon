@@ -15,4 +15,4 @@ thread: null
 timeout: 10
 url:
 - https://demo.raccoon-solution.online
-verbose: true
+verbose: false
