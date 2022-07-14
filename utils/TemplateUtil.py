@@ -1,6 +1,5 @@
 import os, yaml
-from utils import FileUtil
-
+from utils.FileUtil import FileUtil
 
 class TemplateUtil:
     @staticmethod

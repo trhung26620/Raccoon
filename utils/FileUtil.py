@@ -8,7 +8,6 @@ from termcolor import colored, cprint
 from utils.PrinterUtil import Printer
 from config.StaticData import Subdomain
 
-
 class FileUtil:
     @staticmethod
     def getWordlistPath():

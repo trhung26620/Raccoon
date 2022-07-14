@@ -4,27 +4,27 @@ from config.StaticData import Parttern
 import copy
 
 def batteringramModeInjection(payloadDict, dataDict):
-        if len(payloadDict) != 1:
-            print("Using batteringram mode is given only one payload list.")
-            exit()
-        payloadName = ExtendedUtil.getListKeyFromDict(payloadDict)[0]
-        for payload in payloadDict[payloadName]:
-            dataList = []
-            for key, data in dataDict.items():
-                if isinstance(data, dict):
-                    if not data:
-                        dataList.append(None)
-                    else:
-                        tempDict = copy.deepcopy(data)
-                        dataList.append(ExtendedUtil.findAndReplaceInDict(tempDict, '{{' + payloadName + '}}', payload))
-                elif isinstance(data, str):
-                    if not data:
-                        dataList.append(None)
-                    else:
-                        dataList.append(data.replace('{{' + payloadName + '}}', payload))
-                else:
+    if len(payloadDict) != 1:
+        print("Using batteringram mode is given only one payload list.")
+        exit()
+    payloadName = ExtendedUtil.getListKeyFromDict(payloadDict)[0]
+    for payload in payloadDict[payloadName]:
+        dataList = []
+        for key, data in dataDict.items():
+            if isinstance(data, dict):
+                if not data:
                     dataList.append(None)
-            yield {"requestData": dataList, "payloadInfo": {payloadName: payload}}
+                else:
+                    tempDict = copy.deepcopy(data)
+                    dataList.append(ExtendedUtil.findAndReplaceInDict(tempDict, '{{' + payloadName + '}}', payload))
+            elif isinstance(data, str):
+                if not data:
+                    dataList.append(None)
+                else:
+                    dataList.append(data.replace('{{' + payloadName + '}}', payload))
+            else:
+                dataList.append(None)
+        yield {"requestData": dataList, "payloadInfo": {payloadName: payload}}
 
 
 def pitchforkModeInjection(payloadDict, dataDict):
@@ -112,7 +112,8 @@ def injectAllRawRequest(requestsConfig, requestObjList):
         dataDict = {
             "header_content": request.header.content,
             "url_path_param": request.url.paramPath,
-            "body_content": request.body.content
+            "body_content": request.body.content,
+            "path": request.url.path
         }
         requestInfoList = None
         if scanMode == "batteringram":
@@ -123,12 +124,11 @@ def injectAllRawRequest(requestsConfig, requestObjList):
 
         elif scanMode == "clusterbomb":
             requestInfoList = clusterbombModeInjection(requestsConfig.payload.payloadValue, dataDict)
-
         id = 1
         for requestInfo in requestInfoList:
             requestData = requestInfo["requestData"]
             payloadInfo = requestInfo["payloadInfo"]
-            yield {"header": requestData[0], "param": requestData[1], "body": requestData[2], "urlObj": request.url,
+            yield {"header": requestData[0], "param": requestData[1], "body": requestData[2], "path": requestData[3], "urlObj": request.url,
                    "position": request.position, "id": id,
                    "payloadInfo": payloadInfo}
             id += 1
@@ -136,7 +136,5 @@ def injectAllRawRequest(requestsConfig, requestObjList):
 def getDataRequestWithoutPayloads(requestObjList):
     id = 1
     for request in requestObjList:
-        yield {"header": request.header.content, "param": request.url.paramPath, "body": request.body.content, "urlObj": request.url, "position": request.position, "id": id, "payloadInfo": None}
+        yield {"header": request.header.content, "param": request.url.paramPath, "body": request.body.content, "path": request.url.path,"urlObj": request.url, "position": request.position, "id": id, "payloadInfo": None}
         id += 1
-
-
