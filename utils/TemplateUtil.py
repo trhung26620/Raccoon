@@ -1,7 +1,6 @@
 import os, yaml
-from utils import FileUtil
+from utils.FileUtil import FileUtil
 from utils.PrinterUtil import Printer
-
 
 class TemplateUtil:
     @staticmethod

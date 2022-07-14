@@ -9,7 +9,6 @@ from utils.PrinterUtil import Printer
 from config.StaticData import Subdomain
 from config.StaticData import SeverityCounter
 
-
 class FileUtil:
     @staticmethod
     def getWordlistPath():
