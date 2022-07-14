@@ -71,3 +71,11 @@ main{
 #subDomainContainer{
     font-size: x-large;
 }
+
+.chart-container{
+    position: relative;
+    margin: auto;
+    height: 80vh;
+    width: 70vw;
+}
+

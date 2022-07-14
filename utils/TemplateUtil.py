@@ -1,5 +1,6 @@
 import os, yaml
 from utils import FileUtil
+from utils.PrinterUtil import Printer
 
 
 class TemplateUtil:
@@ -10,7 +11,7 @@ class TemplateUtil:
             template_content = yaml.load(f_template, Loader=yaml.FullLoader)
             return template_content
         except FileNotFoundError:
-            print("Can not find path: '" + templateFilePath)
+            Printer.printError("Can not find path: '" + templateFilePath)
             exit()
 
     @staticmethod
@@ -42,6 +43,16 @@ class TemplateUtil:
             return payloadDict
         except:
             return None
+
+
+    @staticmethod
+    def getTemplateSeverity(templateFilePath):
+        info = TemplateUtil.readInfoTemplate(templateFilePath)
+        if "severity" in info:
+            severity = info["severity"]
+            return severity
+        Printer.printError("Template: " + templateFilePath + " does not has severity tag!")
+        return None
 
 
 

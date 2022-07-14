@@ -4,7 +4,6 @@ import time
 from Crypto.Cipher import PKCS1_OAEP, AES
 from Cryptodome.Hash import SHA256
 from Crypto.PublicKey import RSA
-from termcolor import colored, cprint
 import requests
 from config.StaticData import InteractShStaticValue
 import random, string
@@ -44,7 +43,6 @@ class InteractSh:
                 Printer.printInfo("Registered interactSh successfully")
                 Printer.printInfo("Interact URL: " + interactUrl)
                 Printer.printInfo("Using OOB server: interactsh.com")
-            # cprint("    [•]")
         else:
             Printer.printError("[*] Error while registering interactSh")
             exit()

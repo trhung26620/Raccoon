@@ -59,13 +59,23 @@ class Parttern:
 class HTMLReportGlobal:
     HTMLReportList = []
 
+
 class Subdomain:
     apiUrl = "https://crt.sh/?q="
     wordListFileName = "testWordlist.txt"
     thread = 40
 
+
 class Debug:
     DebugInfo = []
+
+
+class SeverityCounter:
+    vulnerableTemplates = []
+    infoSeverityCounter = 0
+    lowSeverityCounter = 0
+    mediumSeverityCounter = 0
+    highSeverityCounter = 0
 
 
 class AboutUs:

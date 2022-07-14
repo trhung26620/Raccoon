@@ -7,6 +7,7 @@ from utils import TemplateUtil
 from termcolor import colored, cprint
 from utils.PrinterUtil import Printer
 from config.StaticData import Subdomain
+from config.StaticData import SeverityCounter
 
 
 class FileUtil:
@@ -63,6 +64,13 @@ class FileUtil:
             # print(traceback.format_exc())
             Printer.printError("Can not write to file - Something wrong happen!")
 
+
+    @staticmethod
+    def appendDrawChartFunctionNameJS(infoStat, lowStat, mediumStat, highStat):
+        functionName = "drawSeverityChart(" + str(infoStat) + ", " + str(lowStat) + ", " + str(mediumStat) + ", " + str(highStat) + ")"
+        return functionName
+
+
     @staticmethod
     def printHTMLReport(listHTMLReportObject):
         if len(listHTMLReportObject) <= 0:
@@ -73,6 +81,13 @@ class FileUtil:
             if exportDirectory:
                 with open(htmlTemplatePath) as fp:
                     soup = BeautifulSoup(fp, "html.parser")
+
+                    # draw severity chart
+                    functionName = FileUtil.appendDrawChartFunctionNameJS(SeverityCounter.infoSeverityCounter, SeverityCounter.lowSeverityCounter, SeverityCounter.mediumSeverityCounter, SeverityCounter.highSeverityCounter)
+                    bodyTag = soup.find_all('body')
+                    bodyTag[0].attrs['onload'] = functionName
+
+                    # append information
                     reportContainer = soup.select_one("#container")     # container class contain all report frame
                     for HTMLReportIndex, HTMLReportObj in enumerate(listHTMLReportObject):
                         reportFrames = soup.find_all("ol", {"class": "reportList"})  # find all report frame and put to a list every time
@@ -149,6 +164,7 @@ class FileUtil:
                         # append target url
                         targetTags[0].string = HTMLReportObj.target
                         targetTags[0].attrs['href'] = HTMLReportObj.target
+
                         # append exposer
                         listExposer = HTMLReportObj.exposer
                         if len(listExposer) == 0:

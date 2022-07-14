@@ -12,6 +12,8 @@ from config.StaticData import HTMLReportGlobal
 import requests
 from config.StaticData import Debug
 from utils.PrinterUtil import Printer
+from utils.TemplateUtil import TemplateUtil
+from config.StaticData import SeverityCounter
 
 
 class RaccoonKernel:
@@ -124,7 +126,7 @@ class RaccoonKernel:
                             requestMethod = request.url.method
                             if verboseOption:
                                 Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(requestPath))
-        self.analyzeResponse(str(url), responseDataDictList, requestConfigObj)
+        self.analyzeResponse(str(requestPath), responseDataDictList, requestConfigObj)
 
     def fireRequestWithMultiThread(self, requestConfigObj, requestObjDict):
 
@@ -143,7 +145,7 @@ class RaccoonKernel:
                         requestMethod = request.url.method
                         if verboseOption:
                             Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(requestPath))
-                    self.analyzeResponse(str(url), responseDataDictList, requestConfigObj)
+                    self.analyzeResponse(str(requestPath), responseDataDictList, requestConfigObj)
         else:
             for url, requestObjList in requestObjDict.items():
                 if requestObjList:
@@ -158,7 +160,7 @@ class RaccoonKernel:
                         requestMethod = request.url.method
                         if verboseOption:
                             Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(requestPath))
-                    self.analyzeResponse(str(url), responseDataDictList, requestConfigObj)
+                    self.analyzeResponse(str(requestPath), responseDataDictList, requestConfigObj)
 
     def analyzeResponse(self, targetUrl, responseDataDictList, requestConfig):
         matcherObjList = TemplateConfigService.generateMatcherObjectList(Template.templatePath,
@@ -193,6 +195,21 @@ class RaccoonKernel:
                 exposerObjList = TemplateConfigService.generateExtractorObjectList(Template.templatePath)
                 if matcherResult:
                     info = self.exposerProcess(resObj, requestConfig, exposerObjList, dataList)
+
+                    # find severity of current template
+                    severity = str(TemplateUtil.getTemplateSeverity(Template.templatePath)).lower()
+                    if severity is not None:
+                        currentPayload = Template.templatePath
+                        if currentPayload not in SeverityCounter.vulnerableTemplates:
+                            SeverityCounter.vulnerableTemplates.append(currentPayload)
+                            if severity == "info":
+                                SeverityCounter.infoSeverityCounter += 1
+                            elif severity == "low":
+                                SeverityCounter.lowSeverityCounter += 1
+                            elif severity == "medium":
+                                SeverityCounter.mediumSeverityCounter += 1
+                            elif severity == "high" or severity == "critical":
+                                SeverityCounter.highSeverityCounter += 1
 
                     # Default value if exposer and payload dict is none
                     if None in info and len(info) == 1:
