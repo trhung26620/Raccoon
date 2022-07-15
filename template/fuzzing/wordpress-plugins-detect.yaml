@@ -15,7 +15,7 @@ requests:
       pluginSlug: C:\Users\Admin\Desktop\Injection-Tool\config\wp-plugins.txt
     scanMode: batteringram
     threads: 50
-    matchers-condition: and
+    multipleMatcher: and
     matchers:
       - type: status
         status:

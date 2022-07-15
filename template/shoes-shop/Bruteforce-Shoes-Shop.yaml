@@ -51,7 +51,7 @@ requests:
     scanMode: clusterbomb  # Available options: sniper, pitchfork and clusterbomb
     redirect: true
 
-    matchers-condition: and
+    multipleMatcher: and
     matchers:
       - type: word
         part: body
@@ -62,7 +62,7 @@ requests:
       - type: status
         status:
           - 200
-    extractors:
+    exposer:
       - type: regex
         part: all
         regex:
