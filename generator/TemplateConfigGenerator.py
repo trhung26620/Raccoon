@@ -19,8 +19,8 @@ class TemplateConfigService:
             else:
                 redirect = DefaultTemplateConfig.defaultRedirect
 
-            if "stopAtFirstMatch" in templateRequest:
-                stopAtFirstMatch = templateRequest["stopAtFirstMatch"]
+            if "FirstMatchStop" in templateRequest:
+                stopAtFirstMatch = templateRequest["FirstMatchStop"]
             else:
                 stopAtFirstMatch = DefaultTemplateConfig.defaultStopAtFirstMatch
             for req in templateRequest["request"]:
@@ -43,8 +43,8 @@ class TemplateConfigService:
                 cookieReuse = templateRequest["cookieReuse"]
             else:
                 cookieReuse = DefaultTemplateConfig.defaultCookieReuse
-            if "matchers-condition" in templateRequest:
-                matchers_condition = templateRequest["matchers-condition"].lower()
+            if "multipleMatcher" in templateRequest:
+                matchers_condition = templateRequest["multipleMatcher"].lower()
             else:
                 matchers_condition = DefaultTemplateConfig.defaultMatchersCondition
             if "requestCondition" in templateRequest:
@@ -83,8 +83,8 @@ class TemplateConfigService:
                     condition = matcher["condition"]
                 else:
                     condition = DefaultConfigMatcher.defaultCondition
-                if "negative" in matcher:
-                    negative = matcher["negative"]
+                if "exclusion" in matcher:
+                    negative = matcher["exclusion"]
                 else:
                     negative = DefaultConfigMatcher.defaultNegative
                 matcherObj = Matcher(type, signature, part, condition, negative, reqCondition)
@@ -96,8 +96,8 @@ class TemplateConfigService:
     @staticmethod
     def generateExtractorObjectList(templateFilePath):
         templateRequest = TemplateUtil.readRequestTemplate(templateFilePath)
-        if "extractors" in templateRequest:
-            extractorList = templateRequest["extractors"]
+        if "exposer" in templateRequest:
+            extractorList = templateRequest["exposer"]
             if extractorList == None:
                 return
             extractorObjectList = list()
