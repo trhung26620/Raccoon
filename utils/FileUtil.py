@@ -38,7 +38,7 @@ class FileUtil:
                 return payloadValues
             else:
                 Printer.printError("Payload file not found")
-                return None
+                exit()
         except FileNotFoundError:
             Printer.printError("Can not read this file: " + filePath)
             fileObject.close()

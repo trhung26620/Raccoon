@@ -1,19 +1,19 @@
 info:
   id: wordpress-plugins-detect
   name: WordPress Plugins Detection
-  author: Hung, Dat, Danh, Hoa
+  author: Hung, Dat, Hoa, Danh
   severity: info
   tags: fuzz,wordpress
 
 requests:
-  - raw:
+  - request:
       - |
         GET /wp-content/plugins/{{pluginSlug}}/readme.txt HTTP/1.1
         Host: {{Hostname}}
 
     payloads:
-      pluginSlug: helpers/wordlists/wordpress-plugins.txt
-
+      pluginSlug: C:\Users\Admin\Desktop\Injection-Tool\config\wp-plugins.txt
+    scanMode: batteringram
     threads: 50
     matchers-condition: and
     matchers:
@@ -22,5 +22,5 @@ requests:
           - 200
 
       - type: word
-        words:
+        word:
           - "== Description =="
