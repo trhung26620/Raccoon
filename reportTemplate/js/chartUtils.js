@@ -11,7 +11,7 @@ function drawSeverityChart(infoStat, lowStat, mediumStat, highStat){
           data: [infoStat, lowStat, mediumStat, highStat],
           backgroundColor: [
             'grey',
-            'blue',
+            'green',
             'orange',
             'red'
           ],

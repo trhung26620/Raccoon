@@ -130,8 +130,10 @@ class FileUtil:
                                 severityTags[0].attrs['style'] = 'color: red; font-weight: bold'
                             elif str(severityContent).lower() == "medium":
                                 severityTags[0].attrs['style'] = 'color: orange; font-weight: bold'
-                            else:
-                                severityTags[0].attrs['style'] = 'color: yellow; font-weight: bold'
+                            elif str(severityContent).lower() == "low":
+                                severityTags[0].attrs['style'] = 'color: green; font-weight: bold'
+                            elif str(severityContent).lower() == "info":
+                                severityTags[0].attrs['style'] = 'color: grey; font-weight: bold'
                             severityTags[0].string = templateInfo["severity"]
                         else:
                             severityTags[0].string = ""
