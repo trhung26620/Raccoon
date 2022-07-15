@@ -22,5 +22,5 @@ requests:
           - 200
 
       - type: word
-        words:
+        word:
           - "== Description =="
