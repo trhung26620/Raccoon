@@ -64,7 +64,7 @@ class Subdomain:
     apiUrl = "https://crt.sh/?q="
     wordListFileName = "testWordlist.txt"
     thread = 40
-
+    defaultFilePathWithTxtFormat = "reportTemplate/domain/"
 
 class Debug:
     DebugInfo = []
