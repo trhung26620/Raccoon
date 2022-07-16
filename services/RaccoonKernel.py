@@ -78,16 +78,16 @@ class RaccoonKernel:
     def fireRequestsAndAnalyzeResponse(self, dataReq, requestConfig, session=None):
         if dataReq["urlObj"].method.lower() == "get":
             try:
-                response, position, id, payloadInfo = RequestHandle.sendGetRequest(dataReq, requestConfig, session)
+                response, position, id, payloadInfo, url = RequestHandle.sendGetRequest(dataReq, requestConfig, session)
             except:
-                response, position, id, payloadInfo = None, None, None, None
-            return {"response": response, "position": position, "id": id, "payloadInfo": payloadInfo}
+                response, position, id, payloadInfo, url = None, None, None, None, None
+            return {"response": response, "position": position, "id": id, "payloadInfo": payloadInfo, "url": url}
         elif dataReq["urlObj"].method.lower() == "post":
             try:
-                response, position, id, payloadInfo = RequestHandle.sendPostRequest(dataReq, requestConfig, session)
+                response, position, id, payloadInfo, url = RequestHandle.sendPostRequest(dataReq, requestConfig, session)
             except:
-                response, position, id, payloadInfo = None, None, None, None
-            return {"response": response, "position": position, "id": id, "payloadInfo": payloadInfo}
+                response, position, id, payloadInfo, url = None, None, None, None, None
+            return {"response": response, "position": position, "id": id, "payloadInfo": payloadInfo, "url": url}
 
 
     def fireRequestWithCookieReuse(self, requestConfigObj, requestObjDict):
@@ -96,9 +96,7 @@ class RaccoonKernel:
         session.verify = False
         session.allow_redirects = True
         responseDataDictList = list()
-
-        config = ConfigUtil.readConfig()
-        verboseOption = config['verbose']
+        isVerboseEnable = ConfigUtil.isVerboseEnable()
 
         if requestConfigObj.payload:
             for url, requestObjList in requestObjDict.items():
@@ -109,10 +107,10 @@ class RaccoonKernel:
                         for request, response in zip(requestObjList, responseDataDictList):
                             debugObject = {request: response}
                             Debug.DebugInfo.append(debugObject)
-                            requestPath = request.url.baseUrl
                             requestMethod = request.url.method
-                            if verboseOption:
-                                Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(requestPath))
+                            injectedUrl = response["url"]
+                            if isVerboseEnable:
+                                Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(injectedUrl))
         else:
             for url, requestObjList in requestObjDict.items():
                 if requestObjList:
@@ -122,16 +120,15 @@ class RaccoonKernel:
                         for request, response in zip(requestObjList, responseDataDictList):
                             debugObject = {request: response}
                             Debug.DebugInfo.append(debugObject)
-                            requestPath = request.url.baseUrl
                             requestMethod = request.url.method
-                            if verboseOption:
-                                Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(requestPath))
-        self.analyzeResponse(str(requestPath), responseDataDictList, requestConfigObj)
+                            injectedUrl = response["url"]
+                            if isVerboseEnable:
+                                Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(injectedUrl))
+        self.analyzeResponse(str(injectedUrl), responseDataDictList, requestConfigObj)
 
     def fireRequestWithMultiThread(self, requestConfigObj, requestObjDict):
 
-        config = ConfigUtil.readConfig()
-        verboseOption = config['verbose']
+        isVerboseEnable = ConfigUtil.isVerboseEnable()
 
         if requestConfigObj.payload:
             for url, requestObjList in requestObjDict.items():
@@ -141,11 +138,11 @@ class RaccoonKernel:
                     for request, response in zip(requestObjList, responseDataDictList):
                         debugObject = {request: response}
                         Debug.DebugInfo.append(debugObject)
-                        requestPath = request.url.baseUrl
                         requestMethod = request.url.method
-                        if verboseOption:
-                            Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(requestPath))
-                    self.analyzeResponse(str(requestPath), responseDataDictList, requestConfigObj)
+                        injectedUrl = response["url"]
+                        if isVerboseEnable:
+                            Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(injectedUrl))
+                    self.analyzeResponse(str(injectedUrl), responseDataDictList, requestConfigObj)
         else:
             for url, requestObjList in requestObjDict.items():
                 if requestObjList:
@@ -154,25 +151,28 @@ class RaccoonKernel:
                     for request, response in zip(requestObjList, responseDataDictList):
                         debugObject = {request: response}
                         Debug.DebugInfo.append(debugObject)
-                    # for response in responseDataDictList:
-                    #     cprint("Response: " + str(response["response"].headers))
-                        requestPath = request.url.baseUrl
                         requestMethod = request.url.method
-                        if verboseOption:
-                            Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(requestPath))
-                    self.analyzeResponse(str(requestPath), responseDataDictList, requestConfigObj)
+                        injectedUrl = response["url"]
+                        if isVerboseEnable:
+                            Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(injectedUrl))
+                    self.analyzeResponse(str(injectedUrl), responseDataDictList, requestConfigObj)
 
     def analyzeResponse(self, targetUrl, responseDataDictList, requestConfig):
-        matcherObjList = TemplateConfigService.generateMatcherObjectList(Template.templatePath,
-                                                                         requestConfig.reqCondition)
+        matcherObjList = TemplateConfigService.generateMatcherObjectList(Template.templatePath, requestConfig.reqCondition)
+
         if not matcherObjList:
             return False
         dataList = None
+
         if requestConfig.interactSh:
             dataInteractsh, aes_key = requestConfig.interactSh.pollDataFromWeb()
             if aes_key:
                 key = requestConfig.interactSh.decryptAESKey(aes_key)
                 dataList = requestConfig.interactSh.decryptMessage(key, dataInteractsh)
+
+        # get verbose value from config
+        isVerboseEnable = ConfigUtil.isVerboseEnable()
+
         # List of HTML report object
         # HTMLReportList = []
         for responseDataDict in responseDataDictList:
@@ -187,11 +187,8 @@ class RaccoonKernel:
                 if matcherResult:
                     Printer.printScanResult(targetUrl, "Payload: " + str(payloadInfo), matcherResult, currentUsedTemplatePath)
                 else:
-                    config = ConfigUtil.readConfig()
-                    verboseOption = config['verbose']   # verbose to print all result (event not infected)
-                    if verboseOption:
+                    if isVerboseEnable:     # verbose to print all result (event not infected)
                         Printer.printScanResult(targetUrl, "Target is negative", matcherResult, currentUsedTemplatePath)
-                # print(payloadInfo)
                 exposerObjList = TemplateConfigService.generateExtractorObjectList(Template.templatePath)
                 if matcherResult:
                     info = self.exposerProcess(resObj, requestConfig, exposerObjList, dataList)
@@ -221,7 +218,8 @@ class RaccoonKernel:
                     if requestConfig.stopAtFirstMatch:
                         break
             else:
-                Printer.printError("No response from target")
+                if isVerboseEnable:
+                    Printer.printError("No response from target: " + targetUrl)
 
 
     def raccoonFlowControl(self, requestConfigObj, requestObjDict):

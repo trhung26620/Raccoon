@@ -21,7 +21,7 @@ class FileUtil:
                 wordlistPath = os.path.join(dirname, f"..\config\{Subdomain.wordListFileName}")
                 return wordlistPath
             except FileNotFoundError:
-                Printer.printError("Wordlist file not found")
+                Printer.printError("Wordlist file not found: " + str(wordlistPath))
                 exit()
 
     @staticmethod
@@ -37,7 +37,7 @@ class FileUtil:
                         payloadValues.append(payloadValue)
                 return payloadValues
             else:
-                Printer.printError("Payload file not found")
+                Printer.printError("Payload file not found: " + str(filePath))
                 exit()
         except FileNotFoundError:
             Printer.printError("Can not read this file: " + filePath)

@@ -29,14 +29,14 @@ class Printer:
         print("[" + nowTag + "] " + infoTag + " " + str(info))
 
     @staticmethod
-    def printScanResult(targetUrl, info, result, templatePath):
+    def printScanResult(targetUrl, payload, result, templatePath):
         now = datetime.now()
         nowTag = colored(str(now), "cyan")
         targetUrlTag = colored(str(targetUrl), "blue")
         if result:
-            infoTag = colored(info, "red")
+            infoTag = colored(payload, "red")
         else:
-            infoTag = colored(info, "green")
+            infoTag = colored(payload, "green")
 
         if str(templatePath).strip() != '':
             from utils.TemplateUtil import TemplateUtil
@@ -50,7 +50,7 @@ class Printer:
         templateIdTag = colored(str(templateId), "red")
 
 
-        if str(info).lower().__contains__("payload"):
+        if str(payload).lower().__contains__("payload"):
             if severity.lower() == "critical" or severity.lower() == "high":
                 severityTag = colored(str(severity), "red")
             elif severity.lower() == "medium":
@@ -63,7 +63,7 @@ class Printer:
             severity = "None"
             severityTag = colored(str(severity), "green")
 
-        print("[" + nowTag + "] " + "[" + targetUrlTag + "] " + "[" + templateIdTag + "] " + "[" + severityTag + "] " + infoTag)
+        print("[" + nowTag + "] " + "[" + targetUrlTag + "] " + "[" + templateIdTag + "] " + "[" + severityTag + "] " + "[" + infoTag + "]")
 
 
     @staticmethod

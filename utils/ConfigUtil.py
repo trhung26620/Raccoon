@@ -90,3 +90,13 @@ class ConfigUtil:
         except Exception as e:
             print("Error at function: filterTemplateWithAuthor")
             print(e)
+
+
+    @staticmethod
+    def isVerboseEnable():
+        config = ConfigUtil.readConfig()
+        if 'verbose' in config:
+            verboseOption = config['verbose']
+            if verboseOption and verboseOption is True:
+                return True
+        return False
