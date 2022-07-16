@@ -12,7 +12,7 @@ requests:
         Host: {{Hostname}}
 
     payloads:
-      themeSlug: C:\Users\Admin\Desktop\Injection-Tool\config\wp-themes.txt
+      themeSlug: template/wordlists/wp-themes.txt
     scanMode: batteringram
     threads: 50
     multipleMatcher: and
