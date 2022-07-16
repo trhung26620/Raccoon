@@ -19,8 +19,8 @@ class TemplateConfigService:
             else:
                 redirect = DefaultTemplateConfig.defaultRedirect
 
-            if "FirstMatchStop" in templateRequest:
-                stopAtFirstMatch = templateRequest["FirstMatchStop"]
+            if "firstMatchStop" in templateRequest:
+                stopAtFirstMatch = templateRequest["firstMatchStop"]
             else:
                 stopAtFirstMatch = DefaultTemplateConfig.defaultStopAtFirstMatch
             for req in templateRequest["request"]:
