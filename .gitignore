@@ -1,6 +1,7 @@
 .idea/
 venv/
 config/config.yaml
+Raccoon-Template/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
