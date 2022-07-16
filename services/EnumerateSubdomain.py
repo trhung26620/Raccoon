@@ -97,6 +97,7 @@ class EnumSubdomain:
         # subList = list(dict.fromkeys(subList1))
         fileName = EnumSubdomain.exportSubdomainFormatTxt(subList)
         cprint("[Info] - Export Domain File to: " + os.path.abspath(Subdomain.defaultFilePathWithTxtFormat + fileName), "yellow")
+        exit()
         return subList
 
 

@@ -1,0 +1,1 @@
+This directory will contain the url information of the subdomain that has been gathered.
