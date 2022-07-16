@@ -2,6 +2,7 @@ import sys
 from urllib.parse import urlparse, parse_qs
 sys.path.append('../')
 from utils.TemplateUtil import TemplateUtil
+from utils.PrinterUtil import Printer
 from utils.ConfigUtil import ConfigUtil
 from models.Url import Url
 from models.Header import Header

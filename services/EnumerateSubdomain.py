@@ -3,6 +3,10 @@ import requests
 from utils.FileUtil import FileUtil
 from config.StaticData import Subdomain
 from concurrent.futures import ThreadPoolExecutor
+import string
+import random
+from termcolor import colored, cprint
+import os
 
 class EnumSubdomain:
     @staticmethod
@@ -75,12 +79,25 @@ class EnumSubdomain:
         return subList
 
     @staticmethod
+    def exportSubdomainFormatTxt(subList):
+        subList = ['http://' + i for i in subList]
+        letters = string.ascii_lowercase
+        fileName = "domains_" + ''.join(random.choice(letters) for i in range(5)) + ".txt"
+        f = open(Subdomain.defaultFilePathWithTxtFormat + fileName, "w")
+        f.write("\n".join(subList))
+        f.close
+        return fileName
+
+    @staticmethod
     def getFinalSubdomainList(domain):
         wordlist = FileUtil.getWordlistPath()
         subList1 = EnumSubdomain.enumSubdomainWithThirdParty(domain)
         subList2 = EnumSubdomain.enumSubdomainWithWordList(domain, wordlist)
         subList = list(dict.fromkeys(subList1 + subList2))
         # subList = list(dict.fromkeys(subList1))
+        fileName = EnumSubdomain.exportSubdomainFormatTxt(subList)
+        cprint("[Info] - Export Domain File to: " + os.path.abspath(Subdomain.defaultFilePathWithTxtFormat + fileName), "yellow")
+        exit()
         return subList
 
 
