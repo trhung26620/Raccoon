@@ -107,6 +107,8 @@ class RaccoonKernel:
                         for request, response in zip(requestObjList, responseDataDictList):
                             debugObject = {request: response}
                             Debug.DebugInfo.append(debugObject)
+
+                        for response in responseDataDictList:
                             requestMethod = request.url.method
                             injectedUrl = response["url"]
                             if isVerboseEnable:
@@ -120,6 +122,8 @@ class RaccoonKernel:
                         for request, response in zip(requestObjList, responseDataDictList):
                             debugObject = {request: response}
                             Debug.DebugInfo.append(debugObject)
+
+                        for response in responseDataDictList:
                             requestMethod = request.url.method
                             injectedUrl = response["url"]
                             if isVerboseEnable:
@@ -138,10 +142,13 @@ class RaccoonKernel:
                     for request, response in zip(requestObjList, responseDataDictList):
                         debugObject = {request: response}
                         Debug.DebugInfo.append(debugObject)
+
+                    for response in responseDataDictList:
                         requestMethod = request.url.method
                         injectedUrl = response["url"]
                         if isVerboseEnable:
                             Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(injectedUrl))
+
                     self.analyzeResponse(responseDataDictList, requestConfigObj)
         else:
             for url, requestObjList in requestObjDict.items():
@@ -151,6 +158,8 @@ class RaccoonKernel:
                     for request, response in zip(requestObjList, responseDataDictList):
                         debugObject = {request: response}
                         Debug.DebugInfo.append(debugObject)
+
+                    for response in responseDataDictList:
                         requestMethod = request.url.method
                         injectedUrl = response["url"]
                         if isVerboseEnable:
