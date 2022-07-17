@@ -814,7 +814,6 @@ adapter-post-preview
 adapter-responsive-video
 adapter-widget-rows
 adapti-link
-adaptive-images
 adaptive-learning-with-learndash
 adatosystems-friday-zmanim
 adauthx
@@ -993,7 +992,6 @@ add-link-post
 add-link-to-copied-text
 add-local-avatar
 adaptive-images
-ad-inserter
 marmoset-viewer
 profile-builder
 simple-file-list

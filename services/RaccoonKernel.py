@@ -124,7 +124,7 @@ class RaccoonKernel:
                             injectedUrl = response["url"]
                             if isVerboseEnable:
                                 Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(injectedUrl))
-        self.analyzeResponse(str(injectedUrl), responseDataDictList, requestConfigObj)
+        self.analyzeResponse(responseDataDictList, requestConfigObj)
 
     def fireRequestWithMultiThread(self, requestConfigObj, requestObjDict):
 
@@ -142,7 +142,7 @@ class RaccoonKernel:
                         injectedUrl = response["url"]
                         if isVerboseEnable:
                             Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(injectedUrl))
-                    self.analyzeResponse(str(injectedUrl), responseDataDictList, requestConfigObj)
+                    self.analyzeResponse(responseDataDictList, requestConfigObj)
         else:
             for url, requestObjList in requestObjDict.items():
                 if requestObjList:
@@ -155,9 +155,9 @@ class RaccoonKernel:
                         injectedUrl = response["url"]
                         if isVerboseEnable:
                             Printer.printInfo("Sending " + str(requestMethod) + " to: " + str(injectedUrl))
-                    self.analyzeResponse(str(injectedUrl), responseDataDictList, requestConfigObj)
+                    self.analyzeResponse(responseDataDictList, requestConfigObj)
 
-    def analyzeResponse(self, targetUrl, responseDataDictList, requestConfig):
+    def analyzeResponse(self, responseDataDictList, requestConfig):
         matcherObjList = TemplateConfigService.generateMatcherObjectList(Template.templatePath, requestConfig.reqCondition)
 
         if not matcherObjList:
@@ -180,15 +180,16 @@ class RaccoonKernel:
             position = responseDataDict["position"]
             id = responseDataDict["id"]
             payloadInfo = responseDataDict["payloadInfo"]
+            injectedUrl = responseDataDict["url"]
             if response is not None:
                 resObj = ResponseGenerator.generateResponseObject(response, position, id, payloadInfo)
                 matcherResult = self.matcherProcess(resObj, requestConfig, matcherObjList, dataList)
                 currentUsedTemplatePath = Template.templatePath
                 if matcherResult:
-                    Printer.printScanResult(targetUrl, "Payload: " + str(payloadInfo), matcherResult, currentUsedTemplatePath)
+                    Printer.printScanResult(injectedUrl, "Payload: " + str(payloadInfo), matcherResult, currentUsedTemplatePath)
                 else:
                     if isVerboseEnable:     # verbose to print all result (event not infected)
-                        Printer.printScanResult(targetUrl, "Target is negative", matcherResult, currentUsedTemplatePath)
+                        Printer.printScanResult(injectedUrl, "Target is negative", matcherResult, currentUsedTemplatePath)
                 exposerObjList = TemplateConfigService.generateExtractorObjectList(Template.templatePath)
                 if matcherResult:
                     info = self.exposerProcess(resObj, requestConfig, exposerObjList, dataList)
@@ -213,13 +214,13 @@ class RaccoonKernel:
                         info = []
                     if payloadInfo is None:
                         payloadInfo = {}
-                    HTMLReportObject = HTMLReport(targetUrl, Template.templatePath, info, payloadInfo)  # payload here is dict
+                    HTMLReportObject = HTMLReport(injectedUrl, Template.templatePath, info, payloadInfo)  # payload here is dict
                     HTMLReportGlobal.HTMLReportList.append(HTMLReportObject)
                     if requestConfig.stopAtFirstMatch:
                         break
             else:
                 if isVerboseEnable:
-                    Printer.printError("No response from target: " + targetUrl)
+                    Printer.printError("No response from target: " + injectedUrl)
 
 
     def raccoonFlowControl(self, requestConfigObj, requestObjDict):
