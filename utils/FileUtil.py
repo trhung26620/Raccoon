@@ -115,14 +115,17 @@ class FileUtil:
                             idTags[0].string = templateInfo["id"]
                         else:
                             idTags[0].string = ""
+
                         if "name" in templateInfo:
                             nameTags[0].string = templateInfo["name"]
                         else:
                             nameTags[0].string = ""
+
                         if "author" in templateInfo:
                             authorTags[0].string = templateInfo["author"]
                         else:
                             authorTags[0].string = ""
+
                         if "severity" in templateInfo:
                             # add color to severity tag
                             severityContent = templateInfo["severity"]
@@ -137,14 +140,18 @@ class FileUtil:
                             severityTags[0].string = templateInfo["severity"]
                         else:
                             severityTags[0].string = ""
+
                         if "description" in templateInfo:
                             descriptionTags[0].string = templateInfo["description"]
                         else:
                             descriptionTags[0].string = ""
+
                         if "remediation" in templateInfo:
                             remediationTags[0].string = templateInfo["remediation"]
                         else:
                             remediationTags[0].string = ""
+
+                        referenceList[0].string = ""
                         if "reference" in templateInfo:
                             for reference in templateInfo["reference"]:
                                 appendStr = "- " + reference + "<br>"
