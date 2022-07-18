@@ -25,8 +25,12 @@ class TemplateConfigService:
                 stopAtFirstMatch = DefaultTemplateConfig.defaultStopAtFirstMatch
             for req in templateRequest["request"]:
                 if "{{interactsh-url}}" in req:
-                    interactSh = InteractSh()
-                    break
+                    if configYml["interactsh_server"]:
+                        interactSh = configYml["interactsh_server"]
+                        break
+                    else:
+                        interactSh = InteractSh()
+                        break
                 else:
                     interactSh = None
             if "scanMode" in templateRequest:

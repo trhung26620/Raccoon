@@ -131,9 +131,7 @@ class RaccoonKernel:
         self.analyzeResponse(responseDataDictList, requestConfigObj)
 
     def fireRequestWithMultiThread(self, requestConfigObj, requestObjDict):
-
         isVerboseEnable = ConfigUtil.isVerboseEnable()
-
         if requestConfigObj.payload:
             for url, requestObjList in requestObjDict.items():
                 if requestObjList:
@@ -172,8 +170,7 @@ class RaccoonKernel:
         if not matcherObjList:
             return False
         dataList = None
-
-        if requestConfig.interactSh:
+        if requestConfig.interactSh and not isinstance(requestConfig.interactSh, str):
             dataInteractsh, aes_key = requestConfig.interactSh.pollDataFromWeb()
             if aes_key:
                 key = requestConfig.interactSh.decryptAESKey(aes_key)

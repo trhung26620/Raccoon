@@ -32,7 +32,11 @@ class InteractSh:
         session.proxies.update(self.httpProxy)
         session.verify = False
         session.allow_redirects = True
-        registerCall = session.post(url=InteractShStaticValue.RegisterApi, json=data, timeout=InteractShStaticValue.RegisterTimeOut)
+        try:
+            registerCall = session.post(url=InteractShStaticValue.RegisterApi, json=data, timeout=InteractShStaticValue.RegisterTimeOut)
+        except:
+            Printer.printError("[*] Error while registering interactSh. Please try again with option --interactsh-server")
+            exit()
         registerSuccessSignature = "registration successful"
         if registerSuccessSignature in registerCall.content.decode():
             interactUrl = self.subDomain + "." + InteractShStaticValue.interactShPrimaryDomain

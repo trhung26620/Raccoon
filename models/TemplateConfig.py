@@ -6,7 +6,9 @@ class TemplateConfig:
         self.scanMode = scanMode
         self.interactSh = interactSh
         self.stopAtFirstMatch = stopAtFirstMatch
-        if self.interactSh:
+        if self.interactSh and isinstance(self.interactSh, str):
+            self.interactShUrl = self.interactSh
+        elif self.interactSh:
             self.interactShUrl = interactSh.registerInteractShServer()
         else:
             self.interactShUrl = None
