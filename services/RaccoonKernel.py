@@ -194,11 +194,6 @@ class RaccoonKernel:
                 resObj = ResponseGenerator.generateResponseObject(response, position, id, payloadInfo)
                 matcherResult = self.matcherProcess(resObj, requestConfig, matcherObjList, dataList)
                 currentUsedTemplatePath = Template.templatePath
-                if matcherResult:
-                    Printer.printScanResult(injectedUrl, "Payload: " + str(payloadInfo), matcherResult, currentUsedTemplatePath)
-                else:
-                    if isVerboseEnable:     # verbose to print all result (event not infected)
-                        Printer.printScanResult(injectedUrl, "Target is negative", matcherResult, currentUsedTemplatePath)
                 exposerObjList = TemplateConfigService.generateExtractorObjectList(Template.templatePath)
                 if matcherResult:
                     info = self.exposerProcess(resObj, requestConfig, exposerObjList, dataList)
@@ -217,6 +212,15 @@ class RaccoonKernel:
                                 SeverityCounter.mediumSeverityCounter += 1
                             elif severity == "high" or severity == "critical":
                                 SeverityCounter.highSeverityCounter += 1
+
+                    # print result to console
+                    if matcherResult:
+                        Printer.printScanResult(injectedUrl, "Payload: " + str(payloadInfo), "Exposer: " + str(info),
+                                                matcherResult, currentUsedTemplatePath)
+                    else:
+                        if isVerboseEnable:  # verbose to print all result (event not infected)
+                            Printer.printScanResult(injectedUrl, "Target is negative", "Exposer: " + str(info),
+                                                    matcherResult, currentUsedTemplatePath)
 
                     # Default value if exposer and payload dict is none
                     if None in info and len(info) == 1:
