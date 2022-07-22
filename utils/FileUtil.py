@@ -65,8 +65,8 @@ class FileUtil:
 
 
     @staticmethod
-    def appendDrawChartFunctionNameJS(infoStat, lowStat, mediumStat, highStat):
-        functionName = "drawSeverityChart(" + str(infoStat) + ", " + str(lowStat) + ", " + str(mediumStat) + ", " + str(highStat) + ")"
+    def appendDrawChartFunctionNameJS(infoStat, lowStat, mediumStat, highStat, criticalStat):
+        functionName = "drawSeverityChart(" + str(infoStat) + ", " + str(lowStat) + ", " + str(mediumStat) + ", " + str(highStat) + ", " + str(criticalStat) + ")"
         return functionName
 
 
@@ -82,7 +82,7 @@ class FileUtil:
                     soup = BeautifulSoup(fp, "html.parser")
 
                     # draw severity chart
-                    functionName = FileUtil.appendDrawChartFunctionNameJS(SeverityCounter.infoSeverityCounter, SeverityCounter.lowSeverityCounter, SeverityCounter.mediumSeverityCounter, SeverityCounter.highSeverityCounter)
+                    functionName = FileUtil.appendDrawChartFunctionNameJS(SeverityCounter.infoSeverityCounter, SeverityCounter.lowSeverityCounter, SeverityCounter.mediumSeverityCounter, SeverityCounter.highSeverityCounter, SeverityCounter.criticalSeverity)
                     bodyTag = soup.find_all('body')
                     bodyTag[0].attrs['onload'] = functionName
 
@@ -129,10 +129,12 @@ class FileUtil:
                         if "severity" in templateInfo:
                             # add color to severity tag
                             severityContent = templateInfo["severity"]
-                            if str(severityContent).lower() == "critical" or str(severityContent).lower() == "high":
+                            if str(severityContent).lower() == "critical":
                                 severityTags[0].attrs['style'] = 'color: red; font-weight: bold'
-                            elif str(severityContent).lower() == "medium":
+                            elif str(severityContent).lower() == "high":
                                 severityTags[0].attrs['style'] = 'color: orange; font-weight: bold'
+                            elif str(severityContent).lower() == "medium":
+                                severityTags[0].attrs['style'] = 'color: yellow; font-weight: bold'
                             elif str(severityContent).lower() == "low":
                                 severityTags[0].attrs['style'] = 'color: green; font-weight: bold'
                             elif str(severityContent).lower() == "info":

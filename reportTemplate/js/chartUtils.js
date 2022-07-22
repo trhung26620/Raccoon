@@ -1,19 +1,21 @@
-function drawSeverityChart(infoStat, lowStat, mediumStat, highStat){
+function drawSeverityChart(infoStat, lowStat, mediumStat, highStat, criticalStat){
     const data = {
         labels: [
           'Info',
           'Low',
           'Medium',
-          'High'
+          'High',
+          'Critical',
         ],
         datasets: [{
           label: '',
-          data: [infoStat, lowStat, mediumStat, highStat],
+          data: [infoStat, lowStat, mediumStat, highStat, criticalStat],
           backgroundColor: [
             'grey',
             'green',
+            'yellow',
             'orange',
-            'red'
+            'red',
           ],
           hoverOffset: 4
         }]

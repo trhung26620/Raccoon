@@ -207,8 +207,10 @@ class RaccoonKernel:
                                 SeverityCounter.lowSeverityCounter += 1
                             elif severity == "medium":
                                 SeverityCounter.mediumSeverityCounter += 1
-                            elif severity == "high" or severity == "critical":
+                            elif severity == "high":
                                 SeverityCounter.highSeverityCounter += 1
+                            elif severity == "critical":
+                                SeverityCounter.criticalSeverity += 1
 
                     # print result to console
                     if matcherResult:

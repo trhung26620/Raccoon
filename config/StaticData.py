@@ -76,6 +76,7 @@ class SeverityCounter:
     lowSeverityCounter = 0
     mediumSeverityCounter = 0
     highSeverityCounter = 0
+    criticalSeverity = 0
 
 
 class AboutUs:
