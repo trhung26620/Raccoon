@@ -120,6 +120,13 @@ class Printer:
         else:
             print(configTag + " Raccoon Mode: custom")
 
+        #print export path
+        if "output_file" in config:
+            exportPath = config["output_file"]
+            print(configTag + " Export path: " + str(exportPath))
+        else:
+            print(configTag + " Export path: No path was specify")
+
 
     @staticmethod
     def getRaccoonMode():

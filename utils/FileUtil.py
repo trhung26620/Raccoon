@@ -9,6 +9,7 @@ from utils.PrinterUtil import Printer
 from config.StaticData import Subdomain
 from config.StaticData import SeverityCounter
 
+
 class FileUtil:
     @staticmethod
     def getWordlistPath():
@@ -71,13 +72,13 @@ class FileUtil:
 
 
     @staticmethod
-    def printHTMLReport(listHTMLReportObject):
+    def printHTMLReport(listHTMLReportObject, exportPath):
         if len(listHTMLReportObject) <= 0:
             return None
         try:
             htmlTemplatePath = "reportTemplate" + os.sep + "html" + os.sep + "report.html"
-            exportDirectory = os.path.exists(htmlTemplatePath)
-            if exportDirectory:
+            isExportPath = os.path.exists(exportPath)
+            if isExportPath:
                 with open(htmlTemplatePath) as fp:
                     soup = BeautifulSoup(fp, "html.parser")
 
@@ -207,11 +208,11 @@ class FileUtil:
 
                     # export to file
                     randomFileName = "RaccoonReport_" + FileUtil.getRandomString(10) + ".html"
-                    htmlExportTemplateFile = "reportTemplate" + os.sep + "html" + os.sep + randomFileName
+                    htmlExportTemplateFile = exportPath + os.sep + randomFileName
                     FileUtil.writeToFile(htmlExportTemplateFile, str(soup))
                     cprint("[Info] - Export HTML report to: " + os.path.abspath(htmlExportTemplateFile), "yellow")
             else:
-                Printer.printError("Invalid path !!! Can not find template path: " + htmlTemplatePath)
+                Printer.printError("Invalid path !!! Can not export to path: " + exportPath)
 
         except:
             print(traceback.format_exc())

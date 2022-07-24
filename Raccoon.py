@@ -72,9 +72,10 @@ if __name__ == "__main__":
             raccoon = RaccoonKernel()
             raccoon.raccoonFlowControl(config, requests)
 
-        if len(HTMLReportGlobal.HTMLReportList) > 0:
+        exportPath = configValue["output_file"]
+        if len(HTMLReportGlobal.HTMLReportList) > 0 and exportPath:
             HTMLReportList = HTMLReportGlobal.HTMLReportList
-            FileUtil.printHTMLReport(HTMLReportList)
+            FileUtil.printHTMLReport(HTMLReportList, exportPath)
 
         DebugInfo = Debug.DebugInfo
         if "debug" in configValue:
