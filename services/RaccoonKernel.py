@@ -213,13 +213,8 @@ class RaccoonKernel:
                                 SeverityCounter.criticalSeverity += 1
 
                     # print result to console
-                    if matcherResult:
-                        Printer.printScanResult(injectedUrl, "Payload: " + str(payloadInfo), "Exposer: " + str(info),
-                                                matcherResult, currentUsedTemplatePath)
-                    else:
-                        if isVerboseEnable:  # verbose to print all result (event not infected)
-                            Printer.printScanResult(injectedUrl, "Target is negative", "Exposer: " + str(info),
-                                                    matcherResult, currentUsedTemplatePath)
+                    Printer.printScanResult(injectedUrl, payloadInfo, info, True, currentUsedTemplatePath)
+
 
                     # Default value if exposer and payload dict is none
                     if None in info and len(info) == 1:
@@ -230,9 +225,12 @@ class RaccoonKernel:
                     HTMLReportGlobal.HTMLReportList.append(HTMLReportObject)
                     if requestConfig.stopAtFirstMatch:
                         break
+                else:
+                    if isVerboseEnable:  # verbose to print all result (event not infected)
+                        Printer.printScanResult(injectedUrl, None, None, False, currentUsedTemplatePath)
             else:
                 if isVerboseEnable:
-                    Printer.printError("No response from target: " + injectedUrl)
+                    Printer.printError("No response from target: " + str(injectedUrl))
 
 
     def raccoonFlowControl(self, requestConfigObj, requestObjDict):

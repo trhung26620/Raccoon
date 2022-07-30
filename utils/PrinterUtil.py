@@ -1,6 +1,7 @@
 from termcolor import colored
 from datetime import datetime
 import validators
+import os
 
 
 class Printer:
@@ -33,12 +34,8 @@ class Printer:
         now = datetime.now()
         nowTag = colored(str(now), "cyan", attrs=["bold"])
         targetUrlTag = colored(str(targetUrl), "blue", attrs=["bold"])
-        exposerTag = colored(exposer, "cyan", attrs=["bold"])
-
-        if result:
-            infoTag = colored(payload, "red", attrs=["bold"])
-        else:
-            infoTag = colored(payload, "green", attrs=["bold"])
+        exposerTag = colored("Exposer:" + str(exposer), "cyan", attrs=["bold"])
+        finalStr = "[" + nowTag + "]" + "[" + targetUrlTag + "]"
 
         if str(templatePath).strip() != '':
             from utils.TemplateUtil import TemplateUtil
@@ -48,11 +45,10 @@ class Printer:
         else:
             templateId = 'None'
             severity = 'None'
-
         templateIdTag = colored(str(templateId), "red", attrs=["bold"])
+        finalStr += "[" + templateIdTag + "]"
 
-
-        if str(payload).lower().__contains__("payload"):
+        if result:
             if severity.lower() == "critical" or severity.lower() == "high":
                 severityTag = colored(str(severity), "red", attrs=["bold"])
             elif severity.lower() == "medium":
@@ -61,13 +57,23 @@ class Printer:
                 severityTag = colored(str(severity), "blue", attrs=["bold"])
             else:
                 severityTag = colored(str(severity), "green", attrs=["bold"])
+            finalStr += "[" + severityTag + "]"
+
+            if payload is not None:
+                infoTag = colored("Payload: " + str(payload), "red", attrs=["bold"])
+                finalStr += "[" + infoTag + "]"
+            else:
+                infoTag = ""
+            if len(exposer) > 1 and None not in exposer and exposer is not None:
+                finalStr += "[" + exposerTag + "]"
         else:
-            severity = "None"
-            severityTag = colored(str(severity), "green", attrs=["bold"])
+            # severity = "None"
+            # severityTag = colored(str(severity), "green", attrs=["bold"])
+            # finalStr += "[" + severityTag + "]"
+            infoTag = colored("Target is negative", "green", attrs=["bold"])
+            finalStr += "[" + infoTag + "]"
 
-        print("")
-        print("[" + nowTag + "]" + "[" + targetUrlTag + "]" + "[" + templateIdTag + "]" + "[" + severityTag + "]" + "[" + infoTag + "]" + "[" + exposerTag + "]")
-
+        print("\n" + finalStr)
 
 
     @staticmethod
@@ -89,7 +95,7 @@ class Printer:
             usedTemplates = config["templates"]
             print(configTag + " Template used: ")
             for template in usedTemplates:
-                print("- Template path: " + template)
+                print("- Template path: " + os.path.abspath(template))
 
         else:
             print(configTag + " No template was specify")
@@ -121,9 +127,9 @@ class Printer:
             print(configTag + " Raccoon Mode: custom")
 
         #print export path
-        if "output_file" in config:
+        if "output_file" in config and config["output_file"] is not None:
             exportPath = config["output_file"]
-            print(configTag + " Export path: " + str(exportPath))
+            print(configTag + " Export path: " + os.path.abspath(str(exportPath)))
         else:
             print(configTag + " Export path: No path was specify")
 

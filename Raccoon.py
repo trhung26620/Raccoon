@@ -77,6 +77,9 @@ if __name__ == "__main__":
             HTMLReportList = HTMLReportGlobal.HTMLReportList
             FileUtil.printHTMLReport(HTMLReportList, exportPath)
 
+        if len(HTMLReportGlobal.HTMLReportList) == 0:
+            Printer.printInfo("Scan complete - No vulnerability match your request")
+
         DebugInfo = Debug.DebugInfo
         if "debug" in configValue:
             Debugger.debugCall(DebugInfo)
