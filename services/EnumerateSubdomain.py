@@ -80,7 +80,7 @@ class EnumSubdomain:
 
     @staticmethod
     def exportSubdomainFormatTxt(subList):
-        subList = ['http://' + i for i in subList]
+        subList = ['https://' + i for i in subList]
         letters = string.ascii_lowercase
         fileName = "domains_" + ''.join(random.choice(letters) for i in range(5)) + ".txt"
         f = open(Subdomain.defaultFilePathWithTxtFormat + fileName, "w")
