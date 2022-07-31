@@ -19,7 +19,7 @@ from config.StaticData import SeverityCounter
 class RaccoonKernel:
     def runner(self, dataReqList, requestConfig):
         threads = []
-        with ThreadPoolExecutor(max_workers=requestConfig.thread) as executor:
+        with ThreadPoolExecutor(max_workers=int(requestConfig.thread)) as executor:
             for dataReq in dataReqList:
                 threads.append(executor.submit(self.fireRequestsAndAnalyzeResponse, dataReq, requestConfig))
         futureList = list()

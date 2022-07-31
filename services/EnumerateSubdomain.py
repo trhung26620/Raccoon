@@ -67,7 +67,7 @@ class EnumSubdomain:
         with open(subdomainFile,'r') as file:
             name = file.read()
             sub_domnames = name.splitlines()
-        with ThreadPoolExecutor(max_workers=Subdomain.thread) as executor:
+        with ThreadPoolExecutor(max_workers=int(Subdomain.thread)) as executor:
             for subdomain in sub_domnames:
                 threads.append(executor.submit(EnumSubdomain.isAliveSubdomain, domain_name, subdomain))
         futureList = list()

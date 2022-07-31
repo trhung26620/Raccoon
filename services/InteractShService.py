@@ -32,28 +32,33 @@ class InteractSh:
         session.proxies.update(self.httpProxy)
         session.verify = False
         session.allow_redirects = True
-        for i in range(3):
-            try:
-                registerCall = session.post(url=InteractShStaticValue.RegisterApi, json=data, timeout=InteractShStaticValue.RegisterTimeOut)
-                break
-            except:
-                Printer.printError("[*] Error while registering interactSh. Please try again with option --interactsh-server")
-                if i==2:
-                    exit()
+        # for i in range(3):
+        registerCall = None
+        try:
+            registerCall = session.post(url=InteractShStaticValue.RegisterApi, json=data, timeout=InteractShStaticValue.RegisterTimeOut)
+            # break
+        except:
+            Printer.printError("[*] Error while registering interactSh. Please try again with option --interactsh-server")
+                # if i==2:
+                #     exit()
 
         registerSuccessSignature = "registration successful"
-        if registerSuccessSignature in registerCall.content.decode():
-            interactUrl = self.subDomain + "." + InteractShStaticValue.interactShPrimaryDomain
+        if registerCall != None:
+            if registerSuccessSignature in registerCall.content.decode():
+                interactUrl = self.subDomain + "." + InteractShStaticValue.interactShPrimaryDomain
 
-            config = ConfigUtil.readConfig()
-            verbose = config["verbose"]
-            if verbose:
-                Printer.printInfo("Registered interactSh successfully")
-                Printer.printInfo("Interact URL: " + interactUrl)
-                Printer.printInfo("Using OOB server: interactsh.com")
+                config = ConfigUtil.readConfig()
+                verbose = config["verbose"]
+                if verbose:
+                    Printer.printInfo("Registered interactSh successfully")
+                    Printer.printInfo("Interact URL: " + interactUrl)
+                    Printer.printInfo("Using OOB server: interactsh.com")
+            else:
+                Printer.printError("[*] Error while registering interactSh")
+                exit()
         else:
-            Printer.printError("[*] Error while registering interactSh")
-            exit()
+            Printer.printError("[*] Error while registering interactSh. Please try again with option --interactsh-server")
+            return None
         return interactUrl
 
     def pollDataFromWeb(self):
@@ -87,19 +92,24 @@ class InteractSh:
             except:
                 pass
             if fetchData!=None:
-                responseJson = fetchData.json()
-
+                try:
+                    responseJson = fetchData.json()
+                    isError = False
+                except:
+                    responseJson = None
             if responseJson is None:
                 isError = True
-                break
-
-            if "error" in responseJson:
+                # break
+            if responseJson != None:
+                if "error" in responseJson:
+                    isError = True
+                    Printer.printError("Error when polling data: " + responseJson["error"])
+            else:
                 isError = True
-                Printer.printError("Error when polling data: " + responseJson["error"])
-                break
-
-            if responseJson["data"]:
-                break
+                # break
+            if responseJson and not isError:
+                if responseJson["data"]:
+                    break
         if not isError:
             data = responseJson["data"]
             aesKey = responseJson["aes_key"]

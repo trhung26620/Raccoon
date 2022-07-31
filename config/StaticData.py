@@ -1,8 +1,8 @@
 class InteractShStaticValue:
     RegisterApi = "https://interact.sh/register"
-    RegisterTimeOut = 30
+    RegisterTimeOut = 60
     PollDataApi = "https://interact.sh/poll?"
-    PollDataTimeOut = 5
+    PollDataTimeOut = 10
     interactShPrimaryDomain = "interact.sh"
     maxPollingTime = 3
 
