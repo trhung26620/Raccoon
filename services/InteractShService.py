@@ -32,11 +32,15 @@ class InteractSh:
         session.proxies.update(self.httpProxy)
         session.verify = False
         session.allow_redirects = True
-        try:
-            registerCall = session.post(url=InteractShStaticValue.RegisterApi, json=data, timeout=InteractShStaticValue.RegisterTimeOut)
-        except:
-            Printer.printError("[*] Error while registering interactSh. Please try again with option --interactsh-server")
-            exit()
+        for i in range(3):
+            try:
+                registerCall = session.post(url=InteractShStaticValue.RegisterApi, json=data, timeout=InteractShStaticValue.RegisterTimeOut)
+                break
+            except:
+                Printer.printError("[*] Error while registering interactSh. Please try again with option --interactsh-server")
+                if i==2:
+                    exit()
+
         registerSuccessSignature = "registration successful"
         if registerSuccessSignature in registerCall.content.decode():
             interactUrl = self.subDomain + "." + InteractShStaticValue.interactShPrimaryDomain
@@ -67,7 +71,7 @@ class InteractSh:
         verbose = config["verbose"]
         if verbose:
             Printer.printWarning("[*] Waiting for a response from interactSh server(up to " + str(2 * maxPollingTime) + " seconds)...")
-
+        fetchData = None
         isError = False
         for second in range(maxPollingTime):
             isError = False
@@ -80,7 +84,10 @@ class InteractSh:
                     Printer.printWarning("[*] Trying again...")
                     isError = True
                     continue
-            responseJson = fetchData.json()
+            except:
+                pass
+            if fetchData!=None:
+                responseJson = fetchData.json()
 
             if responseJson is None:
                 isError = True
