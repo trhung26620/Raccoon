@@ -3,6 +3,7 @@ venv/
 config/config.yaml
 Raccoon-Template/
 reportTemplate/domain/*.txt
+reportTemplate/html/RaccoonReport*
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
