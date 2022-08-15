@@ -220,7 +220,7 @@ class FileUtil:
 
 
     @staticmethod
-    def printHTMLInfoReport(listInfoDict, target, subDomains):
+    def printHTMLInfoReport(listInfoDict, target, subDomains, wpVersion):
 
         if len(listInfoDict) <= 0:
             Printer.printError("Can not print report")
@@ -244,6 +244,13 @@ class FileUtil:
                     appendedSubDomain = "- " + str(subDomain) + "<br>"
                     subDomainContent[0].append(BeautifulSoup(appendedSubDomain, "html.parser"))
 
+            # append wordpress version
+            moreInfoTags = soup.find_all("span", {"class": "moreInfo"})
+            if wpVersion is not None:
+                moreInfoTags[0].string = str(wpVersion)
+            else:
+                moreInfoTags[0].string = "No additional information was detected"
+
             # append service detail
             for HTMLReportIndex, serviceDict in enumerate(listInfoDict):
                 reportFrames = soup.find_all("ol", {"class": "reportList"})   # find all report frame and put to a list every time
@@ -259,6 +266,8 @@ class FileUtil:
                 serviceNameTags = currentHTMLFrame.find_all("span", {"class": "serviceName"})
                 versionTags = currentHTMLFrame.find_all("span", {"class": "version"})
                 targetTags[0].string = target
+
+
 
                 for port, services in listInfoDict[HTMLReportIndex].items():
                     portTags[0].string = str(port)

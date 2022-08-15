@@ -1,6 +1,10 @@
 import socket
+import traceback
+
 import nmap
 from utils.PrinterUtil import Printer
+import requests
+from bs4 import BeautifulSoup
 
 
 class Scanner:
@@ -34,19 +38,30 @@ class Scanner:
                     resultList.append(infoDict.copy())
         return resultList
 
-    # return list of open port
-    # @staticmethod
-    # def getOpenPort(target):
-    #     openPorts = []
-    #     nm = nmap.PortScanner()
-    #     Printer.printInfo("Scanning for open ports at: " + target + " ... ")
-    #     nm.scan(target, '1-65535')
-    #     ports = nm[target]['tcp'].keys()
-    #     for port in ports:
-    #         state = nm[target]['tcp'][port]['state']
-    #         if state == "open":
-    #             openPorts.append(port)
-    #     return openPorts
+    @staticmethod
+    def getWordpressVersion(target):
+        try:
+            response = requests.get("http://" + target)
+            htmlContent = response.text
+
+            if htmlContent is None:
+                return None
+
+            soup = BeautifulSoup(htmlContent, "html.parser")
+            metaTags = soup.find_all("meta")
+
+            if len(metaTags) == 0:
+                return None
+
+            wordpressTag = metaTags[3]
+
+            if wordpressTag is None:
+                return None
+            return str(wordpressTag['content'])
+        except Exception:
+            Printer.printError("Can not detect WordPress version for target: " + target)
+            return None
+
 
 
 

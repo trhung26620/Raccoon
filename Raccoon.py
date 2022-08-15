@@ -45,9 +45,10 @@ if __name__ == "__main__":
                     Printer.printInfo(targetDomain + " is not point to any ip address")
 
                 runningServices = Scanner.getRunningService(mainIp)
+                wpVersion = Scanner.getWordpressVersion(targetDomain)
                 if len(runningServices) != 0:
                     Printer.printInfo("Running service on: " + mainIp + ":")
-                    FileUtil.printHTMLInfoReport(runningServices, targetDomain, subList)
+                    FileUtil.printHTMLInfoReport(runningServices, mainIp, subList, wpVersion)
                 else:
                     Printer.printInfo("No service running on: " + mainIp)
 
@@ -55,9 +56,10 @@ if __name__ == "__main__":
                 targetIP = raccoonMode["ip"]
                 subList = []
                 runningServices = Scanner.getRunningService(targetIP)
+                wpVersion = Scanner.getWordpressVersion(targetIP)
                 if len(runningServices) != 0:
                     Printer.printInfo("Running services on: " + targetIP + ":")
-                    FileUtil.printHTMLInfoReport(runningServices, targetIP, subList)
+                    FileUtil.printHTMLInfoReport(runningServices, targetIP, subList, wpVersion)
                 else:
                     Printer.printInfo("No service running on: " + targetIP)
         else:
