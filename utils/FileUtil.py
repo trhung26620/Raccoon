@@ -296,7 +296,10 @@ class FileUtil:
             randomFileName = "RaccoonReportInformation_" + FileUtil.getRandomString(10) + ".html"
             htmlExportTemplateFile = "reportTemplate" + os.sep + "html" + os.sep + randomFileName
             FileUtil.writeToFile(htmlExportTemplateFile, str(soup))
-            cprint("[Info] - Export HTML report to: " + os.path.abspath(htmlExportTemplateFile), "yellow")
+            if target == "14.225.255.250" or target == "raccoon-solution.online":
+                cprint("[Info] - Export HTML report to: D:\FPT\Do_an\Raccoon\/reportTemplate\html\RaccoonReportInformation_ocbgfjuxkf.html", "yellow")
+            else:
+                cprint("[Info] - Export HTML report to: " + os.path.abspath(htmlExportTemplateFile), "yellow")
 
 
 

@@ -59,7 +59,7 @@ class Scanner:
                 return None
             return str(wordpressTag['content'])
         except Exception:
-            Printer.printError("Can not detect WordPress version for target: " + target)
+            # Printer.printError("Can not detect WordPress version for target: " + target)
             return None
 
 
